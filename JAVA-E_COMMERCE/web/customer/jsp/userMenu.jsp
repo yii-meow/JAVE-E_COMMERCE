@@ -5,19 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import ="Util.JsonRead"  %>
 <%@page import="Domain.*"  %>
 <%@page import="java.util.*"  %>
 <%@page import="java.io.*"  %>
-<%@page import="java.sql.*"%>
-
-<%
-    String host = "jdbc:mysql://java-database.mysql.database.azure.com ,:3306/e-commerce?zeroDateTimeBehavior=CONVERT_TO_NULL";
-    String user = "assignmentjava";
-    String password = "#JAVAdatabase#";
-    String tableName = "orders";
-    Connection conn;
-    PreparedStatement stmt;
-%>
 <!DOCTYPE html>
 <script>
 
@@ -32,42 +23,34 @@
     <body>
         <h1>Hello World!</h1>
 
-
-        <h1>Retrieve data from database in jsp</h1>
-        <table border="1">
+        <%
+            JsonRead jsonRead= new JsonRead();
+            List<Customer> customers=jsonRead.JsonRead("C:\\\\Users\\\\sohyz\\\\OneDrive\\\\Documents\\\\NetBeansProjects\\\\ASGM\\\\build\\\\web\\\\WEB-INF\\\\classes\\\\json\\\\order.json");
+        %>
+        <table>
             <tr>
-                <td>first name</td>
-                <td>last name</td>
-                <td>City name</td>
-                <td>Email</td>
-
+                <th>orderID</th>
+                <th>userName</th>
+                <th>orderNumber</th>
+                <th>orderDetails</th>
+                <th>orderDestination</th>
+                <th>time</th>
+                <th>status</th>
             </tr>
-            <%
-                String queryStr = "SELECT * FROM " + tableName;
-                ResultSet rs = null;
-                try {
-                               stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1, code);
-
-            rs = stmt.executeQuery();
-                    while (resultSet.next()) {
-            %>
+            <%for (int i=0;i<customers.size();i++){%>
             <tr>
-                <td>hello</td>
-                <td><%=resultSet.getString("order_id")%></td>
-                <td><%=resultSet.getString("order_id")%></td>
-                <td><%=resultSet.getString("order_id")%></td>
-                <td><%=resultSet.getString("order_id")%></td>
-
+                <th><%= customers.get(i).getOrderID() %></th>
+                <th><%= customers.get(i).getUserName() %></th>
+                <th><%= customers.get(i).getOrderNumber() %></th>
+                <th><%= customers.get(i).getOrderDetails() %></th>
+                <th><%= customers.get(i).getOrderDestination() %></th>
+                <th><%= customers.get(i).getTime() %></th>
+                <th><%= customers.get(i).getStatus() %></th>
             </tr>
-            <%
-                    }
-                    connection.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            %>
-        </table> 
+            <%}%>
+
+
+        </table>
 
 
 
