@@ -15,27 +15,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
-
 import entity.Customer;
-import java.util.Arrays;
-import static java.util.Collections.list;
-import java.util.List;
-import javax.persistence.Query;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author yikso
  */
-@WebServlet(name = "validateCustomerLogin", urlPatterns = {"/validateCustomerLogin"})
-public class validateCustomerLogin extends HttpServlet {
+@WebServlet(name = "registerCustomer", urlPatterns = {"/registerCustomer"})
+public class registerCustomer extends HttpServlet {
 
     @PersistenceContext
     private EntityManager em;
 
     @Resource
     private UserTransaction utx;
-
+     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,10 +47,10 @@ public class validateCustomerLogin extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet validateCustomerLogin</title>");
+            out.println("<title>Servlet registerCustomer</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet validateCustomerLogin at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet registerCustomer at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,7 +68,6 @@ public class validateCustomerLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
     }
 
@@ -89,34 +82,13 @@ public class validateCustomerLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
+        
         String username = request.getParameter("username");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
-
-        String hash = passwordHash.getHash(password);
-        out.print(hash);
-
-        try {
-            Query query = em.createNamedQuery("Customer.findByCustomerUsername").setParameter("customerUsername", username);
-
-            if (!query.getResultList().isEmpty()) {
-                List<Customer> customer = (List<Customer>) query.getResultList();
-
-                if (customer.get(0).getCustomerPassword().equals(hash)) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("customer", customer);
-                    response.sendRedirect("customer/index.html");
-                } else {
-                    response.sendRedirect("customerLogin.html");
-                }
-
-            } else {
-                response.sendRedirect("customerLogin.html");
-            }
-        } catch (Exception ex) {
-            out.println(ex.getMessage());
-        }
-
+        String confirmed_password = request.getParameter("confirmed_password");
+        String address = request.getParameter("address");
+        String gender = request.getParameter("gender");
     }
 
     /**
