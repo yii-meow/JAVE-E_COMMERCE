@@ -19,10 +19,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 /**
  *
  * @author yikso
@@ -37,7 +33,8 @@ import java.security.NoSuchAlgorithmException;
     @NamedQuery(name = "Customer.findByCustomerPassword", query = "SELECT c FROM Customer c WHERE c.customerPassword = :customerPassword"),
     @NamedQuery(name = "Customer.findByCustomerName", query = "SELECT c FROM Customer c WHERE c.customerName = :customerName"),
     @NamedQuery(name = "Customer.findByCustomerEmail", query = "SELECT c FROM Customer c WHERE c.customerEmail = :customerEmail"),
-    @NamedQuery(name = "Customer.findByCustomerAddress", query = "SELECT c FROM Customer c WHERE c.customerAddress = :customerAddress")})
+    @NamedQuery(name = "Customer.findByCustomerAddress", query = "SELECT c FROM Customer c WHERE c.customerAddress = :customerAddress"),
+    @NamedQuery(name = "Customer.findByGender", query = "SELECT c FROM Customer c WHERE c.gender = :gender")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,6 +66,8 @@ public class Customer implements Serializable {
     @Size(max = 1073741824)
     @Column(name = "customer_order")
     private String customerOrder;
+    @Column(name = "gender")
+    private Character gender;
 
     public Customer() {
     }
@@ -77,10 +76,14 @@ public class Customer implements Serializable {
         this.customerID = customerID;
     }
 
-    public Customer(Integer customerID, String customerPassword, String customerName) {
-        this.customerID = customerID;
-        this.customerPassword = customerPassword;
-        this.customerName = customerName;
+    public Customer(String customer_username, String customer_password, String customer_name, String customer_email,
+            String customer_address, Character gender) {
+        this.customerUsername = customer_username;
+        this.customerPassword = customer_password;
+        this.customerName = customer_name;
+        this.customerEmail = customer_email;
+        this.customerAddress = customer_address;
+        this.gender = gender;
     }
 
     public Integer getCustomerID() {
@@ -139,6 +142,14 @@ public class Customer implements Serializable {
         this.customerOrder = customerOrder;
     }
 
+    public Character getGender() {
+        return gender;
+    }
+
+    public void setGender(Character gender) {
+        this.gender = gender;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -163,5 +174,5 @@ public class Customer implements Serializable {
     public String toString() {
         return "entity.Customer[ customerID=" + customerID + " ]";
     }
-    
+
 }

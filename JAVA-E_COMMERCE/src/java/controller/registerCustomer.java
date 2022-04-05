@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 import entity.Customer;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,7 +30,7 @@ public class registerCustomer extends HttpServlet {
 
     @Resource
     private UserTransaction utx;
-     
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,7 +48,7 @@ public class registerCustomer extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet registerCustomer</title>");            
+            out.println("<title>Servlet registerCustomer</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet registerCustomer at " + request.getContextPath() + "</h1>");
@@ -82,13 +83,43 @@ public class registerCustomer extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        // OBTAIN THE PARAMETERS FROM FORM
+        String name = request.getParameter("name");
         String username = request.getParameter("username");
-        String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmed_password = request.getParameter("confirmed_password");
+        String email = request.getParameter("email");
         String address = request.getParameter("address");
-        String gender = request.getParameter("gender");
+        Character gender = request.getParameter("gender").charAt(0);
+
+        // CHECK IF PASSWORD MATCH
+        if (password.equals(confirmed_password)) {
+            try {
+                HttpSession session = request.getSession();
+
+                // UPDATE TO DATABASE
+                utx.begin();
+                Customer customer = new Customer(username, password, name, email, address, gender);
+                em.persist(customer);
+                utx.commit();
+
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Register successfully!');");
+                out.println("</script>");
+
+                session.setAttribute("customer", customer);
+                response.sendRedirect("customer/index.html");
+            } catch (Exception ex) {
+                out.println(ex.getMessage());
+            }
+        } else {            
+            out.println("<script type=\"text/javascript\">");            
+            out.println("alert('Please make sure both of your password is matched!');");     
+            out.println("window.history.go(-1);</script>");
+        }
     }
 
     /**
