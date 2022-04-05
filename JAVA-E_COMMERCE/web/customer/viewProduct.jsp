@@ -25,16 +25,17 @@
                 for (int i = 0; i < product.size(); i++) {
                     Product productDetails = product.get(i);
             %>
+            <div style="text-align:center">
 
-            <div class="card text-white bg-dark mb-3" style="width: 23rem; height: 15rem">
-                <img class="card-img-top" src="<%= productDetails.getProductImage() %>" alt="Card image cap" style="width:50%;height:50%;">
-                <div class="card-body">
-                    <p class="card-text"><%= productDetails.getProductName()%></p>
-                    <p class="card-text">RM <%= productDetails.getPrice()%></p>
-                    <p class="card-text">Sold: </p>
+                <div class="card border-info mb-3" style="width: 10rem;">
+                    <img class="card-img-top" src="..." alt="Product Image">
+                    <div class="card-body">
+                        <p class="card-text"><%= productDetails.getProductName()%></p>
+                        <p class="card-text">RM <%= productDetails.getPrice()%></p>
+                        <p class="card-text">Rating: </p>
+                    </div>
                 </div>
             </div>
-
             <% }%>
         </div>
     </body>
