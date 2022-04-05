@@ -123,30 +123,25 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="filterProduct" method="POST">
+                        <form action="../advanceFilterProduct" method="POST">
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Stock</label>
-                                <select>
-                                    <option value="item_name">Name</option>
-                                    <option value="stock">Name</option>
-                                    <option value="min_price">Name</option>
-                                    <option value="max_price">Name</option>
+                                <label for="Price" class="col-form-label"><b>Price Range (RM)</b></label></br>
 
-                                </select>
+                                <label for="Price" class="col-form-label">Min. Price</label>
+                                <input type="text" class="form-control" name="min_price">
+
+                                <label for="Price" class="col-form-label">Max. Price</label>
+                                <input type="text" class="form-control" name="max_price">
                             </div>
 
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Price</label>
-                                <input type="text" class="form-control" name="username">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Shipment free</label>
-                                <input type="password" class="form-control" name="password">
+                                <label for="Shipment" class="col-form-label">Free Shipment</label>
+                                <input type="checkbox" name="shipment" value="free_shipment" style="margin-left:10px;">
                             </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Register"/>
+                        <input type="submit" class="btn btn-primary" value="Find"/>
                     </div>
                     </form>
                 </div>
