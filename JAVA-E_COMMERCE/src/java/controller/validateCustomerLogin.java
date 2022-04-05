@@ -6,11 +6,27 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
+
+import entity.Customer;
+import java.util.Arrays;
+import static java.util.Collections.list;
+import java.util.List;
+import javax.persistence.Query;
+
+// PASSWORD HASH
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -18,6 +34,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "validateCustomerLogin", urlPatterns = {"/validateCustomerLogin"})
 public class validateCustomerLogin extends HttpServlet {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    @Resource
+    private UserTransaction utx;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +58,7 @@ public class validateCustomerLogin extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet validateCustomerLogin</title>");            
+            out.println("<title>Servlet validateCustomerLogin</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet validateCustomerLogin at " + request.getContextPath() + "</h1>");
@@ -57,6 +79,7 @@ public class validateCustomerLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
     }
 
@@ -71,7 +94,52 @@ public class validateCustomerLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        PrintWriter out = response.getWriter();
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String hash = "";
+
+        try {
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(password.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            hash = hashtext;
+        } // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Query query = em.createNamedQuery("Customer.findByCustomerUsername").setParameter("customerUsername", username);
+
+            if (!query.getResultList().isEmpty()) {
+                List<Customer> customer = (List<Customer>) query.getResultList();
+                
+                if (customer.get(0).getCustomerPassword().equals(hash)) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("customer", customer);
+                    response.sendRedirect("customer/index.html");
+                }
+
+            } else {
+                out.println("No result found!");
+            }
+        } catch (Exception ex) {
+            out.println(ex.getMessage());
+        }
+
     }
 
     /**

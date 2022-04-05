@@ -5,16 +5,21 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +39,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Staff.findByDateJoin", query = "SELECT s FROM Staff s WHERE s.dateJoin = :dateJoin"),
     @NamedQuery(name = "Staff.findByPosition", query = "SELECT s FROM Staff s WHERE s.position = :position")})
 public class Staff implements Serializable {
+
+    @JoinTable(name = "handle_order", joinColumns = {
+        @JoinColumn(name = "staff_id", referencedColumnName = "staff_ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "order_id", referencedColumnName = "ORDER_ID")})
+    @ManyToMany
+    private List<Orders> ordersList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -182,6 +193,15 @@ public class Staff implements Serializable {
     @Override
     public String toString() {
         return "entity.Staff[ staffID=" + staffID + " ]";
+    }
+
+    @XmlTransient
+    public List<Orders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
     }
     
 }

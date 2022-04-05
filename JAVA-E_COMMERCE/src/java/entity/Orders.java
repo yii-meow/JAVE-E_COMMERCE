@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Orders.findByDeliveryCourier", query = "SELECT o FROM Orders o WHERE o.deliveryCourier = :deliveryCourier")})
 public class Orders implements Serializable {
 
+    @ManyToMany(mappedBy = "ordersList")
+    private List<Staff> staffList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -157,6 +160,15 @@ public class Orders implements Serializable {
     @Override
     public String toString() {
         return "entity.Orders[ orderId=" + orderId + " ]";
+    }
+
+    @XmlTransient
+    public List<Staff> getStaffList() {
+        return staffList;
+    }
+
+    public void setStaffList(List<Staff> staffList) {
+        this.staffList = staffList;
     }
     
 }
