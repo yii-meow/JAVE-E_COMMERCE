@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Customer Login Page</title>
@@ -97,18 +96,18 @@
             }
         </style>
     </head>
-    <body>
+    <body>        
         <div class="topnav">
             <a class="active" href="#home">Home</a>
 
             <div class="search-container">
                 <form action="../filterProduct" method="POST">
-                    <input type="text" placeholder="Search.." name="search">
+                    <input type="text" placeholder="Search.." name="item_name">
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
         </div>
-        
+
         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#AdvancedfilterProduct">Filter
         </button>
 
