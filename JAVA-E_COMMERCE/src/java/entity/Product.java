@@ -42,6 +42,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByIsShipmentFree", query = "SELECT p FROM Product p WHERE p.isShipmentFree = :isShipmentFree")})
 public class Product implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "PRODUCT_IMAGE")
+    private String productImage;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -183,6 +187,14 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "entity.Product[ productId=" + productId + " ]";
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
     
 }
