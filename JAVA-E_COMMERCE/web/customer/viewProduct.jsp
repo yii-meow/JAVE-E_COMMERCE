@@ -5,8 +5,6 @@
 --%>
 <%@page import="entity.Product, java.util.*"%>
 <% List<Product> product = (List<Product>) session.getAttribute("product");%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
