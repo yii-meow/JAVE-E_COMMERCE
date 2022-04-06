@@ -60,8 +60,31 @@ public class maintainProduct extends HttpServlet {
                     out.println("window.history.go(-1);</script>");
 
                 } catch (Exception ex) {
-                    out.println(ex.getMessage());
+
                 }
+            } else if (request.getParameter("action").equals("update")) {
+                String product_name = request.getParameter("product_name");
+                String product_description = request.getParameter("product_description");
+                int stock = Integer.parseInt(request.getParameter("stock"));
+                double price = Double.parseDouble(request.getParameter("price"));
+                double weight = Double.parseDouble(request.getParameter("weight"));
+
+                String value = request.getParameter("shipment") + "";
+                boolean free_shipment = false;
+                if (value.equals("free_shipment")) {
+                    free_shipment = true;
+                }
+
+                try {
+                    utx.begin();
+                    Product product = new Product(product_name, product_description, stock, price, weight, free_shipment);
+                    em.persist(product);
+                    utx.commit();
+                    response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
+                } catch (Exception ex2) {
+
+                }
+
             }
 
         }

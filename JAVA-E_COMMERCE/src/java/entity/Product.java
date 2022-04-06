@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByPostDuration", query = "SELECT p FROM Product p WHERE p.postDuration = :postDuration"),
     @NamedQuery(name = "Product.findByProductWeight", query = "SELECT p FROM Product p WHERE p.productWeight = :productWeight"),
     @NamedQuery(name = "Product.findByIsShipmentFree", query = "SELECT p FROM Product p WHERE p.isShipmentFree = :isShipmentFree"),
-    @NamedQuery(name = "Product.findByPriceAndShipment",query = "SELECT p FROM Product p WHERE p.price >= :min_price AND p.price <= :max_price AND p.isShipmentFree = :shipment")})
+    @NamedQuery(name = "Product.findByPriceAndShipment", query = "SELECT p FROM Product p WHERE p.price >= :min_price AND p.price <= :max_price AND p.isShipmentFree = :shipment")})
 public class Product implements Serializable {
 
     @Size(max = 255)
@@ -81,6 +81,16 @@ public class Product implements Serializable {
 
     public Product(Integer productId) {
         this.productId = productId;
+    }
+
+    public Product(String productName, String productDescription, int stock,
+            double price, double productWeight, boolean isShipmentFree) {
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.stock = stock;
+        this.price = price;
+        this.productWeight = productWeight;
+        this.isShipmentFree = isShipmentFree;
     }
 
     public Integer getProductId() {
@@ -197,5 +207,5 @@ public class Product implements Serializable {
     public void setProductImage(String productImage) {
         this.productImage = productImage;
     }
-    
+
 }
