@@ -55,6 +55,9 @@ public class maintainProduct extends HttpServlet {
                     Product product = em.find(Product.class, id);
                     em.remove(product);
                     utx.commit();
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Deleted Successfully!');");
+                    out.println("window.history.go(-1);</script>");
 
                 } catch (Exception ex) {
                     out.println(ex.getMessage());
