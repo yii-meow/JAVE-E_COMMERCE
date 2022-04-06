@@ -85,7 +85,6 @@ public class Customer implements Serializable {
         this.customerAddress = customer_address;
         this.gender = gender;
     }
-
     public Integer getCustomerID() {
         return customerID;
     }

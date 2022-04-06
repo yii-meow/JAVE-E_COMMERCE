@@ -6,7 +6,6 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -24,7 +21,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -64,13 +60,6 @@ public class Orders implements Serializable {
     @Size(max = 50)
     @Column(name = "SHIPMENT_DETAILS")
     private String shipmentDetails;
-    @ManyToMany(mappedBy = "ordersList")
-    private List<Staff> staffList;
-    @JoinTable(name = "order_list", joinColumns = {
-        @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")})
-    @ManyToMany
-    private List<Product> productList;
     @JoinColumn(name = "customer_ID", referencedColumnName = "customer_ID")
     @ManyToOne
     private Customer customerID;
@@ -128,24 +117,6 @@ public class Orders implements Serializable {
 
     public void setShipmentDetails(String shipmentDetails) {
         this.shipmentDetails = shipmentDetails;
-    }
-
-    @XmlTransient
-    public List<Staff> getStaffList() {
-        return staffList;
-    }
-
-    public void setStaffList(List<Staff> staffList) {
-        this.staffList = staffList;
-    }
-
-    @XmlTransient
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
     }
 
     public Customer getCustomerID() {

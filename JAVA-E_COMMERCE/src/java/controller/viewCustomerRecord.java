@@ -33,7 +33,7 @@ public class viewCustomerRecord extends HttpServlet {
 
     @Resource
     private UserTransaction utx;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,17 +46,14 @@ public class viewCustomerRecord extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet viewCustomerRecord</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet viewCustomerRecord at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            HttpSession session = request.getSession();
+            int customer_ID = Integer.parseInt(request.getParameter("customer_ID"));    
+            Customer customer = em.find(Customer.class, customer_ID);
+            List <Orders> order = customer.getOrdersList();
+            session.setAttribute("customer", order);
+            //response.sendRedirect("staff/viewCustomerPurchaseRecord.jsp");            
         }
     }
 
@@ -72,14 +69,13 @@ public class viewCustomerRecord extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         Query query = em.createNamedQuery("Customer.findAll");
         List<Customer> customer = query.getResultList();
         HttpSession session = request.getSession();
         session.setAttribute("customer", customer);
         response.sendRedirect("staff/viewCustomerRecord.jsp");
-        
-        
+
     }
 
     /**
