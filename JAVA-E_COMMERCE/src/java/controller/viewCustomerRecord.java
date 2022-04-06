@@ -51,9 +51,9 @@ public class viewCustomerRecord extends HttpServlet {
             HttpSession session = request.getSession();
             int customer_ID = Integer.parseInt(request.getParameter("customer_ID"));    
             Customer customer = em.find(Customer.class, customer_ID);
-            List <Orders> order = customer.getOrdersList();
-            session.setAttribute("customer", order);
-            //response.sendRedirect("staff/viewCustomerPurchaseRecord.jsp");            
+            List <Orders> orders = customer.getOrdersList();
+            session.setAttribute("orders", orders);
+            response.sendRedirect("staff/viewCustomerPurchaseRecord.jsp");            
         }
     }
 

@@ -6,8 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Orders,java.util.*"%>
-<% List<Orders> order = (List<Orders>) session.getAttribute("order");%>
-
+<% List<Orders> orders = (List<Orders>) session.getAttribute("orders");%>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +22,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h4>Below are all the order by ${customer.customerName}</h4>
+        <h4>Below are all the order by <%= orders.get(0).getCustomerID().getCustomerName() %></h4>
 
         <div class="card" style="width: 50rem;">
             <div class="card-header">
@@ -35,16 +34,6 @@
                 <li class="list-group-item">Vestibulum at eros</li>
             </ul>
         </div>
-
-        <%
-            for (int i = 0; i < order.size(); i++) {
-                Orders orderDetails = order.get(i);
-        %>
-        
-        <%= orderDetails.getCustomerID() %>
-
-
-        <% }%>
 
 
     </body>
