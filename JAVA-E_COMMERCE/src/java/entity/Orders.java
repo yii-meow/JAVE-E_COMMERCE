@@ -15,8 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -39,11 +39,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Orders.findByOrderTime", query = "SELECT o FROM Orders o WHERE o.orderTime = :orderTime"),
     @NamedQuery(name = "Orders.findByShipTime", query = "SELECT o FROM Orders o WHERE o.shipTime = :shipTime"),
     @NamedQuery(name = "Orders.findByTrackingNumber", query = "SELECT o FROM Orders o WHERE o.trackingNumber = :trackingNumber"),
-    @NamedQuery(name = "Orders.findByDeliveryCourier", query = "SELECT o FROM Orders o WHERE o.deliveryCourier = :deliveryCourier")})
+    @NamedQuery(name = "Orders.findByDeliveryCourier", query = "SELECT o FROM Orders o WHERE o.deliveryCourier = :deliveryCourier"),
+    @NamedQuery(name = "Orders.findByShipmentDetails", query = "SELECT o FROM Orders o WHERE o.shipmentDetails = :shipmentDetails")})
 public class Orders implements Serializable {
 
     @ManyToMany(mappedBy = "ordersList")
     private List<Staff> staffList;
+    @JoinTable(name = "order_list", joinColumns = {
+        @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")})
+    @ManyToMany
+    private List<Product> productList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,15 +69,12 @@ public class Orders implements Serializable {
     @Size(max = 4)
     @Column(name = "DELIVERY_COURIER")
     private String deliveryCourier;
-    @Lob
-    @Size(max = 1073741824)
+    @Size(max = 50)
     @Column(name = "SHIPMENT_DETAILS")
     private String shipmentDetails;
-    @JoinTable(name = "order_list", joinColumns = {
-        @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")})
-    @ManyToMany
-    private List<Product> productList;
+    @JoinColumn(name = "customer_ID", referencedColumnName = "customer_ID")
+    @ManyToOne
+    private Customer customerID;
 
     public Orders() {
     }
@@ -128,13 +131,12 @@ public class Orders implements Serializable {
         this.shipmentDetails = shipmentDetails;
     }
 
-    @XmlTransient
-    public List<Product> getProductList() {
-        return productList;
+    public Customer getCustomerID() {
+        return customerID;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setCustomerID(Customer customerID) {
+        this.customerID = customerID;
     }
 
     @Override
@@ -169,6 +171,15 @@ public class Orders implements Serializable {
 
     public void setStaffList(List<Staff> staffList) {
         this.staffList = staffList;
+    }
+
+    @XmlTransient
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
     
 }

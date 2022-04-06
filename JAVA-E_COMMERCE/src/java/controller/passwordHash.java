@@ -12,6 +12,8 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author yikso
  */
+
+// THIS FUNCTION IS USED FOR PROVIDING MD5 HASH
 public class passwordHash {
     public static String getHash(String password){
         String hash ="";
