@@ -102,7 +102,11 @@
 
             <div class="search-container">
                 <form action="../filterProduct" method="POST">
-                    <input type="text" placeholder="Search.." name="item_name">
+                    <input type="text" placeholder="Search.." name="item_details">
+                    <select name="filterOption">
+                        <option value="name" selected>Name
+                        <option value="ID">ID
+                    </select>
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
