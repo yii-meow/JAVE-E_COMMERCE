@@ -46,23 +46,24 @@ public class maintainProduct extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
 
+            // DELETE PRODUCT
             if (request.getParameter("action").equals("delete")) {
                 int id = Integer.parseInt(request.getParameter("delete_item"));
 
                 try {
                     utx.begin();
-                    //Query query = em.createNamedQuery("Product.findByProductId").setParameter("productId", id);
                     Product product = em.find(Product.class, id);
                     em.remove(product);
                     utx.commit();
                     out.println("<script type=\"text/javascript\">");
-                    out.println("alert('Deleted Successfully!');");
-                    out.println("window.history.go(-1);</script>");
+                    out.println("alert('Deleted Successfully!');</script>");
+                    response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
 
                 } catch (Exception ex) {
 
                 }
-            } else if (request.getParameter("action").equals("update")) {
+            } // CREATE OR UPDATE PRODUCT
+            else if (request.getParameter("action").equals("create") || request.getParameter("action").equals("update")) {
                 String product_name = request.getParameter("product_name");
                 String product_description = request.getParameter("product_description");
                 int stock = Integer.parseInt(request.getParameter("stock"));
@@ -75,16 +76,38 @@ public class maintainProduct extends HttpServlet {
                     free_shipment = true;
                 }
 
-                try {
-                    utx.begin();
-                    Product product = new Product(product_name, product_description, stock, price, weight, free_shipment);
-                    em.persist(product);
-                    utx.commit();
-                    response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
-                } catch (Exception ex2) {
-
+                if (request.getParameter("action").equals("create")) {
+                    try {
+                        utx.begin();
+                        Product product = new Product(product_name, product_description, stock, price, weight, free_shipment);
+                        em.persist(product);
+                        utx.commit();
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('Created Successfully!');</script>");
+                        response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
+                    } catch (Exception ex) {
+                        out.println(ex.getMessage());
+                    }
+                } else {
+                    int id = Integer.parseInt(request.getParameter("product_id"));
+                    out.print(id);
+                    
+                    try{
+                        utx.begin();
+                        Product product = em.find(Product.class,id );
+                        product.setProductName(product_name);
+                        product.setProductDescription(product_description);
+                        product.setStock(stock);
+                        product.setPrice(price);
+                        product.setProductWeight(weight);
+                        product.setIsShipmentFree(free_shipment);
+                        response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
+                        
+                        utx.commit();
+                    }catch(Exception ex){
+                        
+                    }
                 }
-
             }
 
         }
