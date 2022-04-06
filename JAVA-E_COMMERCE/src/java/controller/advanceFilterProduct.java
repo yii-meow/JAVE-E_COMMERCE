@@ -7,6 +7,7 @@ package controller;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,7 +27,7 @@ public class advanceFilterProduct extends HttpServlet {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,25 +40,45 @@ public class advanceFilterProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            double min_price;
-            double max_price;
-            boolean shipment = Boolean.parseBoolean(request.getParameter("shipment"));
-            
+        PrintWriter out = response.getWriter();
+        try {
+            double min_price = 0;
+            double max_price = 0;
+            boolean free = false;
+            String value = request.getParameter("shipment") + "";
+
+            if (value.equals("free_shipment")) {
+                free = true;
+            }
+
+            // out.println(Boolean.toString(request.getParameter("shipment").equals("null")));
             if (!request.getParameter("min_price").isEmpty()) {
                 min_price = Double.parseDouble(request.getParameter("min_price"));
             } else {
                 min_price = 0;
             }
-            
+
             if (!request.getParameter("max_price").isEmpty()) {
                 max_price = Double.parseDouble(request.getParameter("max_price"));
             } else {
                 max_price = 5000;
             }
+
+            Query query = em.createNamedQuery("Product.findByPriceAndShipment").setParameter("min_price", min_price).setParameter("max_price", max_price).setParameter("shipment", free);
+            List<Product> product = query.getResultList();
             
-            Query query = em.createNamedQuery("Product.findByPriceAndShipment").setParameter("min_price", min_price).setParameter("max_price", max_price).setParameter("shipment", shipment);
-            out.println(query.getResultList());
+            if (!product.isEmpty()){
+                HttpSession session = request.getSession();
+                session.setAttribute("product", product);  
+                out.println(product);
+                response.sendRedirect("customer/viewProduct.jsp");
+            }else{
+                out.println("No product found!");
+            }
+            
+            
+        } catch (Exception ex) {
+            out.println(ex.getMessage());
         }
     }
 
