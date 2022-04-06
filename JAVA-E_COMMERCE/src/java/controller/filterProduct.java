@@ -22,6 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author yikso
  */
+
+// NORMAL FILTER FOR PRODUCT (NAME AND ID)
 @WebServlet(name = "filterProduct", urlPatterns = {"/filterProduct"})
 public class filterProduct extends HttpServlet {
 

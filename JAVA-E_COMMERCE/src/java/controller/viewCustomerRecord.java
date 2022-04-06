@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
+import entity.Customer;
 import entity.Orders;
 import java.util.List;
 import javax.persistence.Query;
@@ -24,30 +25,38 @@ import javax.servlet.http.HttpSession;
  *
  * @author yikso
  */
-
-// ORDER
-@WebServlet(name = "maintainOrders", urlPatterns = {"/maintainOrders"})
-public class maintainOrders extends HttpServlet {
+@WebServlet(name = "viewCustomerRecord", urlPatterns = {"/viewCustomerRecord"})
+public class viewCustomerRecord extends HttpServlet {
 
     @PersistenceContext
-    EntityManager em;
-    @Resource
-    UserTransaction utx;
+    private EntityManager em;
 
+    @Resource
+    private UserTransaction utx;
+    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        if (request.getParameter("action").equals("update")) {
-            String shipment_status = request.getParameter("shipment_status");
-            try {
-                utx.begin();
-                Orders order = em.find(Orders.class, Integer.parseInt(request.getParameter("order_ID")));
-                order.setShipmentDetails(shipment_status);
-                utx.commit();
-                response.sendRedirect(request.getContextPath() + "/staff/viewOrder.jsp");
-            } catch (Exception ex) {
-                out.print(ex.getMessage());
-            }
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet viewCustomerRecord</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet viewCustomerRecord at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -60,18 +69,17 @@ public class maintainOrders extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    // RETRIEVE ORDER
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        Query query = em.createNamedQuery("Orders.findAll");
-        List<Orders> orders = query.getResultList();
+        
+        Query query = em.createNamedQuery("Customer.findAll");
+        List<Customer> customer = query.getResultList();
         HttpSession session = request.getSession();
-        session.setAttribute("orders", orders);
-        response.sendRedirect("staff/viewOrder.jsp");
+        session.setAttribute("customer", customer);
+        response.sendRedirect("staff/viewCustomerRecord.jsp");
+        
+        
     }
 
     /**

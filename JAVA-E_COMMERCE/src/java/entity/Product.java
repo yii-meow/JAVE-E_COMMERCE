@@ -40,12 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByPostDuration", query = "SELECT p FROM Product p WHERE p.postDuration = :postDuration"),
     @NamedQuery(name = "Product.findByProductWeight", query = "SELECT p FROM Product p WHERE p.productWeight = :productWeight"),
     @NamedQuery(name = "Product.findByIsShipmentFree", query = "SELECT p FROM Product p WHERE p.isShipmentFree = :isShipmentFree"),
-    @NamedQuery(name = "Product.findByPriceAndShipment", query = "SELECT p FROM Product p WHERE p.price >= :min_price AND p.price <= :max_price AND p.isShipmentFree = :shipment")})
+    @NamedQuery(name = "Product.findByPriceAndShipment", query = "SELECT p FROM Product p WHERE p.price >= :min_price AND p.price <= :max_price AND p.isShipmentFree = :shipment"),
+    @NamedQuery(name = "Product.findByProductImage", query = "SELECT p FROM Product p WHERE p.productImage = :productImage")})
 public class Product implements Serializable {
-
-    @Size(max = 255)
-    @Column(name = "PRODUCT_IMAGE")
-    private String productImage;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -71,16 +68,15 @@ public class Product implements Serializable {
     private Double productWeight;
     @Column(name = "IS_SHIPMENT_FREE")
     private Boolean isShipmentFree;
+    @Size(max = 255)
+    @Column(name = "PRODUCT_IMAGE")
+    private String productImage;
     @ManyToMany(mappedBy = "productList")
     private List<Orders> ordersList;
     @ManyToMany(mappedBy = "productList")
     private List<Category> categoryList;
 
     public Product() {
-    }
-
-    public Product(Integer productId) {
-        this.productId = productId;
     }
 
     public Product(String productName, String productDescription, int stock,
@@ -157,6 +153,14 @@ public class Product implements Serializable {
         this.isShipmentFree = isShipmentFree;
     }
 
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
+    }
+
     @XmlTransient
     public List<Orders> getOrdersList() {
         return ordersList;
@@ -199,13 +203,5 @@ public class Product implements Serializable {
     public String toString() {
         return "entity.Product[ productId=" + productId + " ]";
     }
-
-    public String getProductImage() {
-        return productImage;
-    }
-
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
-    }
-
+    
 }

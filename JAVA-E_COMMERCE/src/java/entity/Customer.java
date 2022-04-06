@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -40,9 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByGender", query = "SELECT c FROM Customer c WHERE c.gender = :gender")})
 public class Customer implements Serializable {
 
-    @OneToMany(mappedBy = "customerID")
-    private List<Orders> ordersList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,12 +64,10 @@ public class Customer implements Serializable {
     @Size(max = 255)
     @Column(name = "customer_address")
     private String customerAddress;
-    @Lob
-    @Size(max = 1073741824)
-    @Column(name = "customer_order")
-    private String customerOrder;
     @Column(name = "gender")
     private Character gender;
+    @OneToMany(mappedBy = "customerID")
+    private List<Orders> ordersList;
 
     public Customer() {
     }
@@ -140,20 +134,21 @@ public class Customer implements Serializable {
         this.customerAddress = customerAddress;
     }
 
-    public String getCustomerOrder() {
-        return customerOrder;
-    }
-
-    public void setCustomerOrder(String customerOrder) {
-        this.customerOrder = customerOrder;
-    }
-
     public Character getGender() {
         return gender;
     }
 
     public void setGender(Character gender) {
         this.gender = gender;
+    }
+
+    @XmlTransient
+    public List<Orders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
     }
 
     @Override
@@ -180,14 +175,5 @@ public class Customer implements Serializable {
     public String toString() {
         return "entity.Customer[ customerID=" + customerID + " ]";
     }
-
-    @XmlTransient
-    public List<Orders> getOrdersList() {
-        return ordersList;
-    }
-
-    public void setOrdersList(List<Orders> ordersList) {
-        this.ordersList = ordersList;
-    }
-
+    
 }

@@ -6,9 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Orders, java.util.*"%>
+
 <jsp:include page="../maintainOrders"/>
-
-
 <% List<Orders> orders = (List<Orders>) session.getAttribute("orders");%>
 
 <!DOCTYPE html>
@@ -105,9 +104,9 @@
                         <label for="recipient-name" class="col-form-label">Shipment Status : </label>
                         <select name="shipment_status">
                             <option value=""/>No status
-                            <option value="preparing"/>Preparing
-                            <option value="shipped"/>Shipped
-                            <option value="delivered"/>Delivered                            
+                            <option value="Preparing"/>Preparing
+                            <option value="Shipped"/>Shipped
+                            <option value="Delivered"/>Delivered                            
                         </select>
                     </div>
                     <input type="hidden" name="action" value="update"/>

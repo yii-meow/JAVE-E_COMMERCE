@@ -22,6 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author yikso
  */
+
+// ADVANCE FILTER FOR PRODUCT
 @WebServlet(name = "advanceFilterProduct", urlPatterns = {"/advanceFilterProduct"})
 public class advanceFilterProduct extends HttpServlet {
 

@@ -43,14 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Orders.findByShipmentDetails", query = "SELECT o FROM Orders o WHERE o.shipmentDetails = :shipmentDetails")})
 public class Orders implements Serializable {
 
-    @ManyToMany(mappedBy = "ordersList")
-    private List<Staff> staffList;
-    @JoinTable(name = "order_list", joinColumns = {
-        @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")})
-    @ManyToMany
-    private List<Product> productList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,6 +64,13 @@ public class Orders implements Serializable {
     @Size(max = 50)
     @Column(name = "SHIPMENT_DETAILS")
     private String shipmentDetails;
+    @ManyToMany(mappedBy = "ordersList")
+    private List<Staff> staffList;
+    @JoinTable(name = "order_list", joinColumns = {
+        @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")})
+    @ManyToMany
+    private List<Product> productList;
     @JoinColumn(name = "customer_ID", referencedColumnName = "customer_ID")
     @ManyToOne
     private Customer customerID;
@@ -131,6 +130,24 @@ public class Orders implements Serializable {
         this.shipmentDetails = shipmentDetails;
     }
 
+    @XmlTransient
+    public List<Staff> getStaffList() {
+        return staffList;
+    }
+
+    public void setStaffList(List<Staff> staffList) {
+        this.staffList = staffList;
+    }
+
+    @XmlTransient
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
     public Customer getCustomerID() {
         return customerID;
     }
@@ -162,24 +179,6 @@ public class Orders implements Serializable {
     @Override
     public String toString() {
         return "entity.Orders[ orderId=" + orderId + " ]";
-    }
-
-    @XmlTransient
-    public List<Staff> getStaffList() {
-        return staffList;
-    }
-
-    public void setStaffList(List<Staff> staffList) {
-        this.staffList = staffList;
-    }
-
-    @XmlTransient
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
     }
     
 }
