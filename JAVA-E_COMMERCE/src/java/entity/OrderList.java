@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OrderList.findAll", query = "SELECT o FROM OrderList o"),
+    @NamedQuery(name = "OrderList.findDistinctProduct",query="SELECT DISTINCT(o.product.productName) FROM OrderList o"),
     @NamedQuery(name = "OrderList.findByOrderId", query = "SELECT o FROM OrderList o WHERE o.orderListPK.orderId = :orderId"),
     @NamedQuery(name = "OrderList.findByProductId", query = "SELECT o FROM OrderList o WHERE o.orderListPK.productId = :productId"),
     @NamedQuery(name = "OrderList.findByQuantity", query = "SELECT o FROM OrderList o WHERE o.quantity = :quantity"),

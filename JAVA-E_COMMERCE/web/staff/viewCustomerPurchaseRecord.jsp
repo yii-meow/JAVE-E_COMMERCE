@@ -79,7 +79,7 @@
                 <li class="list-group-item">Shipment Date 
                     <% String ship_time = ordersDetails.getShipTime() + "";
                     %>
-                    <span style="margin-left:450px;"><%= ship_time.equals("null") ? "N/A" : ordersDetails.getShipTime()%>
+                    <span style="margin-left:350px;"><%= ship_time.equals("null") ? "N/A" : ordersDetails.getShipTime()%>
                     </span>
                 </li>
                 <li class="list-group-item">Paid Time

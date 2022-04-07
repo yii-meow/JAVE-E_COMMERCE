@@ -132,14 +132,14 @@ public class Orders implements Serializable {
     public void setCustomerID(Customer customerID) {
         this.customerID = customerID;
     }
-    
+
     public Double calculateTotal() {
-        Double totalPrice = 0.0;        
-          
-        for (OrderList ol: this.orderListList){
+        Double totalPrice = 0.0;
+
+        for (OrderList ol : this.orderListList) {
             totalPrice += ol.getSubtotal();
         }
-        
+
         return totalPrice;
     }
 
@@ -176,5 +176,5 @@ public class Orders implements Serializable {
     public String toString() {
         return "entity.Orders[ orderId=" + orderId + " ]";
     }
-    
+
 }
