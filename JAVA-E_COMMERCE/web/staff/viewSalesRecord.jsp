@@ -8,6 +8,7 @@
 <%@page import="entity.Orders,entity.OrderList, java.util.*"%>
 <jsp:include page="../viewSalesRecord"/>
 <% List<Orders> orders = (List<Orders>) session.getAttribute("orders");%>
+<% List<Object[]> order_list = (List<Object[]>) session.getAttribute("ordersGroup");%>
 
 <!DOCTYPE html>
 <html>
@@ -35,6 +36,15 @@
                 </tr>
             </thead>
             <tbody>
+
+                <% for (Object[] object : order_list) {
+                    
+                %>
+                
+                <%= object[2] %>
+                
+                <% }%> 
+
                 <%
                     for (int i = 0; i < orders.size(); i++) {
                         Orders order = orders.get(i);
@@ -50,7 +60,7 @@
                     <td><%= ol.getProduct().getProductName()%></td>
                     <td><%= ol.getQuantity()%></td>
                     <td><%= String.format("RM %.2f", ol.getProduct().getPrice())%></td>
-                        <td><%=String.format("RM %.2f", ol.getSubtotal())%></td>
+                    <td><%=String.format("RM %.2f", ol.getSubtotal())%></td>
                 </tr>
 
 

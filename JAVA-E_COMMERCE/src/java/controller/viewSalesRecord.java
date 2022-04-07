@@ -69,10 +69,16 @@ public class viewSalesRecord extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         
+        // RETRIEVE ALL ORDER
         HttpSession session = request.getSession();
         Query query = em.createNamedQuery("Orders.findAll");        
         List<Orders> orders = query.getResultList();
-        session.setAttribute("orders", orders);        
+        session.setAttribute("orders", orders);
+
+        // RETRIEVE ORDER GROUP BY PRODUCT ID
+        Query query2 = em.createNamedQuery("OrderList.findSubtotalGroup");
+        List<Object[]> ol = query2.getResultList();        
+        session.setAttribute("ordersGroup", ol);        
     }
 
     /**
