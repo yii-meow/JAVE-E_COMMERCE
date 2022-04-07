@@ -132,6 +132,16 @@ public class Orders implements Serializable {
     public void setCustomerID(Customer customerID) {
         this.customerID = customerID;
     }
+    
+    public Double calculateTotal() {
+        Double totalPrice = 0.0;        
+          
+        for (OrderList ol: this.orderListList){
+            totalPrice += ol.getSubtotal();
+        }
+        
+        return totalPrice;
+    }
 
     @XmlTransient
     public List<OrderList> getOrderListList() {

@@ -78,7 +78,7 @@ public class OrderList implements Serializable {
 
     public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
-    }
+    }  
 
     public Orders getOrders() {
         return orders;
@@ -120,5 +120,5 @@ public class OrderList implements Serializable {
     public String toString() {
         return "entity.OrderList[ orderListPK=" + orderListPK + " ]";
     }
-    
+
 }

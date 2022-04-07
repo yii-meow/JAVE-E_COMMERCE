@@ -46,14 +46,14 @@ public class viewCustomerRecord extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         try ( PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
-            int customer_ID = Integer.parseInt(request.getParameter("customer_ID"));    
+            int customer_ID = Integer.parseInt(request.getParameter("customer_ID"));
             Customer customer = em.find(Customer.class, customer_ID);
-            List <Orders> orders = customer.getOrdersList();
+            List<Orders> orders = customer.getOrdersList();
             session.setAttribute("orders", orders);
-            response.sendRedirect("staff/viewCustomerPurchaseRecord.jsp");            
+            response.sendRedirect("staff/viewCustomerPurchaseRecord.jsp");
         }
     }
 
@@ -69,8 +69,20 @@ public class viewCustomerRecord extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         Query query = em.createNamedQuery("Customer.findAll");
         List<Customer> customer = query.getResultList();
+
+        for (int i = 0; i < customer.size(); i++) {
+            // TO CHECK WHICH CUSTOMER HAVE NO ORDER
+            try {
+                if (!customer.get(i).getOrdersList().get(0).getOrderId().equals("")) {
+                }
+
+            } catch (Exception ex) {
+                customer.remove(i);
+            }
+        }
         HttpSession session = request.getSession();
         session.setAttribute("customer", customer);
         response.sendRedirect("staff/viewCustomerRecord.jsp");

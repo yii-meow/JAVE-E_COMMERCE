@@ -62,58 +62,12 @@
                     <td>
                         <form action="../viewCustomerRecord" method="POST">
                             <input type="hidden" name="customer_ID" value="<%= customerDetails.getCustomerID()%>"/>
-                            <button class='btn btn-success btn-sm rounded-0 editButton' type='button submit' data-id="<%= customerDetails.getCustomerID()%>"><i class="bi bi-arrow-90deg-right"></i></button>
+                            <button class='btn btn-success btn-sm rounded-0' type='button submit' data-id="<%= customerDetails.getCustomerID()%>"><i class="bi bi-arrow-90deg-right"></i></button>
                         </form>
                     </td>
                 </tr>
                 <% }%>
             </tbody>
         </table>
-
-        <script>
-            $(document).ready(function () {
-                $('.editButton').on('click', function () {
-                    $('#updateAppointmentModal').modal('show');
-                    $('#order_ID').val($(this).data('id'));
-                }
-                );
-            });
-        </script>
-
-        <!--Bootstrap Modal for Updating New Appointment-->
-        <div class="modal fade" id="updateAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Shipment Details</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="../maintainOrders" method="POST">
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Shipment Status : </label>
-                                <select name="shipment_status">
-                                    <option value=""/>No status
-                                    <option value="Preparing"/>Preparing
-                                    <option value="Shipped"/>Shipped
-                                    <option value="Delivered"/>Delivered                            
-                                </select>
-                            </div>
-                            <input type="hidden" name="action" value="update"/>
-                            <input type="hidden" name="order_ID" id="order_ID"/>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" name="update" class="btn btn-primary" value="Update Shipment"/>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>           
-
     </body>
 </html
