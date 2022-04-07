@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderList.findByQuantity", query = "SELECT o FROM OrderList o WHERE o.quantity = :quantity"),
     @NamedQuery(name = "OrderList.findSubtotalGroup", query = "SELECT o.product.productId, SUM(o.subtotal), SUM(o.quantity), o.product.productName,o.product.price FROM OrderList o GROUP BY o.product.productId"),
     @NamedQuery(name = "OrderList.findSubtotalByDateGroup", query = "SELECT o.product.productId, SUM(o.subtotal), SUM(o.quantity), o.product.productName,o.product.price FROM OrderList o WHERE o.orders.orderTime BETWEEN :startTime AND :endTime GROUP BY o.product.productId"),
+    @NamedQuery(name = "OrderList.findOrderInTimeRange", query = "SELECT o FROM OrderList o WHERE o.orders.orderTime BETWEEN :startTime AND :endTime"),
     @NamedQuery(name = "OrderList.findBySubtotal", query = "SELECT o FROM OrderList o WHERE o.subtotal = :subtotal")})
 public class OrderList implements Serializable {
 

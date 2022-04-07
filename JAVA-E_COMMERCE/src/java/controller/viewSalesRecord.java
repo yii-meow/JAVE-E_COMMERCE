@@ -45,20 +45,35 @@ public class viewSalesRecord extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String select_date = request.getParameter("select_date");
-            String end_date = select_date + " 23:59:59";
+            // DEFINE TIME RANGE FOR THE ORDERS
+            String start_date = request.getParameter("start_date");
+            String end_date = request.getParameter("end_date");
+            end_date += " 23:59:59";
 
-            Date start_time = new SimpleDateFormat("yyyy-MM-dd").parse(select_date);
+            Date start_time = new SimpleDateFormat("yyyy-MM-dd").parse(start_date);
             Date end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_date);
 
-            Query query = em.createNamedQuery("OrderList.findSubtotalByDateGroup").setParameter("startTime", start_time).setParameter("endTime", end_time);
+            if (start_time.after(end_time)){
+                response.sendRedirect("staff/viewSalesRecord.jsp");
+            }
+            
+            Query findAllOrdersInTimeRange = em.createNamedQuery("OrderList.findOrderInTimeRange").setParameter("startTime", start_time).setParameter("endTime", end_time);
 
-            if (!query.getResultList().isEmpty()) {
-                List<Object[]> result = query.getResultList();
+            if (!findAllOrdersInTimeRange.getResultList().isEmpty()) {
                 HttpSession session = request.getSession();
-                session.setAttribute("ordersGroup", result);
-                session.setAttribute("time", select_date);
-                response.sendRedirect("staff/viewDailySalesRecord.jsp");
+                List<OrderList> orderlist = findAllOrdersInTimeRange.getResultList();
+                session.setAttribute("order-list", orderlist);
+                Query query = em.createNamedQuery("OrderList.findSubtotalByDateGroup").setParameter("startTime", start_time).setParameter("endTime", end_time);
+
+                if (!query.getResultList().isEmpty()) {
+                    List<Object[]> result = query.getResultList();
+                    session.setAttribute("ordersGroup", result);
+                    session.setAttribute("start_time", start_date);
+                    session.setAttribute("end_time", end_date);
+                    response.sendRedirect("staff/viewFilteredSalesRecord.jsp");
+                } else {
+                    response.sendRedirect("staff/viewFilteredSalesRecord.jsp");
+                }
             } else {
                 out.println("no result found!");
             }

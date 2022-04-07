@@ -8,7 +8,7 @@
 <%@page import="entity.Orders,entity.OrderList,entity.Product,java.util.*"%>
 <jsp:include page="../viewSalesRecord"/>
 <% List<Object[]> order_list = (List<Object[]>) session.getAttribute("ordersGroup");%>
-<% List<Orders> orders = (List<Orders>) session.getAttribute("orders"); %>
+<% List<OrderList> orders = (List<OrderList>) session.getAttribute("order-list"); %>
 
 <!DOCTYPE html>
 <html>
@@ -21,6 +21,8 @@
     </head>
     <body>
         <span class="badge bg-info text-dark" style="font-size:1.5rem;margin-left:auto;margin-right:auto;">Overall Sales Record</span>
+        </br></br>
+        Date: <b><span id="start_time">${start_time}</span> - <span id="end_time">${end_time}</span></b>
 
         <table class="table table-striped">
             <thead>
@@ -65,6 +67,7 @@
 <table class="table table-striped">
     <thead>
         <tr style="text-align:center">
+            <th scope="col" ><a href="../viewSalesRecord?sort=ID&ascending=true">Order Date</a></th>
             <th scope="col" ><a href="../viewSalesRecord?sort=ID&ascending=true">Product ID</a></th>
             <th scope="col"><a href="?sort=name&ascending=true">Product Name</th></a>
             <th scope="col"><a href="?sort=quantity&ascending=true">Quantity</th></a>
@@ -77,14 +80,15 @@
         </br>
         <!-- GROUP BY RESULT FROM PRODUCT ID -->
         <% for (int i = 0; i < orders.size(); i++) {
-                Orders order = orders.get(i);
+                OrdersList order = orders.get(i);
         %>
 
         <% for (int j = 0; j < order.getOrderListList().size(); j++) {
                 OrderList ol = order.getOrderListList().get(j);
         %>
 
-        <tr style="text-align:center">                    
+        <tr style="text-align:center">      
+            <td><%= order.getOrderTime() %></td>
             <td><%= order.getOrderId()%></td>
             <td><%= ol.getQuantity()%></td>
             <td><%= ol.getProduct().getProductName()%></td>
@@ -104,8 +108,11 @@
         // SET CURRENT DATE FOR DATE PICK INPUT
         var date = new Date();
         var currentDate = date.toISOString().substring(0, 10);
-        $('#start_date').val(currentDate);
-        $('#end_date').val(currentDate);
+        $('#start_date').val($('#start_time').text());
+        console.log($('#end_time').text());
+        var end_time = $('#end_time').text();
+
+        $('#end_date').val(end_time.substring(0, 10));
     });
 </script>
 </html>
