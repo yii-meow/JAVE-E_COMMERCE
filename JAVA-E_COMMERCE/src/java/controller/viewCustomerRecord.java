@@ -69,13 +69,11 @@ public class viewCustomerRecord extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         Query query = em.createNamedQuery("Customer.findAll");
         List<Customer> customer = query.getResultList();
         HttpSession session = request.getSession();
         session.setAttribute("customer", customer);
         response.sendRedirect("staff/viewCustomerRecord.jsp");
-
     }
 
     /**

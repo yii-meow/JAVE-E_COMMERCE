@@ -85,6 +85,7 @@ public class Customer implements Serializable {
         this.customerAddress = customer_address;
         this.gender = gender;
     }
+
     public Integer getCustomerID() {
         return customerID;
     }
@@ -174,5 +175,5 @@ public class Customer implements Serializable {
     public String toString() {
         return "entity.Customer[ customerID=" + customerID + " ]";
     }
-    
+
 }

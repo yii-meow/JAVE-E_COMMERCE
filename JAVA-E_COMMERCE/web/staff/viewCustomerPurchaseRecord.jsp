@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="entity.Orders,java.util.*"%>
+<%@page import="entity.Orders,entity.Product,entity.OrderList,java.util.*"%>
 <% List<Orders> orders = (List<Orders>) session.getAttribute("orders");%>
 
 <!DOCTYPE html>
@@ -22,12 +22,30 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h4>Below are all the order by <%= orders.get(0).getCustomerID().getCustomerName() %></h4>
+        <h4>Below are all the order by <%= orders.get(0).getCustomerID().getCustomerName()%></h4>
+
+        <% for (int i = 0; i < orders.size(); i++) {
+                Orders ordersDetails = orders.get(i);
+        %>        
 
         <div class="card" style="width: 50rem;">
             <div class="card-header">
-                Featured
+                <i class="bi bi-card-list"></i>
+                <%= ordersDetails.getShipmentDetails()%>
+                <span style="margin-left:440px;"><%= ordersDetails.getOrderTime()%></span>
+                </br>Tracking Number: <%= ordersDetails.getTrackingNumber()%>
             </div>
+            <div class="card-body">
+                <% for (int j = 0; j < ordersDetails.getOrderListList().size(); j++) {
+                    OrderList orderlist = ordersDetails.getOrderListList().get(j);
+                %>
+                <img src="<%= orderlist.getProduct().getProductImage() %>" style="width:50px;height:50px;"/>
+                <h5 class="card-title"><%= orderlist.getProduct().getProductName() %></h5>               
+                <p class="card-text"><%= orderlist.getProduct().getProductDescription() %></p>
+                <hr>
+                <% } %>
+            </div>
+
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Cras justo odio</li>
                 <li class="list-group-item">Dapibus ac facilisis in</li>
@@ -35,6 +53,6 @@
             </ul>
         </div>
 
-
+        <% }%>
     </body>
 </html>

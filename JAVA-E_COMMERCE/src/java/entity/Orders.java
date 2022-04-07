@@ -6,7 +6,9 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,11 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -63,6 +67,8 @@ public class Orders implements Serializable {
     @JoinColumn(name = "customer_ID", referencedColumnName = "customer_ID")
     @ManyToOne
     private Customer customerID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orders")
+    private List<OrderList> orderListList;
 
     public Orders() {
     }
@@ -125,6 +131,15 @@ public class Orders implements Serializable {
 
     public void setCustomerID(Customer customerID) {
         this.customerID = customerID;
+    }
+
+    @XmlTransient
+    public List<OrderList> getOrderListList() {
+        return orderListList;
+    }
+
+    public void setOrderListList(List<OrderList> orderListList) {
+        this.orderListList = orderListList;
     }
 
     @Override
