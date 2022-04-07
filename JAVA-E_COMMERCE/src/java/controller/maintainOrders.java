@@ -4,6 +4,7 @@
  */
 package controller;
 
+import entity.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.annotation.Resource;
@@ -18,13 +19,13 @@ import javax.transaction.UserTransaction;
 import entity.Orders;
 import java.util.List;
 import javax.persistence.Query;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author yikso
  */
-
 // ORDER
 @WebServlet(name = "maintainOrders", urlPatterns = {"/maintainOrders"})
 public class maintainOrders extends HttpServlet {
@@ -40,11 +41,19 @@ public class maintainOrders extends HttpServlet {
         if (request.getParameter("action").equals("update")) {
             String shipment_status = request.getParameter("shipment_status");
             try {
+                HttpSession session = request.getSession();
+
                 utx.begin();
                 Orders order = em.find(Orders.class, Integer.parseInt(request.getParameter("order_ID")));
                 order.setShipmentDetails(shipment_status);
                 utx.commit();
-                response.sendRedirect(request.getContextPath() + "/staff/viewOrder.jsp");
+                int id = order.getCustomerID().getCustomerID();
+
+                Customer customer = em.find(Customer.class, id);
+                List<Orders> orders = customer.getOrdersList();
+                session.setAttribute("orders", orders);
+
+                response.sendRedirect("staff/viewCustomerPurchaseRecord.jsp");
             } catch (Exception ex) {
                 out.print(ex.getMessage());
             }
@@ -60,7 +69,6 @@ public class maintainOrders extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     // RETRIEVE ORDER
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
