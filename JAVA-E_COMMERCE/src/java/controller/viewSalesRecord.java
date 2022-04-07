@@ -28,7 +28,7 @@ public class viewSalesRecord extends HttpServlet {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,7 +46,7 @@ public class viewSalesRecord extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet viewSalesRecord</title>");            
+            out.println("<title>Servlet viewSalesRecord</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet viewSalesRecord at " + request.getContextPath() + "</h1>");
@@ -68,17 +68,16 @@ public class viewSalesRecord extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        
         // RETRIEVE ALL ORDER
         HttpSession session = request.getSession();
-        Query query = em.createNamedQuery("Orders.findAll");        
+        Query query = em.createNamedQuery("Orders.findAll");
         List<Orders> orders = query.getResultList();
         session.setAttribute("orders", orders);
 
         // RETRIEVE ORDER GROUP BY PRODUCT ID
         Query query2 = em.createNamedQuery("OrderList.findSubtotalGroup");
-        List<Object[]> ol = query2.getResultList();        
-        session.setAttribute("ordersGroup", ol);        
+        List<Object[]> ol = query2.getResultList();
+        session.setAttribute("ordersGroup", ol);
     }
 
     /**
