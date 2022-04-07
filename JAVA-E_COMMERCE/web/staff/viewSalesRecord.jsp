@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="entity.Orders,entity.OrderList, java.util.*"%>
+<%@page import="entity.Orders,entity.OrderList,entity.Product,java.util.*"%>
 <jsp:include page="../viewSalesRecord"/>
 <% List<Orders> orders = (List<Orders>) session.getAttribute("orders");%>
 <% List<Object[]> order_list = (List<Object[]>) session.getAttribute("ordersGroup");%>
@@ -36,37 +36,22 @@
                 </tr>
             </thead>
             <tbody>
-
-                <% for (Object[] object : order_list) {
-                    
-                %>
-                
-                <%= object[2] %>
-                
-                <% }%> 
-
-                <%
-                    for (int i = 0; i < orders.size(); i++) {
-                        Orders order = orders.get(i);
-                %>
-
-                <%
-                    for (int j = 0; j < order.getOrderListList().size(); j++) {
-                        OrderList ol = order.getOrderListList().get(j);
+            <h3>Total Sales Record</h3>
+                <!-- GROUP BY RESULT FROM PRODUCT ID -->
+                <% for (Object[] groupResult : order_list) {
 
                 %>
                 <tr>
-                    <td><%= ol.getProduct().getProductId()%></td>
-                    <td><%= ol.getProduct().getProductName()%></td>
-                    <td><%= ol.getQuantity()%></td>
-                    <td><%= String.format("RM %.2f", ol.getProduct().getPrice())%></td>
-                    <td><%=String.format("RM %.2f", ol.getSubtotal())%></td>
+                    <td><%= groupResult[0]%></td>
+                    <td><%= groupResult[3]%></td>
+                    <td><%= groupResult[2]%></td>
+                    <td><%= groupResult[4]%></td>                    
+                    <td><%=String.format("RM %.2f", groupResult[1])%></td>
                 </tr>
 
 
                 <% }%>
 
-                <% }%>
             </tbody>        
     </body>
 
