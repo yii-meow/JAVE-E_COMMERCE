@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import entity.Orders;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -41,17 +43,28 @@ public class viewSalesRecord extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet viewSalesRecord</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet viewSalesRecord at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        try {
+            String select_date = request.getParameter("select_date");
+            String end_date = select_date + " 23:59:59";
+
+            Date start_time = new SimpleDateFormat("yyyy-MM-dd").parse(select_date);
+            Date end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_date);
+
+            Query query = em.createNamedQuery("OrderList.findSubtotalByDateGroup").setParameter("startTime", start_time).setParameter("endTime", end_time);
+
+            if (!query.getResultList().isEmpty()) {
+                List<Object[]> result = query.getResultList();
+                HttpSession session = request.getSession();
+                session.setAttribute("ordersGroup", result);
+                session.setAttribute("time", select_date);
+                response.sendRedirect("staff/viewDailySalesRecord.jsp");
+            } else {
+                out.println("no result found!");
+            }
+
+        } catch (Exception ex) {
+            out.println(ex.getMessage());
         }
     }
 

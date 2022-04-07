@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Orders,entity.OrderList,entity.Product,java.util.*"%>
-<jsp:include page="../viewSalesRecord"/>
 <% List<Object[]> order_list = (List<Object[]>) session.getAttribute("ordersGroup");%>
 
 <!DOCTYPE html>
@@ -19,11 +18,14 @@
         <title>Sales Record</title>
     </head>
     <body>
-
         <form action="../viewSalesRecord" method="POST">
+            <input type="hidden" name="action" value="daySalesRecord"/>
             <input type="date" name="select_date" id="select_date"/>
             <input type="submit" value="Search"/> 
         </form>
+
+        </br>Date: <span id="time">${time}</span>
+
         </br>
         <table class="table table-striped">
             <thead>
@@ -40,7 +42,6 @@
             <h3>Total Sales Record</h3>
             <!-- GROUP BY RESULT FROM PRODUCT ID -->
             <% for (Object[] groupResult : order_list) {
-
             %>
 
             <tr style="text-align:center">                    
@@ -59,10 +60,10 @@
 </body>
 <script>
     $(document).ready(function () {
-        // SET CURRENT DATE FOR DATE PICK INPUT
-        var date = new Date();
-        var currentDate = date.toISOString().substring(0, 10);
-        $('#select_date').val(currentDate);
+        // SET DATE FOR DATE PICK INPUT        
+        console.log("hi");
+        console.log($('#time').text());
+        $('#select_date').val($('#time').text());
     });
 </script>
 </html>
