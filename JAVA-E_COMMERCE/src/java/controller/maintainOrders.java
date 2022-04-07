@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 import entity.Orders;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
@@ -46,14 +47,18 @@ public class maintainOrders extends HttpServlet {
                 utx.begin();
                 Orders order = em.find(Orders.class, Integer.parseInt(request.getParameter("order_ID")));
                 order.setShipmentDetails(shipment_status);
+
+                if (shipment_status.equals("Shipped")) {
+                    order.setShipTime(new Date());
+                }
+
                 utx.commit();
                 int id = order.getCustomerID().getCustomerID();
 
                 Customer customer = em.find(Customer.class, id);
                 List<Orders> orders = customer.getOrdersList();
                 session.setAttribute("orders", orders);
-
-                response.sendRedirect("staff/viewCustomerPurchaseRecord.jsp");
+                response.sendRedirect(request.getContextPath() + "/staff/viewCustomerPurchaseRecord.jsp");
             } catch (Exception ex) {
                 out.print(ex.getMessage());
             }
@@ -73,13 +78,7 @@ public class maintainOrders extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        Query query = em.createNamedQuery("Orders.findAll");
-        List<Orders> orders = query.getResultList();
-        HttpSession session = request.getSession();
-        session.setAttribute("orders", orders);
-        response.sendRedirect("staff/viewOrder.jsp");
+        processRequest(request, response);
     }
 
     /**

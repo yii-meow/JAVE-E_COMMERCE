@@ -40,7 +40,7 @@
     </head>
     <body>
 
-        <p class="h4">Customer: <%= orders.get(0).getCustomerID().getCustomerName()%></p>
+        <p class="h6">Customer: <%= orders.get(0).getCustomerID().getCustomerName()%></p>
         <% for (int i = 0; i < orders.size(); i++) {
                 Orders ordersDetails = orders.get(i);
         %>     
