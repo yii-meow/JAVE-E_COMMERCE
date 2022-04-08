@@ -44,8 +44,8 @@ public class maintainProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
 
+        try ( PrintWriter out = response.getWriter()) {
             // DELETE PRODUCT
             if (request.getParameter("action").equals("delete")) {
                 int id = Integer.parseInt(request.getParameter("delete_item"));
@@ -91,11 +91,9 @@ public class maintainProduct extends HttpServlet {
                     }
                 } else {
                     int id = Integer.parseInt(request.getParameter("product_id"));
-                    out.print(id);
-
                     try {
                         utx.begin();
-                        Product product = em.find(Product.class, id);
+                        Product product = em.find(Product.class, id);        
                         product.setProductName(product_name);
                         product.setProductDescription(product_description);
                         product.setStock(stock);
@@ -104,10 +102,9 @@ public class maintainProduct extends HttpServlet {
                         product.setProductImage(product_image);
                         product.setIsShipmentFree(free_shipment);
                         response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
-
                         utx.commit();
                     } catch (Exception ex) {
-
+                        out.println(ex.getMessage());
                     }
                 }
             }

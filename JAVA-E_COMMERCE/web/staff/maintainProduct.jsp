@@ -36,7 +36,7 @@
 
         <title>Maintain Product</title>
     </head>
-    <body style="background-color:#6441a5;">
+    <body>
         <div style="text-align:center">
             <span class="badge badge-success badge-pill" style="font-size:1.5rem;">
                 Maintain Product
@@ -59,15 +59,21 @@
                     </div>
 
                     <div class="card-body" id="details">
-                        <form action="../maintainProduct" method="POST">
+                        <form action="../maintainProduct" method="POST">                            
+                            <!-- SHOW PRODUCT DETAILS -->
                             <p class="card-text">ID: <%= productDetails.getProductId()%></p>
                             <p class="card-text"><%= productDetails.getProductName()%></p>
                             <p class="card-text"><%= String.format("RM %.2f", productDetails.getPrice())%></p>
-                            <p class="card-text">Rating: </p>
-                            <button class='btn btn-success btn-sm rounded-0 editButton' data-id="<%= productDetails.getProductId()%>" type='button' data-whatever='@mdo' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button>
+                            <p class="card-text">Rating: </p>    
+
+                            <!-- UPDATE PRODUCT -->
+                            <button class='btn btn-success btn-sm rounded-0 editButton' type='button submit' title='Edit' formaction='../updateProduct?id=<%=productDetails.getProductId()%>' "><i class='fa fa-edit'></i></button>
+
+                            <!-- DELETE PRODUCT -->
+                            <button class='btn btn-danger btn-sm rounded-0 deleteButton' type='button submit' data-toggle='tooltip' data-placement='top' title='Delete' type='submit'><i class='fa fa-trash'></i></button></a>
+
                             <input type="hidden" name="action" value="delete"/>
                             <input type="hidden" name="delete_item" value="<%= productDetails.getProductId()%>"/>
-                            <button class='btn btn-danger btn-sm rounded-0 deleteButton' type='button submit' data-toggle='tooltip' data-placement='top' title='Delete' type='submit'><i class='fa fa-trash'></i></button></a>
                         </form>
 
                     </div>
@@ -76,71 +82,6 @@
             <% }%>
         </div>
 
-        <script>
-            $(document).ready(function () {
-                $('.editButton').on('click', function () {
-                    $('#updateItem').modal('show');
-                    $('#product_id').val($(this).data('id'));
-                });
-            });
-        </script>
-
-        <!--Bootstrap Modal for Updating New Product-->
-        <div class="modal fade" id="updateItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Product Details</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="../maintainProduct" method="POST">
-
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Product Name</label>
-                                <input type="text" class="form-control" name="product_name">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Product Description</label>
-                                <input type="text" class="form-control" name="product_description">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Stock</label>
-                                <input type="text" class="form-control" name="stock">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Price</label>
-                                <input type="text" class="form-control" name="price">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Weight (KG)</label>
-                                <input type="text" class="form-control" name="weight">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Product Image Link</label>
-                                <input type="text" class="form-control" name="product_image">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Free shipment?</label>
-                                <input type="checkbox" name="shipment" value="free_shipment" style="margin-left:10px;">
-                            </div>
-
-                            <input type="hidden" name="action" value="update"/>
-                            <input type="hidden" name="product_id" id="product_id"/>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" name="update" class="btn btn-primary" value="Update Product"/>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         <!--===============================================================================================-->
         <script src="../styling/vendor/bootstrap/js/popper.js"></script>
         <script src="../styling/vendor/bootstrap/js/bootstrap.min.js"></script>
