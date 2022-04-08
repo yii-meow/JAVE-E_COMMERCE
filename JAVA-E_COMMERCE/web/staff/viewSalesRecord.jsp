@@ -62,9 +62,10 @@
 <div style="text-align:center;margin-top:50px;">
     <span style=""><h2><u>Order History</u></h2></span>   
 </div>
-<table class="table table-striped">
+<table class="table">
     <thead>
         <tr style="text-align:center">
+            <th scope="col" ><a href="../viewSalesRecord?sort=ID&ascending=true">Order Time</a></th>
             <th scope="col" ><a href="../viewSalesRecord?sort=ID&ascending=true">Product ID</a></th>
             <th scope="col"><a href="?sort=name&ascending=true">Product Name</th></a>
             <th scope="col"><a href="?sort=quantity&ascending=true">Quantity</th></a>
@@ -79,21 +80,26 @@
         <% for (int i = 0; i < orders.size(); i++) {
                 Orders order = orders.get(i);
         %>
+        <tr style="text-align:center" class="table-info">
+            <td><%= order.getOrderTime()%></td>
+            <% for (int j = 0; j < order.getOrderListList().size(); j++) {
+                    OrderList ol = order.getOrderListList().get(j);
+            %>
+        <tr style="text-align:center">
+            <td class="table-light"></td>
 
-        <% for (int j = 0; j < order.getOrderListList().size(); j++) {
-                OrderList ol = order.getOrderListList().get(j);
-        %>
-
-        <tr style="text-align:center">                    
-            <td><%= order.getOrderId()%></td>
-            <td><%= ol.getQuantity()%></td>
-            <td><%= ol.getProduct().getProductName()%></td>
-            <td><%= String.format("RM %.2f", ol.getProduct().getPrice())%></td>                    
-            <td><%=String.format("RM %.2f", ol.getSubtotal())%></td>
+            <td class="table-success"><%= ol.getProduct().getProductId()%></td>
+            <td class="table-success"><%= ol.getProduct().getProductName()%></td>
+            <td class="table-success"><%= ol.getQuantity()%></td> 
+            <td class="table-success"><%= String.format("RM %.2f", ol.getProduct().getPrice())%></td>                    
+            <td class="table-success"><%=String.format("RM %.2f", ol.getSubtotal())%></td>
         </tr>
         <% }%>
 
-        <% }%>
+        </tr>
+        <tr><td colspan="6"></td></tr>
+            <% }%>
+
         </form>
     </tbody>
 </table>

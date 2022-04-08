@@ -84,21 +84,21 @@
 
         <% for (int j = 0; j < order.getOrderListList().size(); j++) {
                 OrderList ol = order.getOrderListList().get(j);
-        %>
+        %> 
 
-        <tr style="text-align:center">      
-            <td><%= order.getOrderTime() %></td>
-            <td><%= ol.getProduct().getProductId() %></td>
-            <td><%= ol.getProduct().getProductName() %></td>
-            <td><%= ol.getQuantity() %></td>
-            <td><%= String.format("RM %.2f", ol.getProduct().getPrice())%></td>                    
-            <td><%=String.format("RM %.2f", ol.getSubtotal())%></td>
-        </tr>
-        <% }%>
+    <tr style="text-align:center">      
+        <td><%= order.getOrderTime()%></td>
+        <td><%= ol.getProduct().getProductId()%></td>
+        <td><%= ol.getProduct().getProductName()%></td>
+        <td><%= ol.getQuantity()%></td>
+        <td><%= String.format("RM %.2f", ol.getProduct().getPrice())%></td>                    
+        <td><%=String.format("RM %.2f", ol.getSubtotal())%></td>
+    </tr>
+    <% }%>
 
-        <% }%>
-        </form>
-    </tbody>
+    <% }%>
+</form>
+</tbody>
 </table>
 
 </body>

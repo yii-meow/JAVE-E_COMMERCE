@@ -37,7 +37,7 @@
         <link href="../styling/css/profilePage.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 
-        <title>View Customer</title>
+        <title>View Existing Customer</title>
     </head>
     <body>
         <table class="table table-dark table-hover">            
