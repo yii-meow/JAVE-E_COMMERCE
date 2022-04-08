@@ -36,27 +36,34 @@
 
         <title>Maintain Product</title>
     </head>
-    <body>
-        <h2>Maintain Product</h2>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createProduct" data-whatever="@mdo">
+    <body style="background-color:#6441a5;">
+        <div style="text-align:center">
+            <span class="badge badge-success badge-pill" style="font-size:1.5rem;">
+                Maintain Product
+            </span>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createProduct" data-whatever="@mdo" style="margin-left:15px;margin-top:20px;">
             Create New Product
         </button>
 
-        <div class="card-group">
+        <div class="card-group" style="margin-top:20px;text-align:center">
             <%
                 for (int i = 0; i < product.size(); i++) {
                     Product productDetails = product.get(i);
             %>
             <div style="text-align:center">
-                <div class="card border-info mb-3" style="width: 15rem;">
-                    <img class="card-img-top" src="..." alt="Product Image">
+                <div class="card text-white bg-dark mb-3" style="width: 15rem;height:30rem;margin-left:15px;">
+                    <div class="card-body" style="height:300px;">
+                        <img class="card-img-top" src="<%= productDetails.getProductImage()%>" alt="Product Image" style="width:200px;height:200px;">
+                    </div>
 
                     <div class="card-body" id="details">
                         <form action="../maintainProduct" method="POST">
-                            <p class="card-text" id="product_id-<%=productDetails.getProductId()%>]">ID: <%= productDetails.getProductId()%></p>
-                            <p class="card-text" id="product_name[]"><%= productDetails.getProductName()%></p>
-                            <p class="card-text" id="product_price[]">RM <%= productDetails.getPrice()%></p>
-                            <p class="card-text" id="product_rating[]">Rating: </p>
+                            <p class="card-text">ID: <%= productDetails.getProductId()%></p>
+                            <p class="card-text"><%= productDetails.getProductName()%></p>
+                            <p class="card-text"><%= String.format("RM %.2f", productDetails.getPrice())%></p>
+                            <p class="card-text">Rating: </p>
                             <button class='btn btn-success btn-sm rounded-0 editButton' data-id="<%= productDetails.getProductId()%>" type='button' data-whatever='@mdo' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button>
                             <input type="hidden" name="action" value="delete"/>
                             <input type="hidden" name="delete_item" value="<%= productDetails.getProductId()%>"/>
@@ -110,8 +117,12 @@
                                 <input type="text" class="form-control" name="price">
                             </div>
                             <div class="form-group">
-                                <label for="message-text" class="col-form-label">Weight</label>
+                                <label for="message-text" class="col-form-label">Weight (KG)</label>
                                 <input type="text" class="form-control" name="weight">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Product Image Link</label>
+                                <input type="text" class="form-control" name="product_image">
                             </div>
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Free shipment?</label>
@@ -168,6 +179,10 @@
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Weight</label>
                             <input type="text" class="form-control" name="weight">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Product Image Link</label>
+                            <input type="text" class="form-control" name="product_image">
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Free shipment?</label>

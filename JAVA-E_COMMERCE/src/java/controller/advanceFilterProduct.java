@@ -63,7 +63,7 @@ public class advanceFilterProduct extends HttpServlet {
             if (!request.getParameter("max_price").isEmpty()) {
                 max_price = Double.parseDouble(request.getParameter("max_price"));
             } else {
-                max_price = 5000;
+                max_price = 50000;
             }
 
             Query query = em.createNamedQuery("Product.findByPriceAndShipment").setParameter("min_price", min_price).setParameter("max_price", max_price).setParameter("shipment", free);

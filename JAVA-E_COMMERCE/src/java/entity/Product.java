@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
     @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId"),
-    @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName = :productName"),
+    @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName LIKE CONCAT('%',:productName,'%')"),
     @NamedQuery(name = "Product.findByProductDescription", query = "SELECT p FROM Product p WHERE p.productDescription = :productDescription"),
     @NamedQuery(name = "Product.findByStock", query = "SELECT p FROM Product p WHERE p.stock = :stock"),
     @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
@@ -79,12 +79,13 @@ public class Product implements Serializable {
     }
 
     public Product(String productName, String productDescription, int stock,
-            double price, double productWeight, boolean isShipmentFree) {
+            double price, double productWeight, String image, boolean isShipmentFree) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.stock = stock;
         this.price = price;
         this.productWeight = productWeight;
+        this.productImage = image;
         this.isShipmentFree = isShipmentFree;
     }
 

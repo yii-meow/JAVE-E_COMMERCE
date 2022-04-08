@@ -61,8 +61,8 @@ public class filterProduct extends HttpServlet {
                         response.sendRedirect("customer/viewProduct.jsp");
                     } else {
                         out.println("<script type=\"text/javascript\">");
-                        out.println("alert('Deleted Successfully!');</script>");
-                        out.println("No result found!");
+                        out.println("alert('No result found!');");
+                        out.println("window.history.go(-1);</script>");
                     }
                 }
             } else {

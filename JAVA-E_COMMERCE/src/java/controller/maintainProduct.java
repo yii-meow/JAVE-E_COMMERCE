@@ -69,6 +69,7 @@ public class maintainProduct extends HttpServlet {
                 int stock = Integer.parseInt(request.getParameter("stock"));
                 double price = Double.parseDouble(request.getParameter("price"));
                 double weight = Double.parseDouble(request.getParameter("weight"));
+                String product_image = request.getParameter("product_image");
 
                 String value = request.getParameter("shipment") + "";
                 boolean free_shipment = false;
@@ -79,7 +80,7 @@ public class maintainProduct extends HttpServlet {
                 if (request.getParameter("action").equals("create")) {
                     try {
                         utx.begin();
-                        Product product = new Product(product_name, product_description, stock, price, weight, free_shipment);
+                        Product product = new Product(product_name, product_description, stock, price, weight, product_image, free_shipment);
                         em.persist(product);
                         utx.commit();
                         out.println("<script type=\"text/javascript\">");
@@ -91,21 +92,22 @@ public class maintainProduct extends HttpServlet {
                 } else {
                     int id = Integer.parseInt(request.getParameter("product_id"));
                     out.print(id);
-                    
-                    try{
+
+                    try {
                         utx.begin();
-                        Product product = em.find(Product.class,id );
+                        Product product = em.find(Product.class, id);
                         product.setProductName(product_name);
                         product.setProductDescription(product_description);
                         product.setStock(stock);
                         product.setPrice(price);
                         product.setProductWeight(weight);
+                        product.setProductImage(product_image);
                         product.setIsShipmentFree(free_shipment);
                         response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
-                        
+
                         utx.commit();
-                    }catch(Exception ex){
-                        
+                    } catch (Exception ex) {
+
                     }
                 }
             }
