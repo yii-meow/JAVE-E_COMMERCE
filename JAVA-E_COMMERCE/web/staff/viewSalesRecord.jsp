@@ -85,7 +85,7 @@
             <% for (int j = 0; j < order.getOrderListList().size(); j++) {
                     OrderList ol = order.getOrderListList().get(j);
             %>
-        <tr style="text-align:center">
+        <tr style="text-align:center;border-style:hidden;">
             <td class="table-light"></td>
 
             <td class="table-success"><%= ol.getProduct().getProductId()%></td>
@@ -97,7 +97,7 @@
         <% }%>
 
         </tr>
-        <tr><td colspan="6"></td></tr>
+        <tr style="border-style:hidden;"><td colspan="6"></td></tr>
             <% }%>
 
         </form>

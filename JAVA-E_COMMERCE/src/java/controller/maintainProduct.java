@@ -64,48 +64,55 @@ public class maintainProduct extends HttpServlet {
                 }
             } // CREATE OR UPDATE PRODUCT
             else if (request.getParameter("action").equals("create") || request.getParameter("action").equals("update")) {
-                String product_name = request.getParameter("product_name");
-                String product_description = request.getParameter("product_description");
-                int stock = Integer.parseInt(request.getParameter("stock"));
-                double price = Double.parseDouble(request.getParameter("price"));
-                double weight = Double.parseDouble(request.getParameter("weight"));
-                String product_image = request.getParameter("product_image");
 
-                String value = request.getParameter("shipment") + "";
-                boolean free_shipment = false;
-                if (value.equals("free_shipment")) {
-                    free_shipment = true;
-                }
+                try {
+                    String product_name = request.getParameter("product_name");
+                    String product_description = request.getParameter("product_description");
+                    int stock = Integer.parseInt(request.getParameter("stock"));
+                    double price = Double.parseDouble(request.getParameter("price"));
+                    double weight = Double.parseDouble(request.getParameter("weight"));
+                    String product_image = request.getParameter("product_image");
 
-                if (request.getParameter("action").equals("create")) {
-                    try {
-                        utx.begin();
-                        Product product = new Product(product_name, product_description, stock, price, weight, product_image, free_shipment);
-                        em.persist(product);
-                        utx.commit();
-                        out.println("<script type=\"text/javascript\">");
-                        out.println("alert('Created Successfully!');</script>");
-                        response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
-                    } catch (Exception ex) {
-                        out.println(ex.getMessage());
+                    String value = request.getParameter("shipment") + "";
+                    boolean free_shipment = false;
+                    if (value.equals("free_shipment")) {
+                        free_shipment = true;
                     }
-                } else {
-                    int id = Integer.parseInt(request.getParameter("product_id"));
-                    try {
-                        utx.begin();
-                        Product product = em.find(Product.class, id);        
-                        product.setProductName(product_name);
-                        product.setProductDescription(product_description);
-                        product.setStock(stock);
-                        product.setPrice(price);
-                        product.setProductWeight(weight);
-                        product.setProductImage(product_image);
-                        product.setIsShipmentFree(free_shipment);
-                        response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
-                        utx.commit();
-                    } catch (Exception ex) {
-                        out.println(ex.getMessage());
+
+                    if (request.getParameter("action").equals("create")) {
+                        try {
+                            utx.begin();
+                            Product product = new Product(product_name, product_description, stock, price, weight, product_image, free_shipment);
+                            em.persist(product);
+                            utx.commit();
+                            out.println("<script type=\"text/javascript\">");
+                            out.println("alert('Created Successfully!');</script>");
+                            response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
+                        } catch (Exception ex) {
+                            out.println(ex.getMessage());
+                        }
+                    } else {
+                        int id = Integer.parseInt(request.getParameter("product_id"));
+                        try {
+                            utx.begin();
+                            Product product = em.find(Product.class, id);
+                            product.setProductName(product_name);
+                            product.setProductDescription(product_description);
+                            product.setStock(stock);
+                            product.setPrice(price);
+                            product.setProductWeight(weight);
+                            product.setProductImage(product_image);
+                            product.setIsShipmentFree(free_shipment);
+                            response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
+                            utx.commit();
+                        } catch (Exception ex) {
+                            out.println(ex.getMessage());
+                        }
                     }
+                } catch (NumberFormatException ex) {
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Alphabet value in number column is not allowed!');");
+                    out.println("window.history.go(-1);</script>");
                 }
             }
 
