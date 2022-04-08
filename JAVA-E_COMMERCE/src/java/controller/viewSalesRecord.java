@@ -53,25 +53,33 @@ public class viewSalesRecord extends HttpServlet {
             Date start_time = new SimpleDateFormat("yyyy-MM-dd").parse(start_date);
             Date end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_date);
 
+            // TIME VALIDATION
             if (start_time.after(end_time)){
+                // PUT SCRIPT ALERT
+                
                 response.sendRedirect("staff/viewSalesRecord.jsp");
             }
             
-            Query findAllOrdersInTimeRange = em.createNamedQuery("OrderList.findOrderInTimeRange").setParameter("startTime", start_time).setParameter("endTime", end_time);
+            // FIND ORDER IN TIME RANGE PROVIDED
+            Query findAllOrdersInTimeRange = em.createNamedQuery("Orders.findOrderInTimeRange").setParameter("startTime", start_time).setParameter("endTime", end_time);
 
             if (!findAllOrdersInTimeRange.getResultList().isEmpty()) {
+                // SET SESSION FOR ALL ORDER IN TIME RANGE IN LIST<Orders>
                 HttpSession session = request.getSession();
-                List<OrderList> orderlist = findAllOrdersInTimeRange.getResultList();
-                session.setAttribute("order-list", orderlist);
+                List<Orders> orders = findAllOrdersInTimeRange.getResultList();
+                session.setAttribute("orders", orders);      
+                
                 Query query = em.createNamedQuery("OrderList.findSubtotalByDateGroup").setParameter("startTime", start_time).setParameter("endTime", end_time);
 
                 if (!query.getResultList().isEmpty()) {
+                    // SET SESSION FOR GROUPING DATA IN ORDER LIST
                     List<Object[]> result = query.getResultList();
                     session.setAttribute("ordersGroup", result);
                     session.setAttribute("start_time", start_date);
                     session.setAttribute("end_time", end_date);
                     response.sendRedirect("staff/viewFilteredSalesRecord.jsp");
                 } else {
+                    // PUT SCRIPT ALERT
                     response.sendRedirect("staff/viewFilteredSalesRecord.jsp");
                 }
             } else {

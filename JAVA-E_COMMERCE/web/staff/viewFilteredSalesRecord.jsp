@@ -6,9 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Orders,entity.OrderList,entity.Product,java.util.*"%>
-<jsp:include page="../viewSalesRecord"/>
 <% List<Object[]> order_list = (List<Object[]>) session.getAttribute("ordersGroup");%>
-<% List<OrderList> orders = (List<OrderList>) session.getAttribute("order-list"); %>
+<% List<Orders> orders = (List<Orders>) session.getAttribute("orders"); %>
 
 <!DOCTYPE html>
 <html>
@@ -20,9 +19,9 @@
         <title>Sales Record</title>
     </head>
     <body>
-        <span class="badge bg-info text-dark" style="font-size:1.5rem;margin-left:auto;margin-right:auto;">Overall Sales Record</span>
-        </br></br>
-        Date: <b><span id="start_time">${start_time}</span> - <span id="end_time">${end_time}</span></b>
+        <span class="badge bg-info text-dark" style="font-size:1.5rem;margin-left:auto;margin-right:auto;">
+            Sales Record from <span id="start_time">${start_time}</span> - <span id="end_time">${end_time}</span>
+        </span>
 
         <table class="table table-striped">
             <thead>
@@ -80,7 +79,7 @@
         </br>
         <!-- GROUP BY RESULT FROM PRODUCT ID -->
         <% for (int i = 0; i < orders.size(); i++) {
-                OrdersList order = orders.get(i);
+                Orders order = orders.get(i);
         %>
 
         <% for (int j = 0; j < order.getOrderListList().size(); j++) {
@@ -89,9 +88,9 @@
 
         <tr style="text-align:center">      
             <td><%= order.getOrderTime() %></td>
-            <td><%= order.getOrderId()%></td>
-            <td><%= ol.getQuantity()%></td>
-            <td><%= ol.getProduct().getProductName()%></td>
+            <td><%= ol.getProduct().getProductId() %></td>
+            <td><%= ol.getProduct().getProductName() %></td>
+            <td><%= ol.getQuantity() %></td>
             <td><%= String.format("RM %.2f", ol.getProduct().getPrice())%></td>                    
             <td><%=String.format("RM %.2f", ol.getSubtotal())%></td>
         </tr>

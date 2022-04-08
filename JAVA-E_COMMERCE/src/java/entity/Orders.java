@@ -40,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Orders.findByShipTime", query = "SELECT o FROM Orders o WHERE o.shipTime = :shipTime"),
     @NamedQuery(name = "Orders.findByTrackingNumber", query = "SELECT o FROM Orders o WHERE o.trackingNumber = :trackingNumber"),
     @NamedQuery(name = "Orders.findByDeliveryCourier", query = "SELECT o FROM Orders o WHERE o.deliveryCourier = :deliveryCourier"),
+    @NamedQuery(name = "Orders.findOrderInTimeRange", query = "SELECT o FROM Orders o WHERE o.orderTime BETWEEN :startTime AND :endTime ORDER BY o.orderTime DESC"),
     @NamedQuery(name = "Orders.findByShipmentDetails", query = "SELECT o FROM Orders o WHERE o.shipmentDetails = :shipmentDetails")})
 public class Orders implements Serializable {
 
