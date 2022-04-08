@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author yikso
  */
-
 // NORMAL FILTER FOR PRODUCT (NAME AND ID)
 @WebServlet(name = "filterProduct", urlPatterns = {"/filterProduct"})
 public class filterProduct extends HttpServlet {
@@ -46,7 +45,7 @@ public class filterProduct extends HttpServlet {
             HttpSession session = request.getSession();
             String item_name = request.getParameter("item_details");
             Query query;
-            
+
             if (request.getParameter("filterOption").equals("name")) {
                 if (item_name.equals("")) {
                     query = em.createNamedQuery("Product.findAll");
@@ -54,13 +53,15 @@ public class filterProduct extends HttpServlet {
                     session.setAttribute("product", product);
                     response.sendRedirect("customer/viewProduct.jsp");
                 } else {
-                  
+
                     query = em.createNamedQuery("Product.findByProductName").setParameter("productName", item_name);
                     if (!query.getResultList().isEmpty()) {
                         List<Product> product = query.getResultList();
                         session.setAttribute("product", product);
                         response.sendRedirect("customer/viewProduct.jsp");
                     } else {
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('Deleted Successfully!');</script>");
                         out.println("No result found!");
                     }
                 }
@@ -70,9 +71,9 @@ public class filterProduct extends HttpServlet {
                     List<Product> product = query.getResultList();
                     session.setAttribute("product", product);
                     response.sendRedirect("customer/viewProduct.jsp");
-                } else {                   
+                } else {
                     query = em.createNamedQuery("Product.findByProductId").setParameter("productId", Integer.parseInt(item_name));
-                    
+
                     if (!query.getResultList().isEmpty()) {
                         List<Product> product = query.getResultList();
                         session.setAttribute("product", product);

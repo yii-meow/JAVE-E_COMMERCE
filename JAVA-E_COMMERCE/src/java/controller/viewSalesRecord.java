@@ -54,12 +54,13 @@ public class viewSalesRecord extends HttpServlet {
             Date end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(end_date);
 
             // TIME VALIDATION
-            if (start_time.after(end_time)){
-                // PUT SCRIPT ALERT
-                
-                response.sendRedirect("staff/viewSalesRecord.jsp");
+            if (start_time.after(end_time)) {
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('Starting date cannot be greater than ending date!');");
+                out.println("window.history.go(-1);</script>");
+                return;
             }
-            
+
             // FIND ORDER IN TIME RANGE PROVIDED
             Query findAllOrdersInTimeRange = em.createNamedQuery("Orders.findOrderInTimeRange").setParameter("startTime", start_time).setParameter("endTime", end_time);
 
@@ -67,8 +68,8 @@ public class viewSalesRecord extends HttpServlet {
                 // SET SESSION FOR ALL ORDER IN TIME RANGE IN LIST<Orders>
                 HttpSession session = request.getSession();
                 List<Orders> orders = findAllOrdersInTimeRange.getResultList();
-                session.setAttribute("orders", orders);      
-                
+                session.setAttribute("orders", orders);
+
                 Query query = em.createNamedQuery("OrderList.findSubtotalByDateGroup").setParameter("startTime", start_time).setParameter("endTime", end_time);
 
                 if (!query.getResultList().isEmpty()) {
@@ -79,11 +80,12 @@ public class viewSalesRecord extends HttpServlet {
                     session.setAttribute("end_time", end_date);
                     response.sendRedirect("staff/viewFilteredSalesRecord.jsp");
                 } else {
-                    // PUT SCRIPT ALERT
                     response.sendRedirect("staff/viewFilteredSalesRecord.jsp");
                 }
             } else {
-                out.println("no result found!");
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('no result found!!');");
+                out.println("window.history.go(-1);</script>");
             }
 
         } catch (Exception ex) {
