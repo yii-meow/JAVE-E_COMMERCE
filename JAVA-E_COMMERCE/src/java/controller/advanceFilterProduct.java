@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
  *
  * @author yikso
  */
-
 // ADVANCE FILTER FOR PRODUCT
 @WebServlet(name = "advanceFilterProduct", urlPatterns = {"/advanceFilterProduct"})
 public class advanceFilterProduct extends HttpServlet {
@@ -49,36 +48,40 @@ public class advanceFilterProduct extends HttpServlet {
             boolean free = false;
             String value = request.getParameter("shipment") + "";
 
+            // CHECK IF FREE SHIPMENT MARKED BY USER
             if (value.equals("free_shipment")) {
                 free = true;
             }
 
-            // out.println(Boolean.toString(request.getParameter("shipment").equals("null")));
+            // SET MINIMUM PRICE FILTER
             if (!request.getParameter("min_price").isEmpty()) {
                 min_price = Double.parseDouble(request.getParameter("min_price"));
             } else {
                 min_price = 0;
             }
 
+            // SET MAXIMUM PRICE FILTER
             if (!request.getParameter("max_price").isEmpty()) {
                 max_price = Double.parseDouble(request.getParameter("max_price"));
             } else {
-                max_price = 50000;
+                // RETRIEVE MAX PRICE FROM ENTITY NAMED QUERY (MAX)
+                Query query = em.createNamedQuery("Product.findMaxPrice");
+                List<Double> price = query.getResultList();
+                max_price = price.get(0);
             }
-
             Query query = em.createNamedQuery("Product.findByPriceAndShipment").setParameter("min_price", min_price).setParameter("max_price", max_price).setParameter("shipment", free);
             List<Product> product = query.getResultList();
             
-            if (!product.isEmpty()){
+            if (!product.isEmpty()) {
                 HttpSession session = request.getSession();
-                session.setAttribute("product", product);  
-                out.println(product);
+                session.setAttribute("product", product);
                 response.sendRedirect("customer/viewProduct.jsp");
-            }else{
-                out.println("No product found!");
+            } else {
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('No product found!');");
+                out.println("window.history.go(-1);</script>");
             }
-            
-            
+
         } catch (Exception ex) {
             out.println(ex.getMessage());
         }

@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByProductWeight", query = "SELECT p FROM Product p WHERE p.productWeight = :productWeight"),
     @NamedQuery(name = "Product.findByIsShipmentFree", query = "SELECT p FROM Product p WHERE p.isShipmentFree = :isShipmentFree"),
     @NamedQuery(name = "Product.findByPriceAndShipment", query = "SELECT p FROM Product p WHERE p.price >= :min_price AND p.price <= :max_price AND p.isShipmentFree = :shipment"),
+    @NamedQuery(name = "Product.findMaxPrice", query = "SELECT MAX(p.price) FROM Product p"),
     @NamedQuery(name = "Product.findByProductImage", query = "SELECT p FROM Product p WHERE p.productImage = :productImage")})
 public class Product implements Serializable {
 
