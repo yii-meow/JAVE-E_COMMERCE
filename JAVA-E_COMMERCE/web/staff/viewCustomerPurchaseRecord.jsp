@@ -101,7 +101,7 @@
             });
         </script>
 
-        <!--Bootstrap Modal for Updating New Appointment-->
+        <!--Bootstrap Modal for Updating New Shipment-->
         <div class="modal fade" id="updateShipment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
 

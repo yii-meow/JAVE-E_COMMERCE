@@ -20,6 +20,7 @@ import entity.Orders;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
@@ -106,6 +107,7 @@ public class viewSalesRecord extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
+        
         // RETRIEVE ALL ORDER
         HttpSession session = request.getSession();
         Query query = em.createNamedQuery("Orders.findAll");
@@ -116,6 +118,18 @@ public class viewSalesRecord extends HttpServlet {
         Query query2 = em.createNamedQuery("OrderList.findSubtotalGroup");
         List<Object[]> ol = query2.getResultList();
         session.setAttribute("ordersGroup", ol);
+        
+        // CHECK IF SHIPMENT NEED TO BE SORTED
+        String shipment = request.getParameter("shipment") + "";
+        
+        if(!shipment.equals("null")){
+            // FIND ORDERS OF THE PROVIDED SHIPMENT STATUS
+            List<Orders> order_shipment = em.createNamedQuery("Orders.findByShipmentDetails").setParameter("shipmentDetails", shipment).getResultList();
+            session.setAttribute("order_shipment", order_shipment);                        
+            RequestDispatcher rd = request.getRequestDispatcher("staff/viewOrderShipment.jsp");
+            rd.forward(request, response);
+        }
+        
     }
 
     /**
