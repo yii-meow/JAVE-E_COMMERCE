@@ -56,7 +56,7 @@
                 <button class='btn btn-success btn-sm rounded-0 editButton' type='button' data-id="<%= ordersDetails.getOrderId()%>" data-whatever='@mdo' data-placement='top' title='Edit' style='margin-left:8px;'><i class='fa fa-edit'></i></button>
 
                 <div style='display:inline-block;width:36.5rem;text-align:right;'>
-                    <span style="margin-left:320px;"><%= ordersDetails.getOrderTime()%></span>
+                    <%= ordersDetails.getOrderTime()%>
                 </div>
                 </br>
 
