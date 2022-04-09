@@ -39,8 +39,10 @@
         <title>View Customer Purchase Record</title>
     </head>
     <body>
+        <div style='text-align:center;'>
+            <p class="h5">Record of Customer : <%= orders.get(0).getCustomerID().getCustomerName()%></p>
+        </div>
 
-        <p class="h6">Customer: <%= orders.get(0).getCustomerID().getCustomerName()%></p>
         <% for (int i = 0; i < orders.size(); i++) {
                 Orders ordersDetails = orders.get(i);
         %>     
@@ -51,37 +53,54 @@
                 <i class="bi bi-card-list"></i>
                 <%= ordersDetails.getShipmentDetails()%>
 
-                <button class='btn btn-success btn-sm rounded-0 editButton' type='button' data-id="<%= ordersDetails.getOrderId()%>" data-whatever='@mdo' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button>
-                <span style="margin-left:320px;"><%= ordersDetails.getOrderTime()%></span>
-                </br>Tracking Number: <%= ordersDetails.getTrackingNumber()%>
+                <button class='btn btn-success btn-sm rounded-0 editButton' type='button' data-id="<%= ordersDetails.getOrderId()%>" data-whatever='@mdo' data-placement='top' title='Edit' style='margin-left:8px;'><i class='fa fa-edit'></i></button>
+
+                <div style='display:inline-block;width:36.5rem;text-align:right;'>
+                    <span style="margin-left:320px;"><%= ordersDetails.getOrderTime()%></span>
+                </div>
+                </br>
+
+                Tracking Number: <%= ordersDetails.getTrackingNumber()%>
             </div>
 
-            <!-------------- Order Content ------------->
+            <!-------------- Order Content in Card Body ------------->
             <div class="card-body">
 
                 <% for (int j = 0; j < ordersDetails.getOrderListList().size(); j++) {
                         OrderList orderlist = ordersDetails.getOrderListList().get(j);
                 %>
                 <div width="500px;">
+
+                    <!--------------- Image ----------------->
                     <img src="<%= orderlist.getProduct().getProductImage()%>" style="width:100px;height:100px;"/>
                 </div>
+
                 </br>
+
                 <span>
                     <h5>
                         <div style="width:200px;">
+                            <!--------------- Product Name ----------------->
                             <%= orderlist.getProduct().getProductName()%>
                         </div>
-                        <span style="margin-left:535px;font-weight:normal"><%= String.format("RM %.2f", orderlist.getProduct().getPrice())%></span>
-                        <span style="font-weight:100">x <%= orderlist.getQuantity()%></span>
+                        <div style='width:43rem;text-align:right;'>
+                            <!--------------- Product Price and Quantity ----------------->
+                            <span style="font-weight:normal"><%= String.format("RM %.2f", orderlist.getProduct().getPrice())%></span>
+                            <span style="font-weight:100">x <%= orderlist.getQuantity()%></span>
+                        </div>
                     </h5>
                 </span>
 
+                <!--------------- Product Description ----------------->
                 <p class="card-text">Description : <%= orderlist.getProduct().getProductDescription()%></p>
+
                 <hr>
+
                 <% }%>
+
             </div>
 
-            <!-------------- Order Content ------------->
+            <!-------------- Order Content in Card Body ------------->
 
             <ul class="list-group list-group-flush">
 

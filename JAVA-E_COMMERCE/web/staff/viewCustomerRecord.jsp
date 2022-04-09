@@ -49,12 +49,12 @@
                     %>
 
                     <th scope="col"><a href="?sort=ID">
-                        <% if (!sort.equals("ID")) {%>         
-                        <a href="?sort=ID&orderBy=asc">Customer ID
-                            <% } else {%>
-                            <%= orderBy.equals("asc") ? "<a href='?sort=ID&orderBy=desc'>Customer ID<i class='bi bi-arrow-up'></i></a>" : "<a href='?sort=ID&orderBy=asc'>Customer ID<i class='bi bi-arrow-down'></i>"%>
-                            <% } %>
-                        </a>
+                            <% if (!sort.equals("ID")) {%>         
+                            <a href="?sort=ID&orderBy=asc">Customer ID
+                                <% } else {%>
+                                <%= orderBy.equals("asc") ? "<a href='?sort=ID&orderBy=desc'>Customer ID<i class='bi bi-arrow-up'></i></a>" : "<a href='?sort=ID&orderBy=asc'>Customer ID<i class='bi bi-arrow-down'></i>"%>
+                                <% } %>
+                            </a>
                     </th>
 
                     <th scope="col">
@@ -110,12 +110,20 @@
                     <td style="width:5%"><%= customerDetails.getGender()%></td>
                     <td style="width:10%"><%= customerDetails.getOrdersList().size()%></td>
                     <td><%= String.format("RM %.2f", customerDetails.calculateTotalPurchaseAmount())%></td>
+
+                    <% if (customerDetails.calculateTotalPurchaseAmount() != 0) {%>
+
                     <td style="width:15%">
                         <form action="../viewCustomerRecord" method="POST">
                             <input type="hidden" name="customer_ID" value="<%= customerDetails.getCustomerID()%>"/>
                             <button class='btn btn-success btn-sm rounded-0' type='button submit' data-id="<%= customerDetails.getCustomerID()%>"><i class="bi bi-arrow-90deg-right"></i></button>
                         </form>
                     </td>
+                    <% } else { %>
+                    <td style="width:15%">
+                        No record
+                    </td>
+                    <% } %>
                 </tr>
                 <% }%>
             </tbody>

@@ -75,16 +75,6 @@ public class viewCustomerRecord extends HttpServlet {
         Query query = em.createNamedQuery("Customer.findAll");
         List<Customer> customer = query.getResultList();
 
-        for (int i = 0; i < customer.size(); i++) {
-            // TO CHECK WHICH CUSTOMER HAVE NO ORDER
-            try {
-                if (!customer.get(i).getOrdersList().get(0).getOrderId().equals("")) {
-                }
-
-            } catch (Exception ex) {
-                customer.remove(i);
-            }
-        }
         HttpSession session = request.getSession();
 
         // CHECK IF SHIPMENT NEED TO BE SORTED
@@ -130,6 +120,7 @@ public class viewCustomerRecord extends HttpServlet {
                         sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.gender DESC");
                     }
             }
+            
             // SEND THE RESULT TO THE CUSTOMER OBJECT
             List<Customer> cust = sort_cust.getResultList();
             session.setAttribute("customer", cust);
