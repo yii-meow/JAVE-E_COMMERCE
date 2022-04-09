@@ -80,12 +80,12 @@
         <% for (int i = 0; i < orders.size(); i++) {
                 Orders order = orders.get(i);
         %>
-        <tr style="text-align:center" class="table-info">
+        <tr style="text-align:center;font-weight:bold;color:#cc0099">
             <td><%= order.getOrderTime()%></td>
             <% for (int j = 0; j < order.getOrderListList().size(); j++) {
                     OrderList ol = order.getOrderListList().get(j);
             %>
-        <tr style="text-align:center;border-style:hidden;">
+        <tr style="text-align:center;border-style:hidden">
             <td class="table-light"></td>
 
             <td class="table-success"><%= ol.getProduct().getProductId()%></td>
