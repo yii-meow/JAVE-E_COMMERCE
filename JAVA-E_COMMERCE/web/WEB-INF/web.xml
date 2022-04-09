@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    
+    <!-- Login Module -->
+    <servlet>
+        <servlet-name>StaffLogin</servlet-name>
+        <servlet-class>Servlets.StaffLogin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StaffLogin</servlet-name>
+        <url-pattern>/staffLogin</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Retrieve Module -->
+    <servlet>
+        <servlet-name>RetrieveRecord</servlet-name>
+        <servlet-class>Servlets.RetrieveRecord</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RetrieveRecord</servlet-name>
+        <url-pattern>/RetrieveRecord</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Add Staff -->
+    <servlet>
+        <servlet-name>AddStaff</servlet-name>
+        <servlet-class>Servlets.AddStaff</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddStaff</servlet-name>
+        <url-pattern>/AddStaff</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Check Password Requirement -->
+    <servlet>
+        <servlet-name>Password</servlet-name>
+        <servlet-class>Servlets.CheckPassword</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Password</servlet-name>
+        <url-pattern>/Password</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Save Staff -->
+    <servlet>
+        <servlet-name>SaveStaff</servlet-name>
+        <servlet-class>Servlets.SaveStaff</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SaveStaff</servlet-name>
+        <url-pattern>/SaveStaff</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Edit Staff -->
+    <servlet>
+        <servlet-name>EditStaff</servlet-name>
+        <servlet-class>Servlets.EditStaff</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditStaff</servlet-name>
+        <url-pattern>/EditStaff</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Delete Staff -->
+    <servlet>
+        <servlet-name>DeleteStaff</servlet-name>
+        <servlet-class>Servlets.DeleteStaff</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteStaff</servlet-name>
+        <url-pattern>/DeleteStaff</url-pattern>
+    </servlet-mapping>
+    
+    <!--ActionRecord-->
+    <servlet>
+        <servlet-name>RecordAction</servlet-name>
+        <servlet-class>Servlets.RecordAction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecordAction</servlet-name>
+        <url-pattern>/RecordAction</url-pattern>
+    </servlet-mapping>
+    
+    <!--Search-->
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>Servlets.Search</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
+    
+    <!--LogOut-->
+    <servlet>
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>Servlets.LogOut</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/LogOut</url-pattern>
+    </servlet-mapping>
+    
+    <!--Report-->
+    <servlet>
+        <servlet-name>Report</servlet-name>
+        <servlet-class>Servlets.GenerateReport</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Report</servlet-name>
+        <url-pattern>/GenerateReport</url-pattern>
+    </servlet-mapping>
+    <!--
+        <servlet>
+            <servlet-name>ConfirmStaff</servlet-name>
+            <servlet-class>Servlets.ConfirmStaffDetails</servlet-class>
+        </servlet>
+    
+        <servlet-mapping>
+            <servlet-name>ConfirmStaff</servlet-name>
+            <url-pattern>/ConfirmStaffDetails</url-pattern>
+        </servlet-mapping>
+    -->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
