@@ -17,3 +17,4 @@ then go glassfish domain console to add data source, below is the guide
 
 
 
+[connectmysql.pdf](https://github.com/yii-meow/JAVE-E_COMMERCE/files/8456536/connectmysql.pdf)
