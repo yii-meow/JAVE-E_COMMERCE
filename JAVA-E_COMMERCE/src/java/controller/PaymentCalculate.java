@@ -21,8 +21,8 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
 import entity.Product;
 import entity.ProductService;
-import entity.Shoppingcart;
-import entity.ShoppingcartService;
+import entity.Shoppingcart2;
+import entity.Shoppingcart2Service;
 import entity.Voucher;
 import entity.VoucherService;
 
@@ -39,13 +39,13 @@ public class PaymentCalculate extends HttpServlet {
         try {
 
             String test = "test";
-            ShoppingcartService itemService = new ShoppingcartService(em);
+            Shoppingcart2Service itemService = new Shoppingcart2Service(em);
             VoucherService voucherService = new VoucherService(em);
             ProductService productService = new ProductService(em);
 
             HttpSession session = request.getSession();
 
-            List<Shoppingcart> itemList = itemService.findAll();
+            List<Shoppingcart2> itemList = itemService.findAll();
             session.setAttribute("cartList", itemList);
 
             List<Voucher> voucherList = voucherService.findAll();
@@ -53,25 +53,19 @@ public class PaymentCalculate extends HttpServlet {
 
             List<Product> productList = productService.findAll();
             session.setAttribute("productList", productList);
+             
+            double price = 0;
+            int index = 0;
+            double ori[] = new double[itemList.size()];
 
-//            int productIdList[] = null;
-//            int productIndex = 0;
-//            int productQuantityList[] = null;
-//            double price = 0;
-//
-//            for (Shoppingcart item : itemList) {
-//                int i=item.getProductId();
-//                productIdList[productIndex] = Integer.parseInt(item.getProductId());
-//                productQuantityList[productIndex] = item.getQuantity();
-//                productIndex++;
-//            }
-//
-//            for (Product item : productList) {
-//                if (productIdList[productIndex] == item.getProductId()) {
-//                    price += (item.getPrice() * productQuantityList[productIndex]);
-//                }
-//                productIndex++;
-//            }
+            for (Shoppingcart2 item : itemList) {
+                price += item.getQuantity() * item.getProductId().getPrice();
+                ori[index] = item.getQuantity() * item.getProductId().getPrice();
+                index++;
+            }
+
+            session.setAttribute("totalPrice", price);
+            session.setAttribute("oriprice", ori);
 
             System.out.println("hello");
 

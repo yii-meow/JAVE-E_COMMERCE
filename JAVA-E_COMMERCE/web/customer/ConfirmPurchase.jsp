@@ -1,15 +1,16 @@
 <%-- 
-    Document   : shoppingCart
-    Created on : Apr 8, 2022, 12:10:26 AM
+    Document   : Payment
+    Created on : Apr 8, 2022, 8:36:54 PM
     Author     : sohyz
 --%>
 
+<%@page import="entity.Voucher"%>
 <%@page import="entity.Shoppingcart2"%>
 <%@page import="java.util.List"%>
-<%@page import="entity.Product"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
+    List<Voucher> voucherList = (List) session.getAttribute("voucherList");
+    double totalPrice = (Double) session.getAttribute("totalPrice");
 %>
 <html>
     <head>
@@ -45,15 +46,13 @@
 
         </style>
     <body>
-        <h1>ShoppingCart</h1>
+        <h1>Review Payment</h1>
 
         <table id="product">
             <tr>
                 <th>ProductImg</th> 
                 <th>ProductID</th> 
-                <th>customer id</a></th> 
-                <th>quantity ordered</th>
-                <th>modify Cart</th>
+                <th>Quantity</th>
             </tr>
 
             <%for (Shoppingcart2 item : itemList) {%>
@@ -64,31 +63,50 @@
                     </form>
                 </td>
                 <td>   <%=item.getProductId()%></td>
-                <td>   <%=item.getCustomerId()%></td>
                 <td>   <%=item.getQuantity()%></td>
-                <td>                     
-                    <form action="../UpdateCart">
-                        <input type="number" id="quantity" name="quantity" min="1" max="100">
-                        <input type="hidden" id="cartID" name="cartID" value= <%=(Integer) item.getCartId()%>>
-                        <input type="hidden" id="productID" name="productID" value= "<%=item.getProductId().getProductId()%>">
-                        <input type="hidden" id="customerID" name="customerID" value= "1">
-                        <input type="submit" value="UpdateCart" onclick="test(<%=item.getProductId()%>, 1)">
-                    </form>
-                </td>
                 <%}%>
             </tr>
         </table>
-        <form action="../customer/PaymentCalculate" method="post">
-            <input type="hidden" id="cartID" name="cartID" value= <%=itemList%>>
-            <input type="submit" value="Proceed to Payment">
+
+
+        <table id="product">
+            <tr>
+                <th>use voucher</th> 
+                <th>Voucher Name</a></th> 
+                <th>Discount Rate</th>
+                <th>Original Payment</th>
+                <th>Price after discount</th>
+            </tr>
+            <form action="../customer/ViewProductDetails" method="post">
+                <%int i = 0;%>
+                <%for (Voucher item : voucherList) {%>
+                <tr>
+                    <td>
+
+                        <input type="radio" id="voucher" name="voucher" value="<%=item.getVoucherDiscountRate()%>">
+
+                    </td>
+                    <td>   <%=item.getVoucherName()%></td>
+                    <td>   <%=item.getVoucherDiscountRate()%></td>
+                    <%i++;
+                        }%>
+                </tr>
+                <input type="submit",value="Proceed to payment">
+            </form>
+        </table>
+
+
+
+        <form >
+            <button onclick="window.location.href = 'payment.jsp" type="submit" value="" name="your_name" class="btn-link">Go</button>
         </form>
 
     </body>
-
+    <button onclick="test(<%=totalPrice%>)">testing</button>
     <script>
 
-        function test(a, b, ) {
-            alert("product iD:" + a + "customer ID" + b);
+        function test(a) {
+            alert("total price=" + a);
 
         }
 

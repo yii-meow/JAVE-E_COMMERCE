@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import entity.Shoppingcart;
-import entity.ShoppingcartService;
+import entity.Shoppingcart2;
+import entity.Shoppingcart2Service;
 
 public class ViewShoppingCart extends HttpServlet {
 
@@ -35,13 +35,13 @@ public class ViewShoppingCart extends HttpServlet {
         try {
 
             String test = "test";
-            ShoppingcartService itemService = new ShoppingcartService(em);
+            Shoppingcart2Service itemService = new Shoppingcart2Service(em);
 
             HttpSession session = request.getSession();
 
-            Shoppingcart shoppingcart = new Shoppingcart();
+            Shoppingcart2 shoppingcart = new Shoppingcart2();
 
-            List<Shoppingcart> itemList = itemService.findAll();
+            List<Shoppingcart2> itemList = itemService.findAll();
             session.setAttribute("cartList", itemList);
             response.sendRedirect("shoppingCart.jsp");
         } catch (Exception ex) {

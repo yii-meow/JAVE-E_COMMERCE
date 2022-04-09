@@ -47,7 +47,7 @@ public class VoucherService {
 
 
     public List<Voucher> findAll() {
-        Shoppingcart shoppingcart = new Shoppingcart();
+        Shoppingcart2 shoppingcart = new Shoppingcart2();
         shoppingcart.setCustomerId(1);
         itemList = mgr.createNamedQuery("Voucher.findAll").getResultList();
         return itemList;

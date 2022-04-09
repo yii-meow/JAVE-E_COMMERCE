@@ -9,6 +9,7 @@ package controller;
  * @author sohyz
  */
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,9 +23,10 @@ import entity.Product;
 import entity.ProductService;
 import entity.Shoppingcart2;
 import entity.Shoppingcart2Service;
-import java.util.List;
+import entity.Voucher;
+import entity.VoucherService;
 
-public class addShoppingCart extends HttpServlet {
+public class ConfirmPayment extends HttpServlet {
 
     @PersistenceContext
 
@@ -38,22 +40,21 @@ public class addShoppingCart extends HttpServlet {
 
             String test = "test";
             Shoppingcart2Service itemService = new Shoppingcart2Service(em);
-            ProductService productservice = new ProductService(em);
+            VoucherService voucherService = new VoucherService(em);
+            ProductService productService = new ProductService(em);
 
             HttpSession session = request.getSession();
-            int ProdID = Integer.parseInt(request.getParameter("productID"));
-            int CusID = Integer.parseInt(request.getParameter("customerID"));
-            int Quantity = Integer.parseInt(request.getParameter("quantity"));
-            List<Product> productList = productservice.findAll();
-            Product product = productservice.findItemByID(ProdID);
 
-            
+            double totalPrice = (Double) session.getAttribute("totalPrice");
+            double discountRate = Double.parseDouble(request.getParameter("discountRate"));
 
-            Shoppingcart2 shoppingcart = new Shoppingcart2(product, CusID, Quantity);
-            utx.begin();
-            boolean a=itemService.addShoppingcart(shoppingcart);
-            utx.commit();
-            response.sendRedirect("customer/DisplayItemList.jsp");
+            double price = totalPrice * discountRate;
+
+            session.setAttribute("totalPrice", price);
+
+            System.out.println("hello");
+
+            response.sendRedirect("../customer/Payment.jsp");
         } catch (Exception ex) {
             System.out.println("hello");
         }

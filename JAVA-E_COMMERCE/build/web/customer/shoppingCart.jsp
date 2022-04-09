@@ -4,12 +4,12 @@
     Author     : sohyz
 --%>
 
-<%@page import="entity.Shoppingcart"%>
+<%@page import="entity.Shoppingcart2"%>
 <%@page import="java.util.List"%>
 <%@page import="entity.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    List<Shoppingcart> itemList = (List) session.getAttribute("cartList");
+    List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
 %>
 <html>
     <head>
@@ -56,7 +56,7 @@
                 <th>modify Cart</th>
             </tr>
 
-            <%for (Shoppingcart item : itemList) {%>
+            <%for (Shoppingcart2 item : itemList) {%>
             <tr>
                 <td>
                     <form action="../customer/ViewProductDetails" method="post">
@@ -70,7 +70,7 @@
                     <form action="../UpdateCart">
                         <input type="number" id="quantity" name="quantity" min="1" max="100">
                         <input type="hidden" id="cartID" name="cartID" value= <%=(Integer) item.getCartId()%>>
-                        <input type="hidden" id="productID" name="productID" value= "<%=item.getProductId()%>">
+                        <input type="hidden" id="productID" name="productID" value= "<%=item.getProductId().getProductId()%>">
                         <input type="hidden" id="customerID" name="customerID" value= "1">
                         <input type="submit" value="UpdateCart" onclick="test(<%=item.getProductId()%>, 1)">
                     </form>

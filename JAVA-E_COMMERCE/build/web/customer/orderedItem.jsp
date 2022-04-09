@@ -60,17 +60,16 @@
                            session.setAttribute("isDesAsc", true);
                        %>"
                        >Product Name</a></th> 
-                <th>CustomerID</th>
+                <th>Tracking Number</th>
             </tr>
 
             <% for (Orders item : itemList) {%>
             <tr>
                 <td onclick="location.href = '..';">   <%=item.getOrderId()%></td>
                 <td>   <%=item.getOrderTime()%></td>
-                <td>   <%=item.getCustomerID()%></td>
+                <td>   <%=item.getTrackingNumber()%></td>
 
             </tr>
-            <option value="<%=item.getDeliveryCourier()%>">
                 <%}%>
         </table>
 

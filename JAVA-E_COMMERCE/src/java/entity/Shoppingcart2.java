@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,15 +23,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author sohyz
  */
 @Entity
-@Table(name = "shoppingcart")
+@Table(name = "shoppingcart_2")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Shoppingcart.findAll", query = "SELECT s FROM Shoppingcart s"),
-    @NamedQuery(name = "Shoppingcart.findByCartId", query = "SELECT s FROM Shoppingcart s WHERE s.cartId = :cartId"),
-    @NamedQuery(name = "Shoppingcart.findByProductId", query = "SELECT s FROM Shoppingcart s WHERE s.productId = :productId"),
-    @NamedQuery(name = "Shoppingcart.findByCustomerId", query = "SELECT s FROM Shoppingcart s WHERE s.customerId = 1"),
-    @NamedQuery(name = "Shoppingcart.findByQuantity", query = "SELECT s FROM Shoppingcart s WHERE s.quantity = :quantity")})
-public class Shoppingcart implements Serializable {
+    @NamedQuery(name = "Shoppingcart2.findAll", query = "SELECT s FROM Shoppingcart2 s"),
+    @NamedQuery(name = "Shoppingcart2.findByCartId", query = "SELECT s FROM Shoppingcart2 s WHERE s.cartId = :cartId"),
+    @NamedQuery(name = "Shoppingcart2.findByCustomerId", query = "SELECT s FROM Shoppingcart2 s WHERE s.customerId = :customerId"),
+    @NamedQuery(name = "Shoppingcart2.findByQuantity", query = "SELECT s FROM Shoppingcart2 s WHERE s.quantity = :quantity")})
+public class Shoppingcart2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,27 +38,29 @@ public class Shoppingcart implements Serializable {
     @Basic(optional = false)
     @Column(name = "CART_ID")
     private Integer cartId;
-    @Column(name = "PRODUCT_ID")
-    private Integer productId;
     @Column(name = "CUSTOMER_ID")
     private Integer customerId;
     @Column(name = "QUANTITY")
     private Integer quantity;
+    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
+    @ManyToOne
+    private Product productId;
 
-    public Shoppingcart() {
+    public Shoppingcart2() {
     }
 
-    public Shoppingcart(Integer cartId, Integer productId, Integer customerId, Integer quantity) {
+    public Shoppingcart2(Integer cartId, Product productId, Integer customerId, Integer quantity) {
         this.cartId = cartId;
+        this.productId = productId;
         this.customerId = customerId;
         this.quantity = quantity;
-        this.productId = productId;
     }
 
-    public Shoppingcart(Integer productId, Integer customerId, Integer quantity) {
+
+    public Shoppingcart2(Product productId, Integer customerId, Integer quantity) {
+        this.productId = productId;
         this.customerId = customerId;
         this.quantity = quantity;
-        this.productId = productId;
     }
 
     public Integer getCartId() {
@@ -66,14 +69,6 @@ public class Shoppingcart implements Serializable {
 
     public void setCartId(Integer cartId) {
         this.cartId = cartId;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
     }
 
     public Integer getCustomerId() {
@@ -92,6 +87,14 @@ public class Shoppingcart implements Serializable {
         this.quantity = quantity;
     }
 
+    public Product getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Product productId) {
+        this.productId = productId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -102,10 +105,10 @@ public class Shoppingcart implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Shoppingcart)) {
+        if (!(object instanceof Shoppingcart2)) {
             return false;
         }
-        Shoppingcart other = (Shoppingcart) object;
+        Shoppingcart2 other = (Shoppingcart2) object;
         if ((this.cartId == null && other.cartId != null) || (this.cartId != null && !this.cartId.equals(other.cartId))) {
             return false;
         }
@@ -114,7 +117,7 @@ public class Shoppingcart implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Shoppingcart[ cartId=" + cartId + " ]";
+        return "entity.Shoppingcart2[ cartId=" + cartId + " ]";
     }
 
 }

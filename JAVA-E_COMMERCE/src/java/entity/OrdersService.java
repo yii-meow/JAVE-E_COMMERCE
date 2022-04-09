@@ -43,11 +43,13 @@ public class OrdersService {
         return itemList;
     }
 
-    public List<Orders> findItemByID(int cusID) {
-        Orders orders=new Orders();
-        itemList = mgr.createNamedQuery("Orders.findByCustomerid").getResultList();   //here
+    public List<Orders> findItemByID(int i) {
+        Customer customer = new Customer();
+        customer.setCustomerID(i);
+        query = mgr.createNamedQuery("Orders.findByCustomerid").setParameter("customerID", customer); 
+        
 
-        return itemList;
+        return query.getResultList();
     }
     
     

@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
+    @NamedQuery(name = "Product.findAllAscendingByName", query = "SELECT p FROM Product p ORDER BY P.productName"),
     @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId"),
     @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName LIKE CONCAT('%',:productName,'%')"),
     @NamedQuery(name = "Product.findByProductDescription", query = "SELECT p FROM Product p WHERE p.productDescription = :productDescription"),
@@ -44,6 +46,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByPriceAndShipment", query = "SELECT p FROM Product p WHERE p.price >= :min_price AND p.price <= :max_price AND p.isShipmentFree = :shipment"),
     @NamedQuery(name = "Product.findByProductImage", query = "SELECT p FROM Product p WHERE p.productImage = :productImage")})
 public class Product implements Serializable {
+
+    @OneToMany(mappedBy = "productId")
+    private List<Shoppingcart2> shoppingcart2List;
+
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -193,6 +199,15 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "entity.Product[ productId=" + productId + " ]";
+    }
+
+    @XmlTransient
+    public List<Shoppingcart2> getShoppingcart2List() {
+        return shoppingcart2List;
+    }
+
+    public void setShoppingcart2List(List<Shoppingcart2> shoppingcart2List) {
+        this.shoppingcart2List = shoppingcart2List;
     }
 
 }

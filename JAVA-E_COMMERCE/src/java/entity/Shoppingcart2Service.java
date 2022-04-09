@@ -14,7 +14,7 @@ import javax.persistence.Query;
  *
  * @author sohyz
  */
-public class ShoppingcartService {
+public class Shoppingcart2Service {
 
     @PersistenceContext
     EntityManager mgr;
@@ -22,22 +22,22 @@ public class ShoppingcartService {
     Query query;
     List itemList;
 
-    public ShoppingcartService(EntityManager mgr) {
+    public Shoppingcart2Service(EntityManager mgr) {
         this.mgr = mgr;
     }
 
-    public boolean addShoppingcart(Shoppingcart product) {
+    public boolean addShoppingcart(Shoppingcart2 product) {
         mgr.persist(product);
         return true;
     }
 
-    public Shoppingcart findItemByID(int productID) {
-        Shoppingcart product = mgr.find(Shoppingcart.class, productID);
+    public Shoppingcart2 findItemByID(int productID) {
+        Shoppingcart2 product = mgr.find(Shoppingcart2.class, productID);
         return product;
     }
 
     public boolean deleteItem(int productID) {
-        Shoppingcart product = findItemByID(productID);
+        Shoppingcart2 product = findItemByID(productID);
         if (product != null) {
             mgr.remove(product);
             return true;
@@ -45,8 +45,8 @@ public class ShoppingcartService {
         return false;
     }
 
-    public boolean updateShoppingcart(Shoppingcart item) {
-        Shoppingcart tempItem = findItemByID(item.getCartId());
+    public boolean updateShoppingcart(Shoppingcart2 item) {
+        Shoppingcart2 tempItem = findItemByID(item.getCartId());
         if (tempItem != null) {
             tempItem.setCustomerId(item.getCustomerId());
             tempItem.setProductId(item.getProductId());
@@ -56,11 +56,9 @@ public class ShoppingcartService {
         return false;
     }
 
-    public List<Shoppingcart> findAll() {
-        Shoppingcart shoppingcart = new Shoppingcart();
-        shoppingcart.setCustomerId(1);
-        itemList = mgr.createNamedQuery("Shoppingcart.findByCustomerId").getResultList();
-        return itemList;
+    public List<Shoppingcart2> findAll() {
+        query =mgr.createNamedQuery("Shoppingcart2.findByCustomerId").setParameter("customerId", 1);
+        return query.getResultList();
 
     }
 

@@ -1,40 +1,79 @@
-<%-- 
-    Document   : viewProduct
-    Created on : Apr 5, 2022, 10:09:26 PM
-    Author     : yikso
---%>
-<%@page import="entity.Product, java.util.*"%>
-<% List<Product> product = (List<Product>) session.getAttribute("product");%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page import="java.util.List"%>
+<%@page  import="entity.Product" %>
+<%
+    List<Product> itemList = (List) session.getAttribute("productList");
+%>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Viewing Product</title>
+        <style>
+            #product {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 80%;
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            }
 
-    </head>
+            #product td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #product tr:nth-child(even){
+                background-color: #f2f2f2;
+            }
+
+            #product tr:hover {
+                background-color: #ddd;
+            }
+
+            #product th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #04AA6D;
+                color: white;
+            }
+
+
+        </style>
     <body>
-        <div class="card-group">
-            <%
-                for (int i = 0; i < product.size(); i++) {
-                    Product productDetails = product.get(i);
-            %>
-            <div style="text-align:center">
+        <h1>your orders </h1>
 
-                <div class="card border-info mb-3" style="width: 10rem;">
-                    <img class="card-img-top" src="..." alt="Product Image">
-                    <div class="card-body">
-                        <p class="card-text"><%= productDetails.getProductName()%></p>
-                        <p class="card-text">RM <%= productDetails.getPrice()%></p>
-                        <p class="card-text">Rating: </p>
-                    </div>
-                </div>
-            </div>
-            <% }%>
-        </div>
+        <table id="product">
+            <tr>
+                <th>ProductImg</th> 
+                <th>ProductID</th> 
+                <th><a href="../customer/View" onclick="
+                       <%
+                           if (session.getAttribute("isNameAsc").equals(false)) {
+                               session.setAttribute("isNameAsc", true);
+                           } else {
+                               session.setAttribute("isNameAsc", false);
+                           }
+                       %>"
+                       >Product Name</a></th> 
+                <th>Product Description</th>
+            </tr>
+
+            <%
+                int i = 1;
+                for (Product item : itemList) {%>
+            <tr>
+                <td>
+                    <form action="../customer/ViewProductDetails" method="post">
+                        <button id="<%=i%>" onclick="test(this.id)" type="submit" value="<%=item.getProductId()%>" name="your_name" class="btn-link">Go</button>
+                    </form>
+                </td>
+                <td>   <%=item.getProductId()%></td>
+                <td>   <%=item.getProductName()%></td>
+                <td>   <%=item.getProductDescription()%></td>
+
+            </tr>
+            <option value="<%=item.getProductDescription()%>">
+                <% i++;
+                    }%>
+        </table>
+
     </body>
-</html>
+
+
