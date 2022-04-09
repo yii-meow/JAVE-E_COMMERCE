@@ -48,12 +48,12 @@
                         String orderBy = request.getParameter("orderBy") + "";
                     %>
 
-                    <th scope="col"><a href="?sort=ID">
-                        <% if (!sort.equals("ID")) {%>         
-                        <a href="?sort=ID&orderBy=asc">Customer ID
-                            <% } else {%>
-                            <%= orderBy.equals("asc") ? "<a href='?sort=ID&orderBy=desc'>Customer ID<i class='bi bi-arrow-up'></i></a>" : "<a href='?sort=ID&orderBy=asc'>Customer ID<i class='bi bi-arrow-down'></i>"%>
-                            <% } %>
+                    <th scope="col"><a href="?sort=ID">Customer ID 
+                            <%
+                                if (sort.equals("null") || sort.equals("ID")) {
+                            %>
+                            <i class='bi bi-arrow-up'></i>
+                            <% }%>
                         </a>
                     </th>
 
@@ -85,11 +85,22 @@
                     </th>
 
                     <th scope="col">
-                        Total number of order
+                        Total number of order<a href="?sort=orderNum">
+                            <%
+                                if (false) {
+                            %>
+                            <i class='bi bi-arrow-up'></i>
+                            <% } %>
+                        </a>
                     </th>
 
                     <th scope="col">
-                        Total Purchase
+                        <a href="?sort=totalPurchase">Total Purchase</a>
+                        <%
+                            if (false) {
+                        %>
+                        <i class='bi bi-arrow-up'></i>
+                        <% } %>
                     </th>
 
                     <th scope="col">Check Customer Purchase Record</th>

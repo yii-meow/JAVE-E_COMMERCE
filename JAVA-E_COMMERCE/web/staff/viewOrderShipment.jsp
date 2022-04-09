@@ -67,7 +67,12 @@
                 </nav>
 
                 <div class="card-body">
-                    <% for (int i = 0; i < order_shipment.size(); i++) {
+                    <% 
+                        if (order_shipment.size()==0){
+                            out.println("No orders has been found!");
+                        }
+                        
+                        for (int i = 0; i < order_shipment.size(); i++) {
                             Orders ordersDetails = order_shipment.get(i);
                     %>     
 

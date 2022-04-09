@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 import entity.Customer;
 import entity.Orders;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -84,8 +86,58 @@ public class viewCustomerRecord extends HttpServlet {
             }
         }
         HttpSession session = request.getSession();
-        session.setAttribute("customer", customer);
-        response.sendRedirect("staff/viewCustomerRecord.jsp");
+
+        // CHECK IF SHIPMENT NEED TO BE SORTED
+        String sort = request.getParameter("sort") + "";
+
+        if (!sort.equals("null")) {
+            String orderBy = request.getParameter("orderBy");
+
+            // FIND CUSTOMER RECORD FROM SORTING
+            // INITIALIZE QUERY
+            Query sort_cust = em.createNamedQuery("Customer.findAll");
+
+            // SOLVE THE ISSUE WITH JPQL ORDER BY PARAMETER ISSUE
+            switch (sort) {
+                case "ID":
+                    if (orderBy.equals("asc")) {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerID");
+                    } else {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerID DESC");
+                    }
+                    break;
+                
+                case "name":
+                    if (orderBy.equals("asc")) {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerName");
+                    } else {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerName DESC");
+                    }
+                    break;
+
+                case "email":
+                    if (orderBy.equals("asc")) {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerEmail");
+                    } else {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerEmail DESC");
+                    }
+                    break;
+
+                case "gender":
+                    if (orderBy.equals("asc")) {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.gender");
+                    } else {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.gender DESC");
+                    }
+            }
+            // SEND THE RESULT TO THE CUSTOMER OBJECT
+            List<Customer> cust = sort_cust.getResultList();
+            session.setAttribute("customer", cust);
+            response.sendRedirect("staff/viewFilteredCustomerRecord.jsp");
+        } else {
+            session.setAttribute("customer", customer);
+            response.sendRedirect("staff/viewCustomerRecord.jsp");
+        }
     }
 
     /**
