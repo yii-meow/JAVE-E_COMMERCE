@@ -50,27 +50,26 @@ public class AddOrder extends HttpServlet {
 
             List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
 
+            utx.begin();
             Orders order = new Orders();
+            em.persist(order);
+            utx.commit();
+//            List<Orders> orders = itemService.findAll();
 
-            itemService.addOrders(order);
+            
 
-            List<Orders> orders = itemService.findAll();
-
-            for (Orders item : orders) {
-
-                id = item.getOrderId();
-
-            }
 
             for (Shoppingcart2 item : itemList) {
 
                 OrderList orderList
-                        = new OrderList(id, item.getProductId().getProductId(),
+                        = new OrderList(order.getOrderId(), item.getProductId().getProductId(),
                                 item.getQuantity() * item.getProductId().getPrice(),
                                 productService.findItemByID(item.getProductId().getProductId()));
 
                 orderListService.addOrders(orderList);
+
             }
+            utx.commit();
 
             System.out.println("hello");
 
