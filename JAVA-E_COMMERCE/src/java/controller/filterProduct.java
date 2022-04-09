@@ -51,14 +51,14 @@ public class filterProduct extends HttpServlet {
                     query = em.createNamedQuery("Product.findAll");
                     List<Product> product = query.getResultList();
                     session.setAttribute("product", product);
-                    response.sendRedirect("customer/viewProduct.jsp");
+                    response.sendRedirect("customer/findFilteredProduct.jsp");
                 } else {
 
                     query = em.createNamedQuery("Product.findByProductName").setParameter("productName", item_name);
                     if (!query.getResultList().isEmpty()) {
                         List<Product> product = query.getResultList();
                         session.setAttribute("product", product);
-                        response.sendRedirect("customer/viewProduct.jsp");
+                        response.sendRedirect("customer/findFilteredProduct.jsp");
                     } else {
                         out.println("<script type=\"text/javascript\">");
                         out.println("alert('No result found!');");
@@ -70,14 +70,14 @@ public class filterProduct extends HttpServlet {
                     query = em.createNamedQuery("Product.findAll");
                     List<Product> product = query.getResultList();
                     session.setAttribute("product", product);
-                    response.sendRedirect("customer/viewProduct.jsp");
+                    response.sendRedirect("customer/findFilteredProduct.jsp");
                 } else {
                     query = em.createNamedQuery("Product.findByProductId").setParameter("productId", Integer.parseInt(item_name));
 
                     if (!query.getResultList().isEmpty()) {
                         List<Product> product = query.getResultList();
                         session.setAttribute("product", product);
-                        response.sendRedirect("customer/viewProduct.jsp");
+                        response.sendRedirect("customer/findFilteredProduct.jsp");
                     } else {
                         out.println("No result found!");
                     }

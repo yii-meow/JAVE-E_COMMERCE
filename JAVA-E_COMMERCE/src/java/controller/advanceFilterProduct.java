@@ -75,7 +75,7 @@ public class advanceFilterProduct extends HttpServlet {
             if (!product.isEmpty()) {
                 HttpSession session = request.getSession();
                 session.setAttribute("product", product);
-                response.sendRedirect("customer/viewProduct.jsp");
+                response.sendRedirect("customer/findFilteredProduct.jsp");
             } else {
                 out.println("<script type=\"text/javascript\">");
                 out.println("alert('No product found!');");
