@@ -54,7 +54,7 @@
             %>
             <div style="text-align:center">
                 <div class="card text-white bg-dark mb-3" style="width: 15rem;height:40em;margin-left:15px;">
-                    <div class="card-body" style="height:150px;">
+                    <div class="card-body" style="height:230px;">
                         <img class="card-img-top" src="<%= productDetails.getProductImage()%>" alt="Product Image" style="width:200px;height:200px;">
                     </div>
 
@@ -63,10 +63,13 @@
                             <!-- SHOW PRODUCT DETAILS -->
                             <p class="card-text">ID: <%= productDetails.getProductId()%></p>
                             <p class="card-text"><%= productDetails.getProductName()%></p>
-                            <p class="card-text"><%= productDetails.getProductDescription() %></p>
+                            <p class="card-text"><%= productDetails.getProductDescription()%></p>
                             <p class="card-text"><%= String.format("RM %.2f", productDetails.getPrice())%></p>
-                            <p class="card-text">Stock: <%= productDetails.getStock() %></p>
-                            <p class="card-text">Weight: <%=  String.format("%.2f KG",productDetails.getProductWeight()) %></p>
+                            <p class="card-text">Stock: <%= productDetails.getStock()%></p>
+                            <p class="card-text">Weight: <%=  String.format("%.2f KG", productDetails.getProductWeight())%></p>
+                            <p class="card-text">
+                                Free Shipment: <%= productDetails.getIsShipmentFree()%>
+                            </p>
                             <p class="card-text">Rating: </p>    
 
                             <!-- UPDATE PRODUCT -->
