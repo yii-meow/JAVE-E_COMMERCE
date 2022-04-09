@@ -9,7 +9,6 @@ package controller;
  * @author sohyz
  */
 import java.io.IOException;
-import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,11 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import entity.Product;
 import entity.ProductService;
-import entity.Shoppingcart2;
 import entity.Shoppingcart2Service;
-import entity.Voucher;
 import entity.VoucherService;
 
 public class ConfirmPayment extends HttpServlet {
@@ -42,19 +38,21 @@ public class ConfirmPayment extends HttpServlet {
             Shoppingcart2Service itemService = new Shoppingcart2Service(em);
             VoucherService voucherService = new VoucherService(em);
             ProductService productService = new ProductService(em);
+            
 
             HttpSession session = request.getSession();
 
             double totalPrice = (Double) session.getAttribute("totalPrice");
-            double discountRate = Double.parseDouble(request.getParameter("discountRate"));
+            double discountRate = Double.parseDouble(request.getParameter("voucher"));
 
             double price = totalPrice * discountRate;
 
-            session.setAttribute("totalPrice", price);
+            session.setAttribute("OriginalPrice", totalPrice);
+            session.setAttribute("DiscountPrice", price);
 
             System.out.println("hello");
 
-            response.sendRedirect("../customer/Payment.jsp");
+            response.sendRedirect("../customer/ConfirmPurchase.jsp");
         } catch (Exception ex) {
             System.out.println("hello");
         }

@@ -69,7 +69,7 @@ public class PaymentCalculate extends HttpServlet {
 
             System.out.println("hello");
 
-            response.sendRedirect("../customer/Payment.jsp");
+            response.sendRedirect("../customer/RewiewPayment.jsp");
         } catch (Exception ex) {
             System.out.println("hello");
         }

@@ -9,8 +9,8 @@
 <%@page import="java.util.List"%>
 <%
     List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
-    List<Voucher> voucherList = (List) session.getAttribute("voucherList");
-    double totalPrice = (Double) session.getAttribute("totalPrice");
+    double originalPrice = (Double) session.getAttribute("OriginalPrice");
+    double disocuntPrice = (Double) session.getAttribute("DiscountPrice");
 %>
 <html>
     <head>
@@ -46,7 +46,7 @@
 
         </style>
     <body>
-        <h1>Review Payment</h1>
+        <h1>Confirm Purchase</h1>
 
         <table id="product">
             <tr>
@@ -62,47 +62,31 @@
                         <button " onclick="test(this.id)" type="submit" value="<%=item.getProductId()%>" name="your_name" class="btn-link">Go</button>
                     </form>
                 </td>
-                <td>   <%=item.getProductId()%></td>
+                <td>   <%=item.getProductId().getProductId()%></td>
                 <td>   <%=item.getQuantity()%></td>
                 <%}%>
             </tr>
         </table>
 
-
         <table id="product">
             <tr>
-                <th>use voucher</th> 
-                <th>Voucher Name</a></th> 
-                <th>Discount Rate</th>
-                <th>Original Payment</th>
-                <th>Price after discount</th>
+                <th>total price</th>
+                <th>price after discount</th>
             </tr>
-            <form action="../customer/ViewProductDetails" method="post">
-                <%int i = 0;%>
-                <%for (Voucher item : voucherList) {%>
-                <tr>
-                    <td>
-
-                        <input type="radio" id="voucher" name="voucher" value="<%=item.getVoucherDiscountRate()%>">
-
-                    </td>
-                    <td>   <%=item.getVoucherName()%></td>
-                    <td>   <%=item.getVoucherDiscountRate()%></td>
-                    <%i++;
-                        }%>
-                </tr>
-                <input type="submit",value="Proceed to payment">
-            </form>
+            <tr>
+                <td><%=originalPrice%></td>
+                <td><%=disocuntPrice%></td>
+            </tr>
         </table>
 
+        <form action="../customer/AddOrder">
+            <input type="submit" value="confirm purchase">
 
-
-        <form >
-            <button onclick="window.location.href = 'payment.jsp" type="submit" value="" name="your_name" class="btn-link">Go</button>
         </form>
 
+
     </body>
-    <button onclick="test(<%=totalPrice%>)">testing</button>
+
     <script>
 
         function test(a) {

@@ -75,14 +75,14 @@
             </tr>
         </table>
 
+        <form action="../customer/ConfirmPayment" method="post">
+            <table id="product">
+                <tr>
+                    <th>use voucher</th> 
+                    <th>Voucher Name</a></th> 
+                    <th>Discount Rate</th>
+                </tr>
 
-        <table id="product">
-            <tr>
-                <th>use voucher</th> 
-                <th>Voucher Name</a></th> 
-                <th>Discount Rate</th>
-            </tr>
-            <form action="../customer/ViewProductDetails" method="post">
                 <%int i = 0;%>
                 <%for (Voucher item : voucherList) {%>
                 <tr>
@@ -94,22 +94,22 @@
                     <td>   <%=item.getVoucherName()%></td>
                     <td>   <%=item.getVoucherDiscountRate()%></td>
                     <%i++;
-                        }%>
+                            }%>
                 </tr>
-        </table>
-        <input type="submit" value="Proceed to Payment">
-    </form>
+            </table>
+            <input type="submit" value="Proceed to Payment">
+        </form>
 
 
 
 
-</body>
+    </body>
 
-<script>
+    <script>
 
-    function test(a) {
-        alert("total price=" + a);
+        function test(a) {
+            alert("total price=" + a);
 
-    }
+        }
 
-</script>
+    </script>

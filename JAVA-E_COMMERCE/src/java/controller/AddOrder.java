@@ -8,8 +8,11 @@ package controller;
  *
  * @author sohyz
  */
+import entity.OrderList;
+import entity.OrderListService;
+import entity.Orders;
+import entity.OrdersService;
 import java.io.IOException;
-import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,14 +22,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import entity.Product;
 import entity.ProductService;
 import entity.Shoppingcart2;
 import entity.Shoppingcart2Service;
-import entity.Voucher;
 import entity.VoucherService;
+import java.util.List;
 
-public class PaymentProcessing extends HttpServlet {
+public class AddOrder extends HttpServlet {
 
     @PersistenceContext
 
@@ -39,22 +41,40 @@ public class PaymentProcessing extends HttpServlet {
         try {
 
             String test = "test";
-            Shoppingcart2Service itemService = new Shoppingcart2Service(em);
-            VoucherService voucherService = new VoucherService(em);
+            OrdersService itemService = new OrdersService(em);
             ProductService productService = new ProductService(em);
+            OrderListService orderListService = new OrderListService(em);
+            int id = 0;
 
             HttpSession session = request.getSession();
 
-            double totalPrice = (Double) session.getAttribute("totalPrice");
-            double discountRate = Double.parseDouble(request.getParameter("discountRate"));
+            List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
 
-            double price = totalPrice * discountRate;
+            Orders order = new Orders();
 
-            session.setAttribute("totalPrice", price);
+            itemService.addOrders(order);
+
+            List<Orders> orders = itemService.findAll();
+
+            for (Orders item : orders) {
+
+                id = item.getOrderId();
+
+            }
+
+            for (Shoppingcart2 item : itemList) {
+
+                OrderList orderList
+                        = new OrderList(id, item.getProductId().getProductId(),
+                                item.getQuantity() * item.getProductId().getPrice(),
+                                productService.findItemByID(item.getProductId().getProductId()));
+
+                orderListService.addOrders(orderList);
+            }
 
             System.out.println("hello");
 
-            response.sendRedirect("../customer/Payment.jsp");
+            response.sendRedirect("../customer/ConfirmPurchase.jsp");
         } catch (Exception ex) {
             System.out.println("hello");
         }
