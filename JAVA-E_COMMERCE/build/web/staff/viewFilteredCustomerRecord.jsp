@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Customer, java.util.*"%>
 <jsp:include page="../viewCustomerRecord"/>
+<jsp:include page="navbar.jsp"/>
 <% List<Customer> customer = (List<Customer>) session.getAttribute("customer");%>
 
 <!DOCTYPE html>

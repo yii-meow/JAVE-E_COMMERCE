@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Orders,entity.OrderList, java.util.*"%>
+<jsp:include page="navbar.jsp"/>
 <% List<Orders> order_shipment = (List<Orders>) session.getAttribute("order_shipment");%>
 
 <!DOCTYPE html>

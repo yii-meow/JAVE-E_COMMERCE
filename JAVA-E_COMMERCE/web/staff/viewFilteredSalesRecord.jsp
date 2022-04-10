@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Orders,entity.OrderList,entity.Product,java.util.*"%>
+<jsp:include page="navbar.jsp"/>
 <% List<Object[]> order_list = (List<Object[]>) session.getAttribute("ordersGroup");%>
 <% List<Orders> orders = (List<Orders>) session.getAttribute("orders"); %>
 

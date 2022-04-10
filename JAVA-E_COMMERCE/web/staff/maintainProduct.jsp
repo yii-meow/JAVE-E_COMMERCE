@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Product, java.util.*"%>
+<jsp:include page="navbar.jsp"/>
 <jsp:include page="../maintainProduct"/>
 
 <% List<Product> product = (List<Product>) session.getAttribute("product");%>
@@ -32,6 +33,7 @@
                 "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
                 crossorigin="anonymous">
         </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
         <title>Maintain Product</title>
