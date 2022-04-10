@@ -5,15 +5,24 @@
 package Servlets;
 
 import Domain.OrderListService;
+import Domain.OrderService;
 import entity.OrderList;
+import entity.Orders;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import static java.util.concurrent.TimeUnit.DAYS;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.Order;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,12 +50,12 @@ public class GenerateReport extends HttpServlet {
 
     protected void processReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String submitType = request.getParameter("submitType");
-
         //Report 1
         if (submitType.equals("MostPopularCategories")) {
             popularProductReport(request, response);
         } else if (submitType.equals("SalesReport")) {
-            secondReport(request, response);
+//            secondReport(request, response);
+            response.sendRedirect("staff/SelectDateRange.jsp");
         }
 //
 //        if (submitType.equals("MostPopularProduct")) {
@@ -57,14 +66,15 @@ public class GenerateReport extends HttpServlet {
     protected void popularProductReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         OrderListService olService = new OrderListService(em);
-        query = em.createNamedQuery("Product.findAll");
-
-        List<Product> prod = query.getResultList();
         List<OrderList> ol = olService.retrieveOrderListOrderByProdId();
+
+        query = em.createNamedQuery("Product.findAll");
+        List<Product> prod = query.getResultList();
 
         int[] prodId = new int[prod.size()];
         int[] prodQuantity = new int[prod.size()];
         String[] prodName = new String[prod.size()];
+        int totalQuantity = 0;
 
         for (int a = 0; a < prod.size(); a++) {
             prodId[a] = prod.get(a).getProductId();
@@ -76,28 +86,49 @@ public class GenerateReport extends HttpServlet {
             for (int b = 0; b < prod.size(); b++) {
                 if (ol.get(a).getProduct().getProductId() == prodId[b]) {
                     prodQuantity[b] += ol.get(a).getQuantity();
+                    totalQuantity += ol.get(a).getQuantity();
                 }
             }
         }
 
-        ArrayList<String> prodNameArray = new ArrayList<String>();
-        ArrayList<Integer> prodQuantityArray = new ArrayList<Integer>();
+        int values = 0;
         for (int a = 0; a < prod.size(); a++) {
-            prodNameArray.add("\'" + prodName[a] + "\'");
-            prodQuantityArray.add(prodQuantity[a]);
+            if (prodQuantity[a] != 0) {
+                values++;
+            }
+        }
+
+        double percentage;
+        ArrayList<String> prodNameArray = new ArrayList<String>();
+        ArrayList<String> prodPercentagesArray = new ArrayList<String>();
+        ArrayList<String> displayProdNameArray = new ArrayList<String>();
+        ArrayList<String> displayProdPercentagesArray = new ArrayList<String>();
+        ArrayList<Integer> displayQuantity = new ArrayList<Integer>();
+
+        for (int a = 0; a < prod.size(); a++) {
+            if (prodQuantity[a] != 0) {
+                percentage = Double.valueOf(prodQuantity[a]) / totalQuantity * 100.0;
+
+                prodNameArray.add("\'" + prodName[a] + "\'");
+                prodPercentagesArray.add(String.format("\'%.2f\'", percentage));
+                displayProdNameArray.add(prodName[a]);
+                displayProdPercentagesArray.add(String.format("%.2f", percentage));
+                displayQuantity.add(prodQuantity[a]);
+            }
         }
 
         HttpSession session = request.getSession();
         session.setAttribute("prodArray", prodNameArray);
-        session.setAttribute("prodQuantity", prodQuantityArray);
+        session.setAttribute("prodPercentagesArray", prodPercentagesArray);
+        session.setAttribute("displayProdArray", displayProdNameArray);
+        session.setAttribute("displayProdPercentagesArray", displayProdPercentagesArray);
+        session.setAttribute("displayQuantity", displayQuantity);
 
         response.sendRedirect("staff/Report1.jsp");
     }
 
     protected void secondReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        PrintWriter out = response.getWriter();
-//        out.println("HERE");
-
+        
     }
 
 }

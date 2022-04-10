@@ -32,7 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderList.findOrderInTimeRange", query = "SELECT o FROM OrderList o WHERE o.orders.orderTime BETWEEN :startTime AND :endTime"),
     @NamedQuery(name = "OrderList.findBySubtotal", query = "SELECT o FROM OrderList o WHERE o.subtotal = :subtotal"),
     @NamedQuery(name = "OrderList.orderByProductId", query = "SELECT o FROM OrderList o order by o.product")
-
 })
 
 public class OrderList implements Serializable {

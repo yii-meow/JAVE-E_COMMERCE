@@ -43,22 +43,24 @@ public class filterProduct extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
-            String item_name = request.getParameter("item_details");
+            String item_name = request.getParameter("item_details") + "";
             Query query;
 
+            // IF FILTER IS SET BY NAME
             if (request.getParameter("filterOption").equals("name")) {
+                // IF FILTER HAS NO VALUE (SET DEFAULT VALUE TO ALL PRODUCT)
                 if (item_name.equals("")) {
                     query = em.createNamedQuery("Product.findAll");
                     List<Product> product = query.getResultList();
                     session.setAttribute("product", product);
-                    response.sendRedirect("customer/viewProduct.jsp");
+                    response.sendRedirect("customer/findFilteredProduct.jsp");
                 } else {
-
+                    // IF FILTER HAS VALUE
                     query = em.createNamedQuery("Product.findByProductName").setParameter("productName", item_name);
                     if (!query.getResultList().isEmpty()) {
                         List<Product> product = query.getResultList();
                         session.setAttribute("product", product);
-                        response.sendRedirect("customer/viewProduct.jsp");
+                        response.sendRedirect("customer/findFilteredProduct.jsp");
                     } else {
                         out.println("<script type=\"text/javascript\">");
                         out.println("alert('No result found!');");
@@ -66,18 +68,23 @@ public class filterProduct extends HttpServlet {
                     }
                 }
             } else {
+                // IF FILTER IS SET BY ID
+
+                // IF FILTER HAS NO VALUE
                 if (item_name.equals("")) {
                     query = em.createNamedQuery("Product.findAll");
                     List<Product> product = query.getResultList();
                     session.setAttribute("product", product);
-                    response.sendRedirect("customer/viewProduct.jsp");
+                    out.println("hi");
+                    response.sendRedirect("customer/findFilteredProduct.jsp");
                 } else {
+                    // IF FILTER HAS VALUE
                     query = em.createNamedQuery("Product.findByProductId").setParameter("productId", Integer.parseInt(item_name));
 
                     if (!query.getResultList().isEmpty()) {
                         List<Product> product = query.getResultList();
                         session.setAttribute("product", product);
-                        response.sendRedirect("customer/viewProduct.jsp");
+                        response.sendRedirect("customer/findFilteredProduct.jsp");
                     } else {
                         out.println("No result found!");
                     }

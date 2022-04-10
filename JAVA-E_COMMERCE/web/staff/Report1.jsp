@@ -7,7 +7,28 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     ArrayList<String> prodName = (ArrayList<String>) session.getAttribute("prodArray");
-    ArrayList<Integer> prodQuantity = (ArrayList<Integer>) session.getAttribute("prodQuantity");
+    ArrayList<String> prodPercentagesArray = (ArrayList<String>) session.getAttribute("prodPercentagesArray");
+    ArrayList<String> displayProdName = (ArrayList<String>) session.getAttribute("displayProdArray");
+    ArrayList<String> displayProdPercentagesArray = (ArrayList<String>) session.getAttribute("displayProdPercentagesArray");
+    ArrayList<Integer> displayQuantity = (ArrayList<Integer>) session.getAttribute("displayQuantity");
+
+    ArrayList<String> prodColorLabels = new ArrayList<String>();
+    ArrayList<String> prodColorLabels2 = new ArrayList<String>();
+
+    Double[] r = new Double[prodPercentagesArray.size()];
+    Double[] g = new Double[prodPercentagesArray.size()];
+    Double[] b = new Double[prodPercentagesArray.size()];
+
+//GENERATE COLOR
+    for (int a = 0; a < prodPercentagesArray.size(); a++) {
+        r[a] = Math.floor(Math.random() * 255);
+        g[a] = Math.floor(Math.random() * 255);
+        b[a] = Math.floor(Math.random() * 255);
+        String rgba = String.format("\'rgba( %.0f, %.0f, %.0f, 0.5)\'", r[a], g[a], b[a]);
+        prodColorLabels.add(rgba);
+        rgba = String.format("rgba( %.0f, %.0f, %.0f, 0.5)", r[a], g[a], b[a]);
+        prodColorLabels2.add(rgba);
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -20,16 +41,72 @@
         <title>Report</title>
         <style>
 
+            body{
+                background: rgba(255,26,104,0.2);
+            }
+
+            .table{
+                margin: auto;
+                width: fit-content;
+                padding:20px;
+                border-radius: 20px;
+                border: 3px solid rgba(255,26,104,1);
+                background: white;
+                margin-bottom: 8px;
+            }
+
+            table{
+                margin: auto;
+            }
+
+            table th{
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            table th#prodName{
+                min-width: 200px;
+            }
+
+            table td#quantity, td#precentage{
+                min-width: 80px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            table td#colorLabel{
+                width: 70px;
+            }
+
+            table td#prodName{
+                padding-left: 10px;
+            }
+
+            td{
+                padding: 8px;
+            }
+
+            span#colorLabel{
+                margin: auto;
+                width: 50px;
+                height: 20px;
+                display: block;
+                border: 1px solid black;
+            }
+
+            table tr:hover {
+                background-color: #ddd;
+            }
+
             .chartCard{
                 width: 100vw;
                 height: calc(100vh-40px);
-                background: rgba(255,26,104,0.2);
                 display:flex;
                 align-items: center;
                 justify-content: center;
             }
             .chartBox{
-                width: 700px;
+                width: 40%;
                 padding:20px;
                 border-radius: 20px;
                 border: 3px solid rgba(255,26,104,1);
@@ -39,29 +116,44 @@
     </head>
     <body>
         <%@ include file="Header.jsp" %>
-
+        <div class="table">
+            <table>
+                <tr>
+                    <th id="colorLabel">Label</th>
+                    <th id="prodName">Product Name</th>
+                    <th id="quantity">Quantity</th>
+                    <th id="precentage">Percentage</th>
+                </tr>
+                <%                    
+                    for (int a = 0; a < prodPercentagesArray.size(); a++) {
+                %>
+                <tr>
+                    <td id="colorLabel"><span id="colorLabel" style="background-color: <%= prodColorLabels2.get(a)%>;"></span></td>
+                    <td id="prodName"><%= displayProdName.get(a)%></td>
+                    <td id="quantity"><%= displayQuantity.get(a)%></td>
+                    <td id="precentage"><%= displayProdPercentagesArray.get(a) + "%"%></td>
+                </tr>
+                <%
+                    }
+                %>
+            </table>
+        </div>
         <div class="chartCard">
             <div class="chartBox">
                 <canvas id="myChart"></canvas>    
             </div>
         </div>
 
-        <script>
-//generate color
-            const colorLabel = [];
-            for (i = 0; i < <%= prodName.size()%>; i++) {
-                const r = Math.floor(Math.random() * 255);
-                const g = Math.floor(Math.random() * 255);
-                const b = Math.floor(Math.random() * 255);
-                colorLabel.push("rgba(" + r + ", " + g + ", " + b + ", 0.5)");
-            }
 
+
+        <script>
 //prodId
             let labels1 = <%= prodName%>;
 // prodQuantity
-            let data1 = <%= prodQuantity%>;
+            let data1 = <%= prodPercentagesArray%>;
 // Label Color
-            let colors1 = colorLabel;
+            let colors1 = <%= prodColorLabels%>;
+
             let pieChartTitle = 'Most Popular Product';
             let myChart1 = document.getElementById("myChart").getContext('2d');
             let chart1 = new Chart(myChart1, {
@@ -71,7 +163,8 @@
                     datasets: [{
                             data: data1,
                             backgroundColor: colors1
-                        }]
+                        }],
+                    borderwidth: 1
                 },
                 options: {
                     title: {
@@ -81,17 +174,13 @@
                     legend: {
                         position: 'right'
                     },
-//                    plugins: {
-//                        tooltip: {
-//                            enabled: false;
-//                        }
-//                    }
-                },
-                plugins: [ChartDataLabels]
+                    tooltips: {
+                        enabled: true
+                    }
+                }
             });
-
-
         </script>
+        
     </body>
     <footer>
 

@@ -85,8 +85,7 @@ public class maintainProduct extends HttpServlet {
                             Product product = new Product(product_name, product_description, stock, price, weight, product_image, free_shipment);
                             em.persist(product);
                             utx.commit();
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('Created Successfully!');</script>");
+
                             response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
                         } catch (Exception ex) {
                             out.println(ex.getMessage());
@@ -103,8 +102,9 @@ public class maintainProduct extends HttpServlet {
                             product.setProductWeight(weight);
                             product.setProductImage(product_image);
                             product.setIsShipmentFree(free_shipment);
-                            response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
                             utx.commit();
+
+                            response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
                         } catch (Exception ex) {
                             out.println(ex.getMessage());
                         }

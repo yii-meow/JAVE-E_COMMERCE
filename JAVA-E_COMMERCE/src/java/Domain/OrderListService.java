@@ -4,9 +4,9 @@
  */
 package Domain;
 
-
 import entity.OrderList;
 import entity.Product;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -41,5 +41,14 @@ public class OrderListService {
         return query.getResultList();
     }
 
+    public List<OrderList> retrieveOrderListByOrderId(int orderId) {
+        query = mgr.createNamedQuery("OrderList.findByOrderId").setParameter("orderId", orderId);
+        return query.getResultList();
+    }
+
+    public List<Object[]> retriveOrderListByFindSubtotalByDateGroup(Date start_date, Date end_date) {
+        query = mgr.createNamedQuery("OrderList.findSubtotalByDateGroup").setParameter("startTime", start_date).setParameter("endTime", end_date);
+        return query.getResultList();
+    }
 
 }

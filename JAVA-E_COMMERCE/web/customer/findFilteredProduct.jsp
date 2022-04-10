@@ -1,5 +1,5 @@
 <%-- 
-    Document   : viewProduct
+    Document   : findFilteredProduct
     Created on : Apr 5, 2022, 10:09:26 PM
     Author     : yikso
 --%>
@@ -39,7 +39,9 @@
                         <p class="card-text"><%= String.format("RM %.2f", productDetails.getPrice())%></p>
                         <p class="card-text">Stock: <%= productDetails.getStock()%></p>
                         <p class="card-text">Weight: <%=  String.format("%.2f KG", productDetails.getProductWeight())%></p>
-                        <p class="card-text">Free Shipment: <%=  productDetails.getIsShipmentFree() ? "Yes" : "No"%></p>
+                        <p class="card-text">
+                            Free Shipment: <%= productDetails.getIsShipmentFree()%>
+                        </p>
                         <p class="card-text">Rating: </p>    
                         <p class="card-text">
                         <form action="" method="">

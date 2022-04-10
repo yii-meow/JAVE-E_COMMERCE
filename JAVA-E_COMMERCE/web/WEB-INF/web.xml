@@ -110,6 +110,16 @@
         <servlet-name>Report</servlet-name>
         <url-pattern>/GenerateReport</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>DateRange</servlet-name>
+        <servlet-class>Servlets.GenerateSalesReport</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DateRange</servlet-name>
+        <url-pattern>/DateRange</url-pattern>
+    </servlet-mapping>
+    
     <!--
         <servlet>
             <servlet-name>ConfirmStaff</servlet-name>

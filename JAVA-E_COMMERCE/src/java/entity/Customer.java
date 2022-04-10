@@ -142,6 +142,15 @@ public class Customer implements Serializable {
         this.gender = gender;
     }
 
+    public double calculateTotalPurchaseAmount() {
+        double total = 0;
+
+        for (Orders order : this.ordersList) {
+            total += order.calculateTotal();
+        }
+        return total;
+    }
+
     @XmlTransient
     public List<Orders> getOrdersList() {
         return ordersList;
