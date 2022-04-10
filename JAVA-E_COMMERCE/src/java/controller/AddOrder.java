@@ -9,6 +9,7 @@ package controller;
  * @author sohyz
  */
 import entity.OrderList;
+import entity.OrderListPK;
 import entity.OrderListService;
 import entity.Orders;
 import entity.OrdersService;
@@ -49,28 +50,34 @@ public class AddOrder extends HttpServlet {
             HttpSession session = request.getSession();
 
             List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
+            double subtotal = (Double) session.getAttribute("DiscountPrice");
 
             utx.begin();
             Orders order = new Orders();
             em.persist(order);
             utx.commit();
-//            List<Orders> orders = itemService.findAll();
-
-            
-
 
             for (Shoppingcart2 item : itemList) {
 
+                OrderListPK orderlistPK = new OrderListPK(order.getOrderId(), item.getProductId().getProductId());
                 OrderList orderList
-                        = new OrderList(order.getOrderId(), item.getProductId().getProductId(),
-                                item.getQuantity() * item.getProductId().getPrice(),
-                                productService.findItemByID(item.getProductId().getProductId()));
-
-                orderListService.addOrders(orderList);
+                        = new OrderList(orderlistPK, subtotal, productService.findItemByID(item.getProductId().getProductId()), item.getQuantity());
+                utx.begin();
+                boolean isSucess = orderListService.addOrders(orderList);
+                utx.commit();
 
             }
-            utx.commit();
 
+//            List<Orders> orders = itemService.findAll();
+//            for (Shoppingcart2 item : itemList) {
+//                OrderListPK orderlistPK=new OrderListPK(order.getOrderId(), item.getProductId().getProductId());
+//                OrderList orderList
+//                        = new OrderList(orderlistPK, subtotal, productService.findItemByID(item.getProductId().getProductId()), item.getQuantity());
+//                
+//                boolean isSucess=orderListService.updateShoppingcart(orderList,orderlistPK);
+//                utx.commit();
+//
+//            }
             System.out.println("hello");
 
             response.sendRedirect("../customer/ConfirmPurchase.jsp");

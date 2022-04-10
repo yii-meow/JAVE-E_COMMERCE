@@ -55,10 +55,11 @@ public class OrderList implements Serializable {
         this.orderListPK = orderListPK;
     }
 
-    public OrderList(int orderId, int productId,Double subtotal,Product product) {
-        this.orderListPK = new OrderListPK(orderId, productId);
+    public OrderList(OrderListPK orderlistPK,Double subtotal,Product product, int quantity) {
+        this.orderListPK = orderlistPK;
         this.subtotal = subtotal;
         this.product = product;
+        this.quantity = quantity;
     }
 
     public OrderList(int orderId, int productId) {

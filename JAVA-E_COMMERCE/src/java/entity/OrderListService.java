@@ -31,18 +31,17 @@ public class OrderListService {
         return true;
     }
 
-    public boolean updateShoppingcart(Shoppingcart2 item) {
-        Shoppingcart2 tempItem = findItemByID(item.getCartId());
+    public boolean updateShoppingcart(OrderList item,OrderListPK orderList) {
+        OrderList tempItem = findOrdersByID(item.getOrderListPK().getOrderId());
         if (tempItem != null) {
-            tempItem.setCustomerId(item.getCustomerId());
-            tempItem.setProductId(item.getProductId());
+            tempItem.setOrderListPK(item.getOrderListPK());
             tempItem.setQuantity(item.getQuantity());
             return true;
         }
         return false;
     }
 
-    public OrderList findOrdersByID(String orderID) {
+    public OrderList findOrdersByID(int orderID) {
         OrderList order = mgr.find(OrderList.class, orderID);
         return order;
     }
