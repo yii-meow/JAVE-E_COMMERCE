@@ -55,7 +55,7 @@
                     Product productDetails = product.get(i);
             %>
             <div style="text-align:center">
-                <div class="card text-white bg-dark mb-3" style="width: 15rem;height:40em;margin-left:15px;">
+                <div class="card text-white bg-dark mb-3" style="width: 16.5rem;height:40em;margin-left:15px;">
                     <div class="card-body" style="height:230px;">
                         <img class="card-img-top" src="<%= productDetails.getProductImage()%>" alt="Product Image" style="width:200px;height:200px;">
                     </div>

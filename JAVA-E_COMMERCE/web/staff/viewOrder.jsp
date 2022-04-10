@@ -67,10 +67,10 @@
 
                             <button class='btn btn-success btn-sm rounded-0 editButton' type='button' data-id="<%= ordersDetails.getOrderId()%>" data-whatever='@mdo' data-placement='top' title='Edit' style='margin-left:8px;'><i class='fa fa-edit'></i></button>
 
-                            <div style='display:inline-block;width:35rem;text-align:right;'>
+                            <div style='display:inline-block;width:33rem;text-align:right;'>
                                 <%= ordersDetails.getOrderTime()%>
                             </div>
-                            </br>
+                            </br></br>
 
                             Tracking Number: <%= ordersDetails.getTrackingNumber()%>
                         </div>
