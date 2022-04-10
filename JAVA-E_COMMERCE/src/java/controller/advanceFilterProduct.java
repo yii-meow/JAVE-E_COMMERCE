@@ -43,6 +43,7 @@ public class advanceFilterProduct extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            // INITIALIZE VARIABLE
             double min_price = 0;
             double max_price = 0;
             boolean free = false;
@@ -69,6 +70,8 @@ public class advanceFilterProduct extends HttpServlet {
                 List<Double> price = query.getResultList();
                 max_price = price.get(0);
             }
+            
+            // FIND THE PRODUCT BASED ON PRICE AND SHIPMENT FILTER
             Query query = em.createNamedQuery("Product.findByPriceAndShipment").setParameter("min_price", min_price).setParameter("max_price", max_price).setParameter("shipment", free);
             List<Product> product = query.getResultList();
             
@@ -77,6 +80,7 @@ public class advanceFilterProduct extends HttpServlet {
                 session.setAttribute("product", product);
                 response.sendRedirect("customer/findFilteredProduct.jsp");
             } else {
+                // DISPLAY ERROR
                 out.println("<script type=\"text/javascript\">");
                 out.println("alert('No product found!');");
                 out.println("window.history.go(-1);</script>");

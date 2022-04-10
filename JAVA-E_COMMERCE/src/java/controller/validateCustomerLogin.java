@@ -33,9 +33,6 @@ public class validateCustomerLogin extends HttpServlet {
     @PersistenceContext
     private EntityManager em;
 
-    @Resource
-    private UserTransaction utx;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -74,7 +71,6 @@ public class validateCustomerLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
     }
 
@@ -93,24 +89,29 @@ public class validateCustomerLogin extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        // HASH PASSWORD FOR LATER MATCHING
         String hash = passwordHash.getHash(password);
-        out.print(hash);
 
         try {
+            // RETRIEVE THE CUSTOMER USERNAME FROM DATABASE
             Query query = em.createNamedQuery("Customer.findByCustomerUsername").setParameter("customerUsername", username);
 
+            // CHECK IF CUSTOMER RECORD EXIST
             if (!query.getResultList().isEmpty()) {
                 List<Customer> customer = (List<Customer>) query.getResultList();
 
+                // IF PASSWORD MATCH THEN REDIRECT TO CUSTOMER MAIN PAGE
                 if (customer.get(0).getCustomerPassword().equals(hash)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("customer", customer);
-                    response.sendRedirect("customer/index.html");
+                    response.sendRedirect("customer/index.html"); // CHANGE THIS TO CUSTOMER MAIN PAGE
                 } else {
+                    // REDIRECT BACK TO LOGIN PAGE IF PASSWORD DOESN'T MATCH                  
                     response.sendRedirect("customerLogin.html");
                 }
 
             } else {
+                // REDIRECT BACK TO LOGIN PAGE IF CUSTOMER RECORD DOESN'T EXIST
                 response.sendRedirect("customerLogin.html");
             }
         } catch (Exception ex) {

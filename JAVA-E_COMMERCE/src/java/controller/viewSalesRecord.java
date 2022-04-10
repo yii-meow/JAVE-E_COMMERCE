@@ -49,6 +49,8 @@ public class viewSalesRecord extends HttpServlet {
             // DEFINE TIME RANGE FOR THE ORDERS
             String start_date = request.getParameter("start_date");
             String end_date = request.getParameter("end_date");
+            
+            // SET THE END_DATE TO BE 20XX-XX-XX 23:59:59, SO THAT IT CAN FIND THE ORDERS BETWEEN THE STARTING DATE AND ENDING DATE
             end_date += " 23:59:59";
 
             Date start_time = new SimpleDateFormat("yyyy-MM-dd").parse(start_date);
@@ -66,7 +68,7 @@ public class viewSalesRecord extends HttpServlet {
             Query findAllOrdersInTimeRange = em.createNamedQuery("Orders.findOrderInTimeRange").setParameter("startTime", start_time).setParameter("endTime", end_time);
 
             if (!findAllOrdersInTimeRange.getResultList().isEmpty()) {
-                // SET SESSION FOR ALL ORDER IN TIME RANGE IN LIST<Orders>
+                // SET SESSION FOR ALL ORDER IN TIME RANGE INTO LIST<Orders>
                 HttpSession session = request.getSession();
                 List<Orders> orders = findAllOrdersInTimeRange.getResultList();
                 session.setAttribute("orders", orders);

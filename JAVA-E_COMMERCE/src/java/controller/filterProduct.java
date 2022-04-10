@@ -75,7 +75,6 @@ public class filterProduct extends HttpServlet {
                     query = em.createNamedQuery("Product.findAll");
                     List<Product> product = query.getResultList();
                     session.setAttribute("product", product);
-                    out.println("hi");
                     response.sendRedirect("customer/findFilteredProduct.jsp");
                 } else {
                     // IF FILTER HAS VALUE

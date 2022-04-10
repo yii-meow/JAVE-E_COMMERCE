@@ -39,6 +39,7 @@ public class updateProduct extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
+            // SET PRESET VALUE FOR UPDATING PRODUCT PAGE
             int id = Integer.parseInt(request.getParameter("id"));
             Product product = em.find(Product.class, id);
             HttpSession session = request.getSession();

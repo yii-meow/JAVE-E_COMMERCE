@@ -44,11 +44,13 @@ public class maintainOrders extends HttpServlet {
             try {
                 HttpSession session = request.getSession();
 
+                // SET SHIPMENT DETAILS BASED ON WHAT THE STAFF SELECT
                 utx.begin();
                 Orders order = em.find(Orders.class, Integer.parseInt(request.getParameter("order_ID")));
                 order.setShipmentDetails(shipment_status);
 
                 if (shipment_status.equals("Shipped")) {
+                    // UPDATE SHIPMENT TIME WHEN THE SHIPMENT IS SHIPPED
                     order.setShipTime(new Date());
                 }
 

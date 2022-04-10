@@ -33,9 +33,6 @@ public class viewCustomerRecord extends HttpServlet {
     @PersistenceContext
     private EntityManager em;
 
-    @Resource
-    private UserTransaction utx;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,6 +47,7 @@ public class viewCustomerRecord extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try ( PrintWriter out = response.getWriter()) {
+            // FIND CUSTOMER RECORD BASED ON THE CUSTOMER ID
             HttpSession session = request.getSession();
             int customer_ID = Integer.parseInt(request.getParameter("customer_ID"));
             Customer customer = em.find(Customer.class, customer_ID);
@@ -77,18 +75,21 @@ public class viewCustomerRecord extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        // CHECK IF SHIPMENT NEED TO BE SORTED
+        // CHECK WHICH COLUMN NEED TO BE SORTED
         String sort = request.getParameter("sort") + "";
 
         if (!sort.equals("null")) {
+            // CHECK ASC OR DESC ORDER
             String orderBy = request.getParameter("orderBy");
 
             // FIND CUSTOMER RECORD FROM SORTING
             // INITIALIZE QUERY
             Query sort_cust = em.createNamedQuery("Customer.findAll");
 
-            // SOLVE THE ISSUE WITH JPQL ORDER BY PARAMETER ISSUE
+            // SOLVE THE ISSUE WITH JPQL ORDER BY PARAMETER ISSUE USING CREATEQUERY
+            // SORT EITHER ID, NAME ,EMAIL, OR GENDER COLUMN
             switch (sort) {
+                // ASC = ASCENDING , DESC = DESCENDING
                 case "ID":
                     if (orderBy.equals("asc")) {
                         sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerID");
@@ -96,7 +97,7 @@ public class viewCustomerRecord extends HttpServlet {
                         sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerID DESC");
                     }
                     break;
-                
+
                 case "name":
                     if (orderBy.equals("asc")) {
                         sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerName");
@@ -120,7 +121,7 @@ public class viewCustomerRecord extends HttpServlet {
                         sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.gender DESC");
                     }
             }
-            
+
             // SEND THE RESULT TO THE CUSTOMER OBJECT
             List<Customer> cust = sort_cust.getResultList();
             session.setAttribute("customer", cust);

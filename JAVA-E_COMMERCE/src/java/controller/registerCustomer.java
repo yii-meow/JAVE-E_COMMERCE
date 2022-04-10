@@ -100,7 +100,7 @@ public class registerCustomer extends HttpServlet {
             try {
                 HttpSession session = request.getSession();
 
-                // UPDATE TO DATABASE
+                // CREATE CUSTOMER AND UPDATE TO DATABASE
                 utx.begin();
                 Customer customer = new Customer(username, password, name, email, address, gender);
                 em.persist(customer);

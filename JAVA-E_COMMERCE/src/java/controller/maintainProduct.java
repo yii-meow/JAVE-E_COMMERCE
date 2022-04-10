@@ -79,6 +79,7 @@ public class maintainProduct extends HttpServlet {
                         free_shipment = true;
                     }
 
+                    // CREATE PRODUCT
                     if (request.getParameter("action").equals("create")) {
                         try {
                             utx.begin();
@@ -91,6 +92,7 @@ public class maintainProduct extends HttpServlet {
                             out.println(ex.getMessage());
                         }
                     } else {
+                        // UPDATE PRODUCT
                         int id = Integer.parseInt(request.getParameter("product_id"));
                         try {
                             utx.begin();
@@ -131,6 +133,7 @@ public class maintainProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // INTIAILIZE SESSION FOR PRODUCT PAGE
         HttpSession session = request.getSession();
         Query query = em.createNamedQuery("Product.findAll");
         List<Product> product = query.getResultList();
