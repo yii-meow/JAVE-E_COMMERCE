@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Product, java.util.*"%>
+<jsp:include page="navbar.jsp"/>
 <jsp:include page="../maintainProduct"/>
 
 <% List<Product> product = (List<Product>) session.getAttribute("product");%>
@@ -32,6 +33,7 @@
                 "sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
                 crossorigin="anonymous">
         </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
         <title>Maintain Product</title>
@@ -53,8 +55,8 @@
                     Product productDetails = product.get(i);
             %>
             <div style="text-align:center">
-                <div class="card text-white bg-dark mb-3" style="width: 15rem;height:40em;margin-left:15px;">
-                    <div class="card-body" style="height:150px;">
+                <div class="card text-white bg-dark mb-3" style="width: 16.5rem;height:40em;margin-left:15px;">
+                    <div class="card-body" style="height:230px;">
                         <img class="card-img-top" src="<%= productDetails.getProductImage()%>" alt="Product Image" style="width:200px;height:200px;">
                     </div>
 
@@ -63,11 +65,16 @@
                             <!-- SHOW PRODUCT DETAILS -->
                             <p class="card-text">ID: <%= productDetails.getProductId()%></p>
                             <p class="card-text"><%= productDetails.getProductName()%></p>
-                            <p class="card-text"><%= productDetails.getProductDescription() %></p>
+                            <p class="card-text"><%= productDetails.getProductDescription()%></p>
                             <p class="card-text"><%= String.format("RM %.2f", productDetails.getPrice())%></p>
-                            <p class="card-text">Stock: <%= productDetails.getStock() %></p>
-                            <p class="card-text">Weight: <%=  String.format("%.2f KG",productDetails.getProductWeight()) %></p>
-                            <p class="card-text">Rating: </p>    
+                            <p class="card-text">Stock: <%= productDetails.getStock()%></p>
+                            <p class="card-text">Weight: <%=  String.format("%.2f KG", productDetails.getProductWeight())%></p>
+                            <p class="card-text">
+                                Free Shipment: <%= productDetails.getIsShipmentFree()%>
+                            </p>
+                            <p class="card-text"> 
+                                Rating: <%= productDetails.getAverageRating()!=0 ? productDetails.getAverageRating() : "None" %>
+                            </p>    
 
                             <!-- UPDATE PRODUCT -->
                             <button class='btn btn-success btn-sm rounded-0 editButton' type='button submit' title='Edit' formaction='../updateProduct?id=<%=productDetails.getProductId()%>'"><i class='fa fa-edit'></i></button>

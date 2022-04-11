@@ -27,9 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderList.findByOrderId", query = "SELECT o FROM OrderList o WHERE o.orderListPK.orderId = :orderId"),
     @NamedQuery(name = "OrderList.findByProductId", query = "SELECT o FROM OrderList o WHERE o.orderListPK.productId = :productId"),
     @NamedQuery(name = "OrderList.findByQuantity", query = "SELECT o FROM OrderList o WHERE o.quantity = :quantity"),
-    @NamedQuery(name = "OrderList.findSubtotalGroup", query = "SELECT o.product.productId, SUM(o.subtotal), SUM(o.quantity), o.product.productName,o.product.price FROM OrderList o GROUP BY o.product.productId"),
-    @NamedQuery(name = "OrderList.findSubtotalByDateGroup", query = "SELECT o.product.productId, SUM(o.subtotal), SUM(o.quantity), o.product.productName,o.product.price FROM OrderList o WHERE o.orders.orderTime BETWEEN :startTime AND :endTime GROUP BY o.product.productId"),
-    @NamedQuery(name = "OrderList.findOrderInTimeRange", query = "SELECT o FROM OrderList o WHERE o.orders.orderTime BETWEEN :startTime AND :endTime"),
+    @NamedQuery(name = "OrderList.findSubtotalGroup", query = "SELECT o.product.productId, SUM(o.subtotal), SUM(o.quantity), o.product.productName,o.product.price FROM OrderList o GROUP BY o.product.productId"), // CHECK OVERALL ORDERLIST
+    @NamedQuery(name = "OrderList.findSubtotalByDateGroup", query = "SELECT o.product.productId, SUM(o.subtotal), SUM(o.quantity), o.product.productName,o.product.price FROM OrderList o WHERE o.orders.orderTime BETWEEN :startTime AND :endTime GROUP BY o.product.productId"), // CHECK DAILY SALES RECORD
+    @NamedQuery(name = "OrderList.findOrderInTimeRange", query = "SELECT o FROM OrderList o WHERE o.orders.orderTime BETWEEN :startTime AND :endTime"), // FIND ORDER BETWEEN GIVEN DATES
     @NamedQuery(name = "OrderList.findBySubtotal", query = "SELECT o FROM OrderList o WHERE o.subtotal = :subtotal")})
 public class OrderList implements Serializable {
 

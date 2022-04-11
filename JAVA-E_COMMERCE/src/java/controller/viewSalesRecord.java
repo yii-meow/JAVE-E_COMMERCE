@@ -20,6 +20,7 @@ import entity.Orders;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
@@ -48,6 +49,8 @@ public class viewSalesRecord extends HttpServlet {
             // DEFINE TIME RANGE FOR THE ORDERS
             String start_date = request.getParameter("start_date");
             String end_date = request.getParameter("end_date");
+            
+            // SET THE END_DATE TO BE 20XX-XX-XX 23:59:59, SO THAT IT CAN FIND THE ORDERS BETWEEN THE STARTING DATE AND ENDING DATE
             end_date += " 23:59:59";
 
             Date start_time = new SimpleDateFormat("yyyy-MM-dd").parse(start_date);
@@ -65,7 +68,7 @@ public class viewSalesRecord extends HttpServlet {
             Query findAllOrdersInTimeRange = em.createNamedQuery("Orders.findOrderInTimeRange").setParameter("startTime", start_time).setParameter("endTime", end_time);
 
             if (!findAllOrdersInTimeRange.getResultList().isEmpty()) {
-                // SET SESSION FOR ALL ORDER IN TIME RANGE IN LIST<Orders>
+                // SET SESSION FOR ALL ORDER IN TIME RANGE INTO LIST<Orders>
                 HttpSession session = request.getSession();
                 List<Orders> orders = findAllOrdersInTimeRange.getResultList();
                 session.setAttribute("orders", orders);
@@ -106,6 +109,7 @@ public class viewSalesRecord extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
+        
         // RETRIEVE ALL ORDER
         HttpSession session = request.getSession();
         Query query = em.createNamedQuery("Orders.findAll");
@@ -116,6 +120,18 @@ public class viewSalesRecord extends HttpServlet {
         Query query2 = em.createNamedQuery("OrderList.findSubtotalGroup");
         List<Object[]> ol = query2.getResultList();
         session.setAttribute("ordersGroup", ol);
+        
+        // CHECK IF SHIPMENT NEED TO BE SORTED
+        String shipment = request.getParameter("shipment") + "";
+        
+        if(!shipment.equals("null")){
+            // FIND ORDERS OF THE PROVIDED SHIPMENT STATUS
+            List<Orders> order_shipment = em.createNamedQuery("Orders.findByShipmentDetails").setParameter("shipmentDetails", shipment).getResultList();
+            session.setAttribute("order_shipment", order_shipment);                        
+            RequestDispatcher rd = request.getRequestDispatcher("staff/viewOrderShipment.jsp");
+            rd.forward(request, response);
+        }
+        
     }
 
     /**

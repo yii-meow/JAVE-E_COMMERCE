@@ -6,25 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Orders,entity.Product,entity.OrderList,java.util.*"%>
+<jsp:include page="navbar.jsp"/>
 <% List<Orders> orders = (List<Orders>) session.getAttribute("orders");%>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-        <link rel="stylesheet" type="text/css" href="../styling/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-
-        <!-- Import jquery cdn -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                integrity=
-                "sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                crossorigin="anonymous">
-        </script>
 
         <script src=
                 "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
@@ -33,58 +21,110 @@
                 crossorigin="anonymous">
         </script>
 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
         <link href="../styling/css/profilePage.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 
         <title>View Customer Purchase Record</title>
     </head>
     <body>
+        <div style='text-align:center;'>
+            <p class="h5">Record of Customer : <%= orders.get(0).getCustomerID().getCustomerName()%></p>
+        </div>
 
-        <p class="h6">Customer: <%= orders.get(0).getCustomerID().getCustomerName()%></p>
         <% for (int i = 0; i < orders.size(); i++) {
                 Orders ordersDetails = orders.get(i);
         %>     
 
-        <div class="card" style="width: 45rem;margin-left:auto;margin-right:auto;">
+        <div class="card" style="width: 46rem;margin-left:auto;margin-right:auto;">
             <div class="card-header">
+
                 <i class="bi bi-card-list"></i>
                 <%= ordersDetails.getShipmentDetails()%>
-                <button class='btn btn-success btn-sm rounded-0 editButton' type='button' data-id="<%= ordersDetails.getOrderId()%>" data-whatever='@mdo' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button>
-                <span style="margin-left:320px;"><%= ordersDetails.getOrderTime()%></span>
-                </br>Tracking Number: <%= ordersDetails.getTrackingNumber()%>
+
+                <button class='btn btn-success btn-sm rounded-0 editButton' type='button' data-id="<%= ordersDetails.getOrderId()%>" data-whatever='@mdo' data-placement='top' title='Edit' style='margin-left:8px;'><i class='fa fa-edit'></i></button>
+
+                <div style='display:inline-block;width:36.5rem;text-align:right;'>
+                    <%= ordersDetails.getOrderTime()%>
+                </div>
+                </br>
+
+                Tracking Number: <%= ordersDetails.getTrackingNumber()%>
             </div>
 
-            <!-------------- Order Content ------------->
+            <!-------------- Order Content in Card Body ------------->
             <div class="card-body">
+
                 <% for (int j = 0; j < ordersDetails.getOrderListList().size(); j++) {
                         OrderList orderlist = ordersDetails.getOrderListList().get(j);
                 %>
-                <img src="<%= orderlist.getProduct().getProductImage()%>" style="width:50px;height:50px;"/>
+                <div width="500px;">
+
+                    <!--------------- Image ----------------->
+                    <img src="<%= orderlist.getProduct().getProductImage()%>" style="width:100px;height:100px;"/>
+                </div>
+
+                </br>
+
                 <span>
-                    <h5 class="card-title">
-                        <%= orderlist.getProduct().getProductName()%>            
-                        <span style="margin-left:450px;font-weight:normal"><%= String.format("RM %.2f", orderlist.getProduct().getPrice())%></span>
-                        <span style="margin-left:600px;font-weight:100">x <%= orderlist.getQuantity()%></span>
+                    <h5>
+                        <div style="width:200px;">
+                            <!--------------- Product Name ----------------->
+                            <%= orderlist.getProduct().getProductName()%>
+                        </div>
+                        <div style='width:43rem;text-align:right;'>
+                            <!--------------- Product Price and Quantity ----------------->
+                            <span style="font-weight:normal"><%= String.format("RM %.2f", orderlist.getProduct().getPrice())%></span>
+                            <span style="font-weight:100">x <%= orderlist.getQuantity()%></span>
+                        </div>
                     </h5>
                 </span>
-                <p class="card-text"><%= orderlist.getProduct().getProductDescription()%></p>
+
+                <!--------------- Product Description ----------------->
+                <p class="card-text">Description : <%= orderlist.getProduct().getProductDescription()%></p>
+
                 <hr>
+
                 <% }%>
+
             </div>
-            <!-------------- Order Content ------------->
+
+            <!-------------- Order Content in Card Body ------------->
 
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Total Payment <span style="margin-left:450px;"><%= String.format("RM %.2f", ordersDetails.calculateTotal())%></span></li>
-                <li class="list-group-item">Logistic Information <span style="margin-left:450px;"><%= ordersDetails.getDeliveryCourier()%></span></li>
-                <li class="list-group-item">Shipment Date 
-                    <% String ship_time = ordersDetails.getShipTime() + "";
-                    %>
-                    <span style="margin-left:350px;"><%= ship_time.equals("null") ? "N/A" : ordersDetails.getShipTime()%>
-                    </span>
+
+                <li class="list-group-item">                    
+                    <div style='width:10rem;display:inline-block'>Total Payment</div> 
+                    <div style="width:33rem;text-align:right;display:inline-block;">
+                        <%= String.format("RM %.2f", ordersDetails.calculateTotal())%>
+                    </div>
                 </li>
-                <li class="list-group-item">Paid Time
-                    <span style="margin-left:380px;"><%= ordersDetails.getOrderTime()%>
-                    </span>
+
+                <li class="list-group-item">
+                    <div style='width:10rem;display:inline-block'>Logistic Information</div> 
+                    <div style="width:33rem;text-align:right;display:inline-block;">
+                        <%= ordersDetails.getDeliveryCourier()%>
+                    </div>
+                </li>
+
+                <li class="list-group-item">
+                    <div style='width:10rem;display:inline-block'>Shipment Date</div> 
+                    <div style="width:33rem;text-align:right;display:inline-block;">
+                        <% String ship_time = ordersDetails.getShipTime() + "";
+                            out.println(ship_time);
+                        %>
+                    </div>
+                </li>
+
+                </li>
+                <li class="list-group-item">
+                    <div style='width:10rem;display:inline-block'>Paid Time</div> 
+                    <div style="width:33rem;text-align:right;display:inline-block;">
+                        <%= ordersDetails.getOrderTime()%>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -101,7 +141,7 @@
             });
         </script>
 
-        <!--Bootstrap Modal for Updating New Appointment-->
+        <!--Bootstrap Modal for Updating New Shipment-->
         <div class="modal fade" id="updateShipment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
 

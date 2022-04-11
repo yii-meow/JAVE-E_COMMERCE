@@ -79,19 +79,20 @@ public class maintainProduct extends HttpServlet {
                         free_shipment = true;
                     }
 
+                    // CREATE PRODUCT
                     if (request.getParameter("action").equals("create")) {
                         try {
                             utx.begin();
                             Product product = new Product(product_name, product_description, stock, price, weight, product_image, free_shipment);
                             em.persist(product);
                             utx.commit();
-                            out.println("<script type=\"text/javascript\">");
-                            out.println("alert('Created Successfully!');</script>");
+
                             response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
                         } catch (Exception ex) {
                             out.println(ex.getMessage());
                         }
                     } else {
+                        // UPDATE PRODUCT
                         int id = Integer.parseInt(request.getParameter("product_id"));
                         try {
                             utx.begin();
@@ -103,8 +104,9 @@ public class maintainProduct extends HttpServlet {
                             product.setProductWeight(weight);
                             product.setProductImage(product_image);
                             product.setIsShipmentFree(free_shipment);
-                            response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
                             utx.commit();
+
+                            response.sendRedirect(request.getContextPath() + "/staff/maintainProduct.jsp");
                         } catch (Exception ex) {
                             out.println(ex.getMessage());
                         }
@@ -131,9 +133,12 @@ public class maintainProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        // INTIAILIZE SESSION FOR PRODUCT PAGE
         HttpSession session = request.getSession();
         Query query = em.createNamedQuery("Product.findAll");
         List<Product> product = query.getResultList();
+        
         session.setAttribute("product", product);
     }
 

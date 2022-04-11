@@ -14,7 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findAllAscendingByName", query = "SELECT p FROM Product p ORDER BY P.productName"),
     @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId"),
     @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName LIKE CONCAT('%',:productName,'%')"),
     @NamedQuery(name = "Product.findByProductDescription", query = "SELECT p FROM Product p WHERE p.productDescription = :productDescription"),
@@ -44,12 +42,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByProductWeight", query = "SELECT p FROM Product p WHERE p.productWeight = :productWeight"),
     @NamedQuery(name = "Product.findByIsShipmentFree", query = "SELECT p FROM Product p WHERE p.isShipmentFree = :isShipmentFree"),
     @NamedQuery(name = "Product.findByPriceAndShipment", query = "SELECT p FROM Product p WHERE p.price >= :min_price AND p.price <= :max_price AND p.isShipmentFree = :shipment"),
+    @NamedQuery(name = "Product.findMaxPrice", query = "SELECT MAX(p.price) FROM Product p"),
     @NamedQuery(name = "Product.findByProductImage", query = "SELECT p FROM Product p WHERE p.productImage = :productImage")})
 public class Product implements Serializable {
 
-    @OneToMany(mappedBy = "productId")
-    private List<Shoppingcart2> shoppingcart2List;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private List<Review> reviewList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -176,6 +174,21 @@ public class Product implements Serializable {
         this.orderListList = orderListList;
     }
 
+    public Double getAverageRating() {
+        double rating = 0;
+        
+        // CHECK IF THIS PRODUCT HAS ANY REVIEW
+        if (this.getReviewList().size() != 0) {
+            for (Review r : this.getReviewList()) {
+                rating += r.getRating();
+            }
+            // CALCULATE AVERAGE RATING
+            rating /= this.getReviewList().size();
+        }
+
+        return rating;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -202,12 +215,12 @@ public class Product implements Serializable {
     }
 
     @XmlTransient
-    public List<Shoppingcart2> getShoppingcart2List() {
-        return shoppingcart2List;
+    public List<Review> getReviewList() {
+        return reviewList;
     }
 
-    public void setShoppingcart2List(List<Shoppingcart2> shoppingcart2List) {
-        this.shoppingcart2List = shoppingcart2List;
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
     }
 
 }

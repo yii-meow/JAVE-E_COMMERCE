@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 import entity.Customer;
 import entity.Orders;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -30,9 +32,6 @@ public class viewCustomerRecord extends HttpServlet {
 
     @PersistenceContext
     private EntityManager em;
-
-    @Resource
-    private UserTransaction utx;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,6 +47,7 @@ public class viewCustomerRecord extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try ( PrintWriter out = response.getWriter()) {
+            // FIND CUSTOMER RECORD BASED ON THE CUSTOMER ID
             HttpSession session = request.getSession();
             int customer_ID = Integer.parseInt(request.getParameter("customer_ID"));
             Customer customer = em.find(Customer.class, customer_ID);
@@ -73,19 +73,63 @@ public class viewCustomerRecord extends HttpServlet {
         Query query = em.createNamedQuery("Customer.findAll");
         List<Customer> customer = query.getResultList();
 
-        for (int i = 0; i < customer.size(); i++) {
-            // TO CHECK WHICH CUSTOMER HAVE NO ORDER
-            try {
-                if (!customer.get(i).getOrdersList().get(0).getOrderId().equals("")) {
-                }
-
-            } catch (Exception ex) {
-                customer.remove(i);
-            }
-        }
         HttpSession session = request.getSession();
-        session.setAttribute("customer", customer);
-        response.sendRedirect("staff/viewCustomerRecord.jsp");
+
+        // CHECK WHICH COLUMN NEED TO BE SORTED
+        String sort = request.getParameter("sort") + "";
+
+        if (!sort.equals("null")) {
+            // CHECK ASC OR DESC ORDER
+            String orderBy = request.getParameter("orderBy");
+
+            // FIND CUSTOMER RECORD FROM SORTING
+            // INITIALIZE QUERY
+            Query sort_cust = em.createNamedQuery("Customer.findAll");
+
+            // SOLVE THE ISSUE WITH JPQL ORDER BY PARAMETER ISSUE USING CREATEQUERY
+            // SORT EITHER ID, NAME ,EMAIL, OR GENDER COLUMN
+            switch (sort) {
+                // ASC = ASCENDING , DESC = DESCENDING
+                case "ID":
+                    if (orderBy.equals("asc")) {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerID");
+                    } else {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerID DESC");
+                    }
+                    break;
+
+                case "name":
+                    if (orderBy.equals("asc")) {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerName");
+                    } else {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerName DESC");
+                    }
+                    break;
+
+                case "email":
+                    if (orderBy.equals("asc")) {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerEmail");
+                    } else {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.customerEmail DESC");
+                    }
+                    break;
+
+                case "gender":
+                    if (orderBy.equals("asc")) {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.gender");
+                    } else {
+                        sort_cust = em.createQuery("SELECT c FROM Customer c ORDER BY c.gender DESC");
+                    }
+            }
+
+            // SEND THE RESULT TO THE CUSTOMER OBJECT
+            List<Customer> cust = sort_cust.getResultList();
+            session.setAttribute("customer", cust);
+            response.sendRedirect("staff/viewFilteredCustomerRecord.jsp");
+        } else {
+            session.setAttribute("customer", customer);
+            response.sendRedirect("staff/viewCustomerRecord.jsp");
+        }
     }
 
     /**
