@@ -134,12 +134,17 @@ public class maintainProduct extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
+
         // INTIAILIZE SESSION FOR PRODUCT PAGE
         HttpSession session = request.getSession();
         Query query = em.createNamedQuery("Product.findAll");
         List<Product> product = query.getResultList();
-        
+
+        // GET OVERALL OF AVERAGE RATING OF THE SHOP
+        Object rating = em.createNamedQuery("Review.findOverallAverageRating").getSingleResult();
+
         session.setAttribute("product", product);
+        session.setAttribute("overall_rating", rating);
     }
 
     /**

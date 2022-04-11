@@ -9,9 +9,11 @@
 <jsp:include page="../maintainProduct"/>
 
 <% List<Product> product = (List<Product>) session.getAttribute("product");%>
+<% Double overall_rating = (Double)session.getAttribute("overall_rating"); %>
 
 <!DOCTYPE html>
 <html>
+    Overall Average Rating: <%= overall_rating %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Bootstrap CSS -->
