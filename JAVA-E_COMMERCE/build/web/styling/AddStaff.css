@@ -1,0 +1,85 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 13-Mar-2022, 16:55:43
+    Author     : jensienwong
+*/
+
+*{
+    padding:0;
+    margin: 0;
+}
+
+body{
+    background-color: #19194d;
+    color: green;
+}
+
+.container{
+    font-family: "Convergence", sans-serif;
+    font-size:20px;
+    margin: auto;
+    margin-top: 200px;
+    width: 520px;
+}
+
+h1{
+    text-align: center;
+    padding: 20px;
+}
+
+.inputField{
+    border: none;
+    border-radius: 5px;
+    border-bottom: 1px solid yellow;
+    padding: 10px;
+    margin: 8px;
+    margin-left: 30px;
+    font-family: inherit;
+    font-size: 15px;
+    background: none;
+    color: white;
+}
+
+input#id{
+    border: none;
+    color: red;
+    background: none;
+    padding: 2px;
+    font-family: inherit;
+    font-size: inherit;
+    width: auto;
+}
+
+input#firstName, input#lastName, input#ic{
+    width: 180px;
+}
+
+input#age{
+    width: 30px;
+}
+
+input#email{
+    width: 180px;
+}
+
+input#phoneNumber{
+    width: 180px;
+}
+
+.button{
+    position: absolute;
+    left: 58%;
+    margin-top: 10px;
+}
+
+input[type=submit], input[type=reset]{
+    border: 1px solid black;
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 5px;
+    width: 60px;
+}
