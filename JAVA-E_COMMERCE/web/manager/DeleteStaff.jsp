@@ -13,7 +13,7 @@
         <title>Delete Staff</title>
     </head>
     <body>
-        <%@ include file="Header.jsp" %>
+        <%@ include file="../staff/Header.jsp" %>
         <h1>Delete Staff</h1>
         <table>
             <tr>

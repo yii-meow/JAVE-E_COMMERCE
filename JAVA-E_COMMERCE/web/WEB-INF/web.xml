@@ -195,17 +195,6 @@
         <servlet-name>DateRange</servlet-name>
         <url-pattern>/DateRange</url-pattern>
     </servlet-mapping>
-    <!--
-        <servlet>
-            <servlet-name>ConfirmStaff</servlet-name>
-            <servlet-class>Servlets.ConfirmStaffDetails</servlet-class>
-        </servlet>
-    
-        <servlet-mapping>
-            <servlet-name>ConfirmStaff</servlet-name>
-            <url-pattern>/ConfirmStaffDetails</url-pattern>
-        </servlet-mapping>
-    -->
     <session-config>
         <session-timeout>
             30

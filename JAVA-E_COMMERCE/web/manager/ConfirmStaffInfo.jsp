@@ -25,7 +25,7 @@
         <title>Confirm Information</title>
     </head>
     <body>
-        <%@ include file="Header.jsp" %>
+        <%@ include file="../staff/Header.jsp" %>
         <h1>Confirm Staff Information</h1>
         <table>
             <tr>

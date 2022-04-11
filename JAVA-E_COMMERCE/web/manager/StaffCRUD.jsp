@@ -7,12 +7,16 @@
 <%@page import="entity.Staff"%>
 <jsp:useBean id="staff" scope="session" class="entity.Staff"></jsp:useBean>
 <%
-    List<Staff> staffList = (List<Staff>) session.getAttribute("staffList");
-    String recordForm = (String) session.getAttribute("recordFrom");
+
+    try {
+        List<Staff> staffList = (List<Staff>) session.getAttribute("staffList");
+        String recordForm = (String) session.getAttribute("recordFrom");
+
+
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ include file="Header.jsp" %>
+<%@ include file="../staff/Header.jsp" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,7 +26,7 @@
         <script>
             function check(x) {
                 document.getElementById(x).checked = true;
-                 document.getElementById("search").disabled = false;
+                document.getElementById("search").disabled = false;
             }
         </script>
 
@@ -31,24 +35,24 @@
 
         <h1>Staff Control</h1>
         <div class="searchByPosition">
-            <form action="../Search" action="GET">
-                
+            <form action="../Search" method="GET">
+
                 <label for="f-option" class="l-radio">
                     <input type="radio" id="ID" name="SearchBy" value="staffId" tabindex="1">
                     <span onclick="check('ID')">ID</span>
                 </label>
-                
+
                 <label for="s-option" class="l-radio">
                     <input type="radio" id="Name" name="SearchBy" value="staffName" tabindex="2">
                     <span onclick="check('Name')">Name</span>
                 </label>
-                
+
                 <label for="t-option" class="l-radio">
                     <input type="radio" id="Position" name="SearchBy" value="staffPosition" tabindex="3">
                     <span onclick="check('Position')" >Position</span>
                 </label>
                 <br>
-                
+
                 <input type="text" name="search" id="search" placeholder="Search" disabled>
                 <button id="search" type="submit"><i class="fa fa-search"></i></button>
             </form>
@@ -103,5 +107,12 @@
         <%
             }
         %>
+        <%
+            } catch (Exception e) {
+
+                response.sendRedirect("../Unauthorized.html");
+            }
+        %>
+
     </body>
 </html>

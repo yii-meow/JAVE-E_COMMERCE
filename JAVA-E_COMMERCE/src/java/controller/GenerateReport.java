@@ -4,7 +4,6 @@
  */
 package controller;
 
-import controller.CustomerService;
 import controller.OrderListService;
 import controller.OrderService;
 import entity.OrderList;
@@ -12,18 +11,11 @@ import entity.Orders;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
-import static java.util.concurrent.TimeUnit.DAYS;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.Order;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -201,12 +193,6 @@ public class GenerateReport extends HttpServlet {
 
         }
 
-//        for (int a = 0; a < prodName.length; a++) {
-//            out.println("Prod Name : " + prodName[a]);
-//            out.println("Male : " + male[a]);
-//            out.println("Female : " + female[a]);
-//            out.println("-----------------------------");
-//        }
         HttpSession session = request.getSession();
         session.setAttribute("prodName", prodNameArr);
         session.setAttribute("numOfMale", numOfMale);

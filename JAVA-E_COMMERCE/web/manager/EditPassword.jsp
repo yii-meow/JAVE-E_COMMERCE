@@ -15,7 +15,7 @@
         <title>Change Password</title>
     </head>
     <body>
-        <%@ include file="Header.jsp" %>
+        <%@ include file="../staff/Header.jsp" %>
         <div class="form-container">
             <form action="../Password" method="POST">
                 <div class="form">

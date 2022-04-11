@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%@ include file="../staff/Header.jsp" %>
+        <h1>Edit Successfullly</h1>
         <a href="../RetrieveRecord">Back</a>
     </body>
 </html>
