@@ -3,17 +3,17 @@
     Created on : Apr 6, 2022, 1:14:47 PM
     Author     : yikso
 --%>
+<%@page import="java.lang.Math.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Product, java.util.*"%>
 <jsp:include page="navbar.jsp"/>
 <jsp:include page="../maintainProduct"/>
 
 <% List<Product> product = (List<Product>) session.getAttribute("product");%>
-<% Double overall_rating = (Double)session.getAttribute("overall_rating"); %>
+<% Double overall_rating = (Double) session.getAttribute("overall_rating");%>
 
 <!DOCTYPE html>
 <html>
-    Overall Average Rating: <%= overall_rating %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Bootstrap CSS -->
@@ -36,11 +36,28 @@
                 crossorigin="anonymous">
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
         <title>Maintain Product</title>
     </head>
     <body>
+        <div style="font-size:20px;color:#990099;font-weight:bold;">
+            <!-- Display Shop Overall Rating in Star -->
+            Shop Average Rating: </br>
+
+            <!-- CHECK THE WHOLE NUMBER OF RATING AND DISPLAY A COMPLETE STAR -->
+            <% for (int i = 0; i < Math.floor(overall_rating % 10); i++) {
+                    out.println("<i class='bi bi-star-fill'></i>");
+                }
+
+                // IF DECIMAL BEHIND WHOLE NUMBER BEYOND 0.5 WILL BE GRANTED HALF STAR
+                if ((overall_rating % 1.0) >= 0.5) {
+                    out.println("<i class='bi bi-star-half'></i>");
+                }
+            %>
+        </div>
+
+
         <div style="text-align:center">
             <span class="badge badge-success badge-pill" style="font-size:1.5rem;">
                 Maintain Product
@@ -52,8 +69,7 @@
         </button>
 
         <div class="card-group" style="margin-top:20px;text-align:center">
-            <%
-                for (int i = 0; i < product.size(); i++) {
+            <%                for (int i = 0; i < product.size(); i++) {
                     Product productDetails = product.get(i);
             %>
             <div style="text-align:center">
@@ -75,7 +91,7 @@
                                 Free Shipment: <%= productDetails.getIsShipmentFree()%>
                             </p>
                             <p class="card-text"> 
-                                Rating: <%= productDetails.getAverageRating()!=0 ? productDetails.getAverageRating() : "None" %>
+                                Rating: <%= productDetails.getAverageRating() != 0 ? productDetails.getAverageRating() : "None"%>
                             </p>    
 
                             <!-- UPDATE PRODUCT -->
