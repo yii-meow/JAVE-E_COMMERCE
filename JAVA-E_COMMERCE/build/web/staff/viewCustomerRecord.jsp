@@ -34,7 +34,7 @@
         <title>Viewing Existing Customer Record</title>
     </head>
     <body>
-        <table class="table table-dark table-hover">            
+        <table class="table table-striped table-dark">            
             <thead>
                 <tr style="text-align:center">
 
