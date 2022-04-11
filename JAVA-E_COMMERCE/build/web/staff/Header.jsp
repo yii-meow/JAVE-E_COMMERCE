@@ -42,7 +42,7 @@
                     }
                 %>
 
-                <a href="#">Product</a>
+                <a href="maintainProduct.jsp">Product</a>
                 <a href="ReportHomePage.jsp">Report</a>
                 <span class="drop-down">
                     <label><i style="font-size:18px" class="fa">&#xf023;</i><%= loginStaff.getStaffName()%></label>                
