@@ -5,25 +5,20 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author yikso
+ * @author sohyz
  */
 @Entity
 @Table(name = "staff")
@@ -38,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Staff.findByStaffphoneNo", query = "SELECT s FROM Staff s WHERE s.staffphoneNo = :staffphoneNo"),
     @NamedQuery(name = "Staff.findByDateJoin", query = "SELECT s FROM Staff s WHERE s.dateJoin = :dateJoin"),
     @NamedQuery(name = "Staff.findByPosition", query = "SELECT s FROM Staff s WHERE s.position = :position")})
+
 public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -81,17 +77,28 @@ public class Staff implements Serializable {
     @NotNull
     @Column(name = "position")
     private Character position;
-    @JoinTable(name = "handle_order", joinColumns = {
-        @JoinColumn(name = "staff_id", referencedColumnName = "staff_ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "order_id", referencedColumnName = "ORDER_ID")})
-    @ManyToMany
-    private List<Orders> ordersList;
 
     public Staff() {
     }
 
     public Staff(String staffID) {
         this.staffID = staffID;
+    }
+
+    public Staff(String staffIc, String staffEmail, String staffphoneNo) {
+        this.staffIc = staffIc;
+        this.staffEmail = staffEmail;
+        this.staffphoneNo = staffphoneNo;
+    }
+
+    public Staff(String staffID, String staffName, String staffIc, String staffEmail, String staffphoneNo, String dateJoin, Character position) {
+        this.staffID = staffID;
+        this.staffName = staffName;
+        this.staffIc = staffIc;
+        this.staffEmail = staffEmail;
+        this.staffphoneNo = staffphoneNo;
+        this.position = position;
+        this.dateJoin = dateJoin;
     }
 
     public Staff(String staffID, String staffPassword, String staffName, String staffIc, String staffEmail, String staffphoneNo, String dateJoin, Character position) {
@@ -169,15 +176,6 @@ public class Staff implements Serializable {
         this.position = position;
     }
 
-    @XmlTransient
-    public List<Orders> getOrdersList() {
-        return ordersList;
-    }
-
-    public void setOrdersList(List<Orders> ordersList) {
-        this.ordersList = ordersList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -202,5 +200,5 @@ public class Staff implements Serializable {
     public String toString() {
         return "entity.Staff[ staffID=" + staffID + " ]";
     }
-    
+
 }
