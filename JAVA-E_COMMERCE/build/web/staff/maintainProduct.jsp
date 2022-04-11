@@ -29,7 +29,7 @@
                 crossorigin="anonymous">
         </script>
 
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <title>Maintain Product</title>
@@ -39,6 +39,7 @@
             <!-- Display Shop Overall Rating in Star -->
             Shop Average Rating: </br>
 
+            <div style="font-size:40px;">
             <!-- CHECK THE WHOLE NUMBER OF RATING AND DISPLAY A COMPLETE STAR -->
             <% for (int i = 0; i < Math.floor(overall_rating % 10); i++) {
                     out.println("<i class='bi bi-star-fill'></i>");
@@ -49,6 +50,7 @@
                     out.println("<i class='bi bi-star-half'></i>");
                 }
             %>
+            </div>
         </div>
 
 
