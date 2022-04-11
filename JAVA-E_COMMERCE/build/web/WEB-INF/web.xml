@@ -40,6 +40,10 @@
         <servlet-name>AddOrder</servlet-name>
         <servlet-class>controller.AddOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteCart</servlet-name>
+        <servlet-class>controller.DeleteCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>View</servlet-name>
         <url-pattern>/customer/View</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>AddOrder</servlet-name>
         <url-pattern>/customer/AddOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCart</servlet-name>
+        <url-pattern>/DeleteCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

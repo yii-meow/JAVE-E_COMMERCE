@@ -80,6 +80,7 @@
         </table>
 
         <form action="../customer/AddOrder">
+            
             <input type="submit" value="confirm purchase">
 
         </form>

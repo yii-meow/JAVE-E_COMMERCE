@@ -49,6 +49,9 @@ public class ConfirmPayment extends HttpServlet {
 
             session.setAttribute("OriginalPrice", totalPrice);
             session.setAttribute("DiscountPrice", price);
+            session.setAttribute("DeliveryCourier", request.getParameter("DeliveryCourier"));
+            session.setAttribute("DiscountRate",discountRate);
+            
 
             System.out.println("hello");
 

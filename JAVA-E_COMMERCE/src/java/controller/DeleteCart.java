@@ -8,12 +8,10 @@ package controller;
  *
  * @author sohyz
  */
-import entity.OrderList;
-import entity.OrderListPK;
-import entity.OrderListService;
-import entity.Orders;
-import entity.OrdersService;
+import entity.Product;
+import entity.ProductService;
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,14 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.UserTransaction;
-import entity.ProductService;
 import entity.Shoppingcart2;
 import entity.Shoppingcart2Service;
-import entity.VoucherService;
-import java.util.ArrayList;
-import java.util.List;
 
-public class AddOrder extends HttpServlet {
+public class DeleteCart extends HttpServlet {
 
     @PersistenceContext
 
@@ -42,44 +36,19 @@ public class AddOrder extends HttpServlet {
             throws ServletException, IOException {
         try {
 
-            String test = "test";
-            OrdersService itemService = new OrdersService(em);
-            Shoppingcart2Service cartService = new Shoppingcart2Service(em);
-            ProductService productService = new ProductService(em);
-            OrderListService orderListService = new OrderListService(em);
-            int id = 0;
+            Shoppingcart2Service itemService = new Shoppingcart2Service(em);
 
             HttpSession session = request.getSession();
+            int CartID = Integer.parseInt(request.getParameter("cartID"));
 
-            String DeliveryCourier = (String) session.getAttribute("DeliveryCourier");
-            List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
-            double subtotal = (Double) session.getAttribute("DiscountPrice");
-            double dicountRate = (Double) session.getAttribute("DiscountRate");
-            List<OrderList> orderListList = new ArrayList<>();
-            System.out.println(request.getParameter("DeliveryCourier"));
             utx.begin();
-            Orders order = new Orders();
-            em.persist(order);
+            boolean success = itemService.deleteItem(CartID);
             utx.commit();
 
-            for (Shoppingcart2 item : itemList) {
+            List<Shoppingcart2> itemList = itemService.findAll();
+            session.setAttribute("cartList", itemList);
 
-                OrderListPK orderlistPK = new OrderListPK(order.getOrderId(), item.getProductId().getProductId());
-                OrderList orderList
-                        = new OrderList(orderlistPK, item.getQuantity() * item.getProductId().getPrice() * dicountRate, productService.findItemByID(item.getProductId().getProductId()), item.getQuantity());
-                orderListList.add(orderList);
-                utx.begin();
-                boolean isSucess = orderListService.addOrders(orderList);
-                cartService.deleteItem(item.getCartId());
-                utx.commit();
-            }
-            utx.begin();
-            boolean isUpdateSucess = itemService.updateOrders(order, orderListList, DeliveryCourier);
-            utx.commit();
-
-            System.out.println("hello");
-
-            response.sendRedirect("../customer/orderedItem.jsp");
+            response.sendRedirect("customer/shoppingCart.jsp");
         } catch (Exception ex) {
             System.out.println("hello");
         }

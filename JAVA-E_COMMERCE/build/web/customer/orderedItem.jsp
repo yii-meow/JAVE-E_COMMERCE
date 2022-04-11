@@ -4,10 +4,11 @@
     Author     : sohyz
 --%>
 
-<%@page import="java.util.List"%>
+<%@page import="entity.OrderList"%>
+<%@page import="java.util.*"%>
 <%@page import="entity.Orders"%>
 <%
-    List<Orders> itemList = (List) session.getAttribute("ordersList");  //here
+    List<List<OrderList>> itemList = (List) session.getAttribute("ordersList");  //here
 %>
 <html>
     <head>
@@ -50,27 +51,45 @@
 
         <table id="product">
             <tr>
-                <th><a href="../customer/View" onclick="
-                       <%
-                           session.setAttribute("isIdAsc", false);
-                       %>"
-                       >ProductID</a></th> 
-                <th><a href="../customer/View" onclick="
-                       <%
-                           session.setAttribute("isDesAsc", true);
-                       %>"
-                       >Product Name</a></th> 
-                <th>Tracking Number</th>
+                <th>ProductID</th> 
+                <th>Product Name</th> 
+                <th>OrderID</th>
+                <th>OrderTime</th> 
+                <th>DeliveryCourier</th> 
+                <th>Ship time</th>
+                <th>Tracking number</th>
             </tr>
 
-            <% for (Orders item : itemList) {%>
+            <% for (List<OrderList> item : itemList) {%>
+            <%  List<OrderList> orderRow = item;
+                {
+                    for (OrderList myItemList : orderRow) {%>
+
+
             <tr>
-                <td onclick="location.href = '..';">   <%=item.getOrderId()%></td>
-                <td>   <%=item.getOrderTime()%></td>
-                <td>   <%=item.getTrackingNumber()%></td>
-
+                <td>   <%= myItemList.getProduct().getProductId()%></td>
+                <td>   <%=myItemList.getProduct().getProductName()%></td>
+                <td>   <%= myItemList.getOrders().getOrderId()%></td>
+                <td>   <%= myItemList.getOrders().getOrderTime()%></td>
+                <td>   <%= myItemList.getOrders().getDeliveryCourier()%></td> 
+                <td>   <%= myItemList.getOrders().getShipTime()%></td>
+                <td>   <%=  myItemList.getOrders().getTrackingNumber()%></td> 
             </tr>
-                <%}%>
+
+
+
+
+
+
+
+
+
+
+
+            <% }%>
+
+            <%}%>
+            <%}%>
         </table>
 
     </body>

@@ -12,6 +12,7 @@
     List<Voucher> voucherList = (List) session.getAttribute("voucherList");
     double totalPrice = (Double) session.getAttribute("totalPrice");
     double totalPriceList[] = (double[]) session.getAttribute("oriprice");
+    String[] deliveryCourier = {"DAL", "LAJU", "ANB", "GREX"};
 %>
 <html>
     <head>
@@ -81,6 +82,7 @@
                     <th>use voucher</th> 
                     <th>Voucher Name</a></th> 
                     <th>Discount Rate</th>
+                    <th>delivery Courier</th> 
                 </tr>
 
                 <%int i = 0;%>
@@ -93,6 +95,9 @@
                     </td>
                     <td>   <%=item.getVoucherName()%></td>
                     <td>   <%=item.getVoucherDiscountRate()%></td>
+                    <td><input type="radio" id="DeliveryCourier" name="DeliveryCourier" value="<%=deliveryCourier[i]%>"><%=deliveryCourier[i]%> 
+
+                    </td>
                     <%i++;
                             }%>
                 </tr>

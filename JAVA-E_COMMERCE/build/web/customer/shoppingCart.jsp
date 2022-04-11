@@ -54,6 +54,7 @@
                 <th>customer id</a></th> 
                 <th>quantity ordered</th>
                 <th>modify Cart</th>
+                <th>Delete Cart</th>
             </tr>
 
             <%for (Shoppingcart2 item : itemList) {%>
@@ -63,7 +64,7 @@
                         <button " onclick="test(this.id)" type="submit" value="<%=item.getProductId()%>" name="your_name" class="btn-link">Go</button>
                     </form>
                 </td>
-                <td>   <%=item.getProductId()%></td>
+                <td>   <%=item.getProductId().getProductId()%></td>
                 <td>   <%=item.getCustomerId()%></td>
                 <td>   <%=item.getQuantity()%></td>
                 <td>                     
@@ -73,6 +74,12 @@
                         <input type="hidden" id="productID" name="productID" value= "<%=item.getProductId().getProductId()%>">
                         <input type="hidden" id="customerID" name="customerID" value= "1">
                         <input type="submit" value="UpdateCart" onclick="test(<%=item.getProductId()%>, 1)">
+                    </form>
+                </td> 
+                <td>
+                    <form action="../DeleteCart">
+                        <input type="hidden" id="cartID" name="cartID" value= <%=(Integer) item.getCartId()%>>
+                        <input type="submit" value="delete">
                     </form>
                 </td>
                 <%}%>

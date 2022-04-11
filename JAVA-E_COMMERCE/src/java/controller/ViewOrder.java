@@ -1,5 +1,7 @@
 package controller;
 
+import entity.OrderList;
+import entity.OrderListService;
 import java.io.*;
 import java.util.List;
 import javax.persistence.*;
@@ -7,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import entity.Orders;
 import entity.OrdersService;
+import java.util.ArrayList;
 
 public class ViewOrder extends HttpServlet {
 
@@ -17,10 +20,24 @@ public class ViewOrder extends HttpServlet {
             throws ServletException, IOException {
         try {
             OrdersService itemService = new OrdersService(em);
+            OrderListService OrderListService = new OrderListService(em);
 
             HttpSession session = request.getSession();
-            List<Orders> itemList = itemService.findItemByID(7);  //here
-            session.setAttribute("ordersList", itemList);
+            List<Orders> itemList = itemService.findItemByID(7);
+            int orderID[] = new int[itemList.size()];
+            List<List<OrderList>> myOrderList = new ArrayList<>();
+            int index = 0;
+
+            for (Orders item : itemList) {
+
+                orderID[index] = item.getOrderId();
+                myOrderList.add(item.getOrderListList());
+
+                index++;
+
+            }
+
+            session.setAttribute("ordersList", myOrderList);
             response.sendRedirect("orderedItem.jsp");
         } catch (Exception ex) {
             System.out.println("hello");

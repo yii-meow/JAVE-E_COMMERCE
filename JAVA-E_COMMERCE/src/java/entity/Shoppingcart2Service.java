@@ -36,8 +36,8 @@ public class Shoppingcart2Service {
         return product;
     }
 
-    public boolean deleteItem(int productID) {
-        Shoppingcart2 product = findItemByID(productID);
+    public boolean deleteItem(int cartID) {
+        Shoppingcart2 product = findItemByID(cartID);
         if (product != null) {
             mgr.remove(product);
             return true;
