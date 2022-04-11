@@ -72,7 +72,9 @@
                             <p class="card-text">
                                 Free Shipment: <%= productDetails.getIsShipmentFree()%>
                             </p>
-                            <p class="card-text">Rating: </p>    
+                            <p class="card-text"> 
+                                Rating: <%= productDetails.getAverageRating()!=0 ? productDetails.getAverageRating() : "None" %>
+                            </p>    
 
                             <!-- UPDATE PRODUCT -->
                             <button class='btn btn-success btn-sm rounded-0 editButton' type='button submit' title='Edit' formaction='../updateProduct?id=<%=productDetails.getProductId()%>'"><i class='fa fa-edit'></i></button>

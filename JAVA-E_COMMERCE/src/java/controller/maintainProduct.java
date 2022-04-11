@@ -133,10 +133,12 @@ public class maintainProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         // INTIAILIZE SESSION FOR PRODUCT PAGE
         HttpSession session = request.getSession();
         Query query = em.createNamedQuery("Product.findAll");
         List<Product> product = query.getResultList();
+        
         session.setAttribute("product", product);
     }
 

@@ -46,6 +46,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findByProductImage", query = "SELECT p FROM Product p WHERE p.productImage = :productImage")})
 public class Product implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private List<Review> reviewList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -171,6 +174,21 @@ public class Product implements Serializable {
         this.orderListList = orderListList;
     }
 
+    public Double getAverageRating() {
+        double rating = 0;
+        
+        // CHECK IF THIS PRODUCT HAS ANY REVIEW
+        if (this.getReviewList().size() != 0) {
+            for (Review r : this.getReviewList()) {
+                rating += r.getRating();
+            }
+            // CALCULATE AVERAGE RATING
+            rating /= this.getReviewList().size();
+        }
+
+        return rating;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -194,6 +212,15 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "entity.Product[ productId=" + productId + " ]";
+    }
+
+    @XmlTransient
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
     }
 
 }

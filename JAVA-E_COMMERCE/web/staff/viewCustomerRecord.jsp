@@ -108,7 +108,7 @@
                     <% if (customerDetails.calculateTotalPurchaseAmount() != 0) {%>
 
                     <td style="width:15%">
-                        <form action="../viewCustomerRecord" method="POST">
+                        <form action="../viewCustomerRecord" method="POST" target="_blank">
                             <input type="hidden" name="customer_ID" value="<%= customerDetails.getCustomerID()%>"/>
                             <button class='btn btn-success btn-sm rounded-0' type='button submit' data-id="<%= customerDetails.getCustomerID()%>"><i class="bi bi-arrow-90deg-right"></i></button>
                         </form>
