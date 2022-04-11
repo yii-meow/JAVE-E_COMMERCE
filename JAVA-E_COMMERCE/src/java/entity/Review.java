@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Review.findByProductName", query = "SELECT r FROM Review r WHERE r.productName = :productName"),
     @NamedQuery(name = "Review.findByReviewDate", query = "SELECT r FROM Review r WHERE r.reviewDate = :reviewDate"),
     @NamedQuery(name = "Review.findByRating", query = "SELECT r FROM Review r WHERE r.rating = :rating"),
+    @NamedQuery(name = "Review.findOverallAverageRating", query = "SELECT AVG(r.rating) FROM Review r"),
     @NamedQuery(name = "Review.findByReviewComment", query = "SELECT r FROM Review r WHERE r.reviewComment = :reviewComment")})
 public class Review implements Serializable {
 
