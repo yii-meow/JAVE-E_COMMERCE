@@ -12,8 +12,10 @@
     ArrayList<String> displayProdPercentagesArray = (ArrayList<String>) session.getAttribute("displayProdPercentagesArray");
     ArrayList<Integer> displayQuantity = (ArrayList<Integer>) session.getAttribute("displayQuantity");
 
-    ArrayList<String> prodColorLabels = new ArrayList<String>();
-    ArrayList<String> prodColorLabels2 = new ArrayList<String>();
+    ArrayList<String> backgroundProdColorLabels = new ArrayList<String>();
+    ArrayList<String> borderProdColorLabels = new ArrayList<String>();
+    ArrayList<String> backgroundProdColorLabels2 = new ArrayList<String>();
+    ArrayList<String> borderProdColorLabels2 = new ArrayList<String>();
 
     Double[] r = new Double[prodPercentagesArray.size()];
     Double[] g = new Double[prodPercentagesArray.size()];
@@ -24,10 +26,14 @@
         r[a] = Math.floor(Math.random() * 255);
         g[a] = Math.floor(Math.random() * 255);
         b[a] = Math.floor(Math.random() * 255);
-        String rgba = String.format("\'rgba( %.0f, %.0f, %.0f, 0.5)\'", r[a], g[a], b[a]);
-        prodColorLabels.add(rgba);
-        rgba = String.format("rgba( %.0f, %.0f, %.0f, 0.5)", r[a], g[a], b[a]);
-        prodColorLabels2.add(rgba);
+        String rgba = String.format("\'rgba( %.0f, %.0f, %.0f, 0.3)\'", r[a], g[a], b[a]);
+        backgroundProdColorLabels.add(rgba);
+        rgba = String.format("\'rgba( %.0f, %.0f, %.0f, 0.7)\'", r[a], g[a], b[a]);
+        borderProdColorLabels.add(rgba);
+        rgba = String.format("rgba( %.0f, %.0f, %.0f, 0.3)", r[a], g[a], b[a]);
+        backgroundProdColorLabels2.add(rgba);
+        rgba = String.format("rgba( %.0f, %.0f, %.0f, 0.7)", r[a], g[a], b[a]);
+        borderProdColorLabels2.add(rgba);
     }
 %>
 <!DOCTYPE html>
@@ -128,7 +134,7 @@
                     for (int a = 0; a < prodPercentagesArray.size(); a++) {
                 %>
                 <tr>
-                    <td id="colorLabel"><span id="colorLabel" style="background-color: <%= prodColorLabels2.get(a)%>;"></span></td>
+                    <td id="colorLabel"><span id="colorLabel" style="background-color: <%= backgroundProdColorLabels2.get(a)%>; border: 2px solid <%=borderProdColorLabels2.get(a)%>;"></span></td>
                     <td id="prodName"><%= displayProdName.get(a)%></td>
                     <td id="quantity"><%= displayQuantity.get(a)%></td>
                     <td id="precentage"><%= displayProdPercentagesArray.get(a) + "%"%></td>
@@ -152,7 +158,8 @@
 // prodQuantity
             let data1 = <%= prodPercentagesArray%>;
 // Label Color
-            let colors1 = <%= prodColorLabels%>;
+            let colors1 = <%= backgroundProdColorLabels%>;
+            let colors2 = <%= borderProdColorLabels%>;
 
             let pieChartTitle = 'Most Popular Product';
             let myChart1 = document.getElementById("myChart").getContext('2d');
@@ -162,9 +169,10 @@
                     labels: labels1,
                     datasets: [{
                             data: data1,
-                            backgroundColor: colors1
+                            backgroundColor: colors1,
+                            borderColor: colors2
                         }],
-                    borderwidth: 1
+                    borderwidth: 0.5
                 },
                 options: {
                     title: {

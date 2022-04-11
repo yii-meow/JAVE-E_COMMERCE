@@ -65,6 +65,8 @@ public class GenerateReport extends HttpServlet {
 
     protected void popularProductReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        PrintWriter out = response.getWriter();
+
         OrderListService olService = new OrderListService(em);
         List<OrderList> ol = olService.retrieveOrderListOrderByProdId();
 
@@ -98,6 +100,24 @@ public class GenerateReport extends HttpServlet {
             }
         }
 
+//SORTING
+        for (int i = 0; i < prodQuantity.length; i++) {
+            for (int j = i + 1; j < prodQuantity.length; j++) {
+                int tmpProdQuantity = 0;
+                String tmpProdName = "";
+                if (prodQuantity[i] < prodQuantity[j]) {
+                    tmpProdQuantity = prodQuantity[i];
+                    prodQuantity[i] = prodQuantity[j];
+                    prodQuantity[j] = tmpProdQuantity;
+
+                    tmpProdName = prodName[i];
+                    prodName[i] = prodName[j];
+                    prodName[j] = tmpProdName;
+
+                }
+            }
+        }
+
         double percentage;
         ArrayList<String> prodNameArray = new ArrayList<String>();
         ArrayList<String> prodPercentagesArray = new ArrayList<String>();
@@ -128,7 +148,7 @@ public class GenerateReport extends HttpServlet {
     }
 
     protected void secondReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
     }
 
 }

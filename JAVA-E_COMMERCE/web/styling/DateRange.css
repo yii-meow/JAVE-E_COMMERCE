@@ -1,0 +1,54 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 11-Apr-2022, 09:58:18
+    Author     : jensienwong
+*/
+body{
+    background: rgba(255,26,104,0.2);
+}
+.chartCard{
+    margin-top: 30px;
+    width: 100vw;
+    height: calc(100vh-40px);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+.chartBox{
+    width: 40%;
+    padding:20px;
+    border-radius: 20px;
+    border: 3px solid rgba(255,26,104,1);
+    background: white;
+}
+
+
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+th#label{
+    width:20%;
+}
+td#input{
+    width:60%;
+    padding: 10px;
+}
+td#input input{
+    width: 100%;
+    cursor: pointer;
+}
+td#submit{
+    padding: 10px;
+}
+td#submit input{
+    width: 100%;
+    cursor: pointer;
+}
