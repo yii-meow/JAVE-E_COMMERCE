@@ -9,6 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 body{
     background: rgba(255,26,104,0.2);
 }
+
 .chartCard{
     margin-top: 30px;
     width: 100vw;
@@ -18,7 +19,8 @@ body{
     justify-content: center;
 }
 .chartBox{
-    width: 40%;
+    width: 60%;
+    height: 100%;
     padding:20px;
     border-radius: 20px;
     border: 3px solid rgba(255,26,104,1);

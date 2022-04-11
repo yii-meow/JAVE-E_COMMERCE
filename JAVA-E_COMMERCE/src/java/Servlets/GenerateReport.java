@@ -4,6 +4,7 @@
  */
 package Servlets;
 
+import Domain.CustomerService;
 import Domain.OrderListService;
 import Domain.OrderService;
 import entity.OrderList;
@@ -53,14 +54,14 @@ public class GenerateReport extends HttpServlet {
         //Report 1
         if (submitType.equals("MostPopularCategories")) {
             popularProductReport(request, response);
-        } else if (submitType.equals("SalesReport")) {
-//            secondReport(request, response);
+        }
+        if (submitType.equals("SalesReport")) {
             response.sendRedirect("staff/SelectDateRange.jsp");
         }
-//
-//        if (submitType.equals("MostPopularProduct")) {
-//
-//        }
+        if (submitType.equals("CustomerAnalysisReport")) {
+            customerAnalysisReport(request, response);
+        }
+
     }
 
     protected void popularProductReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -113,7 +114,6 @@ public class GenerateReport extends HttpServlet {
                     tmpProdName = prodName[i];
                     prodName[i] = prodName[j];
                     prodName[j] = tmpProdName;
-
                 }
             }
         }
@@ -147,8 +147,71 @@ public class GenerateReport extends HttpServlet {
         response.sendRedirect("staff/Report1.jsp");
     }
 
-    protected void secondReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void customerAnalysisReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
 
+        OrderListService olService = new OrderListService(em);
+        List<OrderList> orderList = olService.retrieveOrderListAll();
+
+        OrderService oService = new OrderService(em);
+        List<Orders> order = oService.retrieveOrderAll();
+
+        query = em.createNamedQuery("Product.findAll");
+        List<Product> prod = query.getResultList();
+
+        String[] prodName = new String[prod.size()];
+
+        Integer[] male = new Integer[prod.size()];
+        Integer[] female = new Integer[prod.size()];
+
+        for (int a = 0; a < prod.size(); a++) {
+            prodName[a] = prod.get(a).getProductName();
+            male[a] = 0;
+            female[a] = 0;
+        }
+
+        for (int a = 0; a < orderList.size(); a++) {
+            for (int b = 0; b < order.size(); b++) {
+                if (order.get(b).getOrderId() == orderList.get(a).getOrders().getOrderId()) {
+
+                    for (int c = 0; c < prodName.length; c++) {
+                        if (prodName[c].equals(orderList.get(a).getProduct().getProductName())) {
+                            if (order.get(b).getCustomerID().getGender() == 'M') {
+                                male[c]++;
+                            }
+                            if (order.get(b).getCustomerID().getGender() == 'F') {
+                                female[c]++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        ArrayList<String> prodNameArr = new ArrayList<String>();
+        ArrayList<Integer> numOfMale = new ArrayList<Integer>();
+        ArrayList<Integer> numOfFemale = new ArrayList<Integer>();
+
+        for (int a = 0; a < prodName.length; a++) {
+
+            if (male[a] != 0 || female[a] != 0) {
+            prodNameArr.add("\'" + prodName[a] + "\'");
+            numOfMale.add(male[a]);
+            numOfFemale.add(female[a]);
+            }
+
+        }
+
+//        for (int a = 0; a < prodName.length; a++) {
+//            out.println("Prod Name : " + prodName[a]);
+//            out.println("Male : " + male[a]);
+//            out.println("Female : " + female[a]);
+//            out.println("-----------------------------");
+//        }
+        HttpSession session = request.getSession();
+        session.setAttribute("prodName", prodNameArr);
+        session.setAttribute("numOfMale", numOfMale);
+        session.setAttribute("numOfFemale", numOfFemale);
+        response.sendRedirect("staff/Report3.jsp");
     }
 
 }

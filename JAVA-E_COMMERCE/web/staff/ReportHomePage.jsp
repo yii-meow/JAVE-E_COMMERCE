@@ -16,7 +16,7 @@
         <form action="../GenerateReport" method="GET">
             <button type="submit" name="submitType" id="submitType" value="MostPopularCategories">Hot Product</button>
             <button type="submit" name="submitType" id="submitType" value="SalesReport">Sales Report</button>
-            <button type="submit" name="submitType" id="submitType" value=""></button> 
+            <button type="submit" name="submitType" id="submitType" value="CustomerAnalysisReport">Customer Analysis Report</button> 
         </form>
     </body>
 </html>
