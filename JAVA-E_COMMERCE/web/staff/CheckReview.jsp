@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="Entity.Review"%>
+<%@page import="entity.Review"%>
 
 <%
 List<Review> review = (List<Review>) session.getAttribute("reviewList");
