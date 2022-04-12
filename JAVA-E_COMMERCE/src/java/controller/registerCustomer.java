@@ -99,6 +99,7 @@ public class registerCustomer extends HttpServlet {
         if (password.equals(confirmed_password)) {
             try {
                 HttpSession session = request.getSession();
+                password = passwordHash.getHash(password);
 
                 // CREATE CUSTOMER AND UPDATE TO DATABASE
                 utx.begin();
