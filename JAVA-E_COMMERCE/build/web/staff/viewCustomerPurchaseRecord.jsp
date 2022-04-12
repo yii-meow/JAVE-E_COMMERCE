@@ -28,6 +28,11 @@
         <link href="../styling/css/profilePage.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
         <!-- Bootstrap core CSS -->
         <link href="../styling/bootstrap.min.css" rel="stylesheet">
 
@@ -56,8 +61,8 @@
     <body>
         <div class="contentCenter">
 
-            <div style='text-align:center;'>
-                <p class="h5">Record of Customer : <%= orders.get(0).getCustomerID().getCustomerName()%></p>
+            <div class="alert alert-success" role="alert" style="text-align:center;">
+                Record of Customer : <%= orders.get(0).getCustomerID().getCustomerName()%>
             </div>
 
             <% for (int i = 0; i < orders.size(); i++) {
@@ -72,8 +77,8 @@
 
                     <button class='btn btn-success btn-sm rounded-0 editButton' type='button' data-id="<%= ordersDetails.getOrderId()%>" data-whatever='@mdo' data-placement='top' title='Edit' style='margin-left:8px;'><i class='fa fa-edit'></i></button>
 
-                    <div style='display:inline-block;width:36.5rem;text-align:right;'>
-                        <%= ordersDetails.getOrderTime()%>
+                    <div style='display:inline-block;width:35rem;text-align:right;'>
+                        Order Time: <%= ordersDetails.getOrderTime()%>
                     </div>
                     </br>
 
@@ -157,13 +162,13 @@
             <% }%>
         </div>
         <script>
-            $(document).ready(function () {
-                $('.editButton').on('click', function () {
-                    $('#updateShipment').modal('show');
-                    $('#order_ID').val($(this).data('id'));
-                }
-                );
-            });
+                    $(document).ready(function () {
+                        $('.editButton').on('click', function () {
+                            $('#updateShipment').modal('show');
+                            $('#order_ID').val($(this).data('id'));
+                        }
+                        );
+                    });
         </script>
 
         <!--Bootstrap Modal for Updating New Shipment-->

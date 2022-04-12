@@ -47,7 +47,7 @@
     </head>
     <body>
         <div class="contentCenter">
-            <span class="badge bg-info text-dark" style="font-size:1.5rem;margin-left:auto;margin-right:auto;">Overall Sales Record</span>
+            <div class="badge bg-info text-dark" style="font-size:1.5rem;">Overall Sales Record</div>
 
             <table class="table table-striped">
                 <thead>
@@ -70,6 +70,9 @@
                 </br>
 
                 </br>
+                <div class="alert alert-primary" role="alert" style="text-align:center;font-size:1.5rem;">
+                    Summary
+                </div>
                 <!-- GROUP BY RESULT FROM PRODUCT ID -->
                 <% for (Object[] groupResult : order_list) {
                 %>
@@ -85,9 +88,9 @@
                 </form>
                 </tbody>
             </table>
-
-            <div style="text-align:center;margin-top:50px;">
-                <span style=""><h2><u>Order History</u></h2></span>   
+            </br></br>
+            <div class="alert alert-success" role="alert" style="text-align:center;font-size:1.5rem;">
+                Order History in Given Time Range
             </div>
             <table class="table">
                 <thead>
