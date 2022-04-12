@@ -6,7 +6,6 @@ package controller;
 
 import controller.StaffService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -68,7 +67,7 @@ public class DeleteStaff extends HttpServlet {
                 session.setAttribute("result", result);
             }
 
-            response.sendRedirect("staff/DeleteStaffResult.jsp");
+            response.sendRedirect("manager/DeleteStaffResult.jsp");
         } else {
             //Cancel Button is Clicked
             response.sendRedirect("RetrieveRecord");

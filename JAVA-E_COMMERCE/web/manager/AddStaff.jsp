@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="../styling/AddStaff.css">
     </head>
     <body>
-        <%@ include file="../staff/Header.jsp" %>
+        <%@ include file="../AdminHeader.jsp" %>
         <div class="container">
             <h1>Add Staff</h1>
             <form action="../AddStaff" method="POST">                

@@ -35,7 +35,7 @@
         </style>
     </head>
     <body>
-        <%@ include file="Header.jsp" %>
+        <%@ include file="../AdminHeader.jsp" %>
         <div class="chartCard">
             <div class="chartBox">
                 <canvas id="myChart"></canvas>    

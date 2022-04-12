@@ -7,16 +7,26 @@
 <%@page import="entity.Staff"%>
 <jsp:useBean id="staff" scope="session" class="entity.Staff"></jsp:useBean>
 <%
-
-    try {
-        List<Staff> staffList = (List<Staff>) session.getAttribute("staffList");
-        String recordForm = (String) session.getAttribute("recordFrom");
-
+//    if(session.getAttribute("loginStaff") );
+    Staff lgstf = (Staff) session.getAttribute("loginStaff");
+    if(lgstf.getPosition() != 'M'){
+        response.sendRedirect("../Unauthorized.html");
+    }
+    
+    
+    List<Staff> staffList = null;
+    String recordForm = null;
+    if (session.getAttribute("staffList") != null || session.getAttribute("recordFrom") != null) {
+        staffList = (List<Staff>) session.getAttribute("staffList");
+        recordForm = (String) session.getAttribute("recordFrom");
+    }else{
+        response.sendRedirect("../Unauthorized.html");
+    }
 
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ include file="../staff/Header.jsp" %>
+<%@ include file="../AdminHeader.jsp" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -105,12 +115,6 @@
         <a href="StaffCRUD.jsp"></a>
         <button onclick="location.href = '../RetrieveRecord'">Reset</button>
         <%
-            }
-        %>
-        <%
-            } catch (Exception e) {
-
-                response.sendRedirect("../Unauthorized.html");
             }
         %>
 

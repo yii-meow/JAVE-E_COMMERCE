@@ -13,7 +13,7 @@
         <script src="../styling/Password.js"></script>
     </head>
     <body>
-        <%@ include file="../staff/Header.jsp" %>
+        <%@ include file="../AdminHeader.jsp" %>
         <table>
             <tr>
                 <th>ID</th>

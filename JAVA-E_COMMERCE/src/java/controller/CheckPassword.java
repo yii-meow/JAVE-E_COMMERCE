@@ -53,7 +53,7 @@ public class CheckPassword extends HttpServlet {
                 if (psw.checkEmpty(oldPassword) || psw.checkEmpty(confirmPassword) || psw.checkEmpty(password)) {
                     session.setAttribute("passwordErrorMessage", "Invalid Password Exception : Please Fill in all the input field<br>");
                     session.setAttribute("webSite", "staff/EditPassword.jsp");
-                    response.sendRedirect("staff/SetUpPasswordResult.jsp");
+                    response.sendRedirect("manager/SetUpPasswordResult.jsp");
                 } else {
                     psw = new Password(staff.getStaffPassword(), oldPassword, password, confirmPassword);
                     if (psw.checkOldPassword()) {
@@ -64,18 +64,18 @@ public class CheckPassword extends HttpServlet {
                             staff.setStaffPassword(password);
                             session.setAttribute("editStaff", staff);
 
-                            response.sendRedirect("staff/EditStaff.jsp");
+                            response.sendRedirect("manager/EditStaff.jsp");
                         } else {
                             //Invalid Password
                             session.setAttribute("passwordErrorMessage", psw.getErrorMessage());
                             session.setAttribute("webSite", "staff/EditPassword.jsp");
-                            response.sendRedirect("staff/SetUpPasswordResult.jsp");
+                            response.sendRedirect("manager/SetUpPasswordResult.jsp");
                         }
                     } else {
                         //Not Match
                         session.setAttribute("passwordErrorMessage", psw.getErrorMessage());
                         session.setAttribute("webSite", "staff/EditPassword.jsp");
-                        response.sendRedirect("staff/SetUpPasswordResult.jsp");
+                        response.sendRedirect("manager/SetUpPasswordResult.jsp");
                     }
 
                 }
@@ -92,7 +92,7 @@ public class CheckPassword extends HttpServlet {
             if (psw.passwordCheck()) {
                 //Valid Password
                 session.setAttribute("password", psw.getPassword());
-                response.sendRedirect("staff/ConfirmStaffInfo.jsp");
+                response.sendRedirect("manager/ConfirmStaffInfo.jsp");
             } else {
                 //Invalid Password
                 session.setAttribute("passwordErrorMessage", psw.getErrorMessage());

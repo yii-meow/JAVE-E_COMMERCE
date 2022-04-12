@@ -32,7 +32,7 @@ public class Search extends HttpServlet {
     HttpSession session;
 
     private final String staffListSession = "staffList";
-    private final String location = "staff/StaffCRUD.jsp";
+    private final String location = "manager/StaffCRUD.jsp";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         search(request, response);

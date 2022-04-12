@@ -28,7 +28,7 @@ public class LogOut extends HttpServlet {
     protected void processLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect("staff/index.jsp");
+        response.sendRedirect("index.jsp");
 
     }
 

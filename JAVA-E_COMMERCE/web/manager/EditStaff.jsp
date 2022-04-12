@@ -17,7 +17,7 @@
         <script src="../styling/showPassword.js"></script>
     </head>
     <body>
-        <%@ include file="../staff/Header.jsp" %>
+        <%@ include file="../AdminHeader.jsp" %>
         <h1>Edit Form</h1>
         <form action="../EditStaff" method="POST">
             <table>
