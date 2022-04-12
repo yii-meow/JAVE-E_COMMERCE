@@ -197,7 +197,7 @@
     </servlet-mapping>
     <servlet>
       <servlet-name>CustomerReview</servlet-name>
-      <servlet-class>Servlet.AddReview</servlet-class>
+      <servlet-class>controller.AddReview</servlet-class>
    </servlet>
    <servlet-mapping>
       <servlet-name>CustomerReview</servlet-name>
@@ -206,7 +206,7 @@
    
    <servlet>
       <servlet-name>StaffCheckReview</servlet-name>
-      <servlet-class>Servlet.DisplayReview</servlet-class>
+      <servlet-class>controller.DisplayReview</servlet-class>
    </servlet>
    
    <servlet-mapping>
@@ -216,7 +216,7 @@
    
    <servlet>
       <servlet-name>DisplayCusReview</servlet-name>
-      <servlet-class>Servlet.DisplayCusReview</servlet-class>
+      <servlet-class>controller.DisplayCusReview</servlet-class>
    </servlet>
    
    <servlet-mapping>
@@ -226,7 +226,7 @@
    
    <servlet>
       <servlet-name>IndividualReview</servlet-name>
-      <servlet-class>Servlet.CusIndividualReview</servlet-class>
+      <servlet-class>controller.CusIndividualReview</servlet-class>
    </servlet>
    
    <servlet-mapping>

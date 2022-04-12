@@ -1,8 +1,8 @@
 
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.util.List"%>
-<%@page import="Entity.Product"%>
-<%@page import="Entity.Review"%>
+<%@page import="entity.Product"%>
+<%@page import="entity.Review"%>
 
 <%
    List<Product> productList = (List<Product>) session.getAttribute("productList");
@@ -14,7 +14,7 @@
 <html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <link rel="stylesheet" href="../css/ratingForm.css">
+      <link rel="stylesheet" href="../styling/ratingForm.css">
 
       <!--      bootstrap css-->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 

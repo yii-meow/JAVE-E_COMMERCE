@@ -1,5 +1,5 @@
 
-<%@page import="Entity.Review"%>
+<%@page import="entity.Review"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
