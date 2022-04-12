@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 08-Apr-2022, 15:58:30
+    Document   : EditConfirm
+    Created on : 08-Apr-2022, 02:18:10
     Author     : jensienwong
 --%>
 
@@ -9,9 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Index</title>
+        <title>JSP Page</title>
     </head>
     <body>
         <%@ include file="../AdminHeader.jsp" %>
+        <h1>Edit Successfully</h1>
+        <a href="../RetrieveRecord">Back</a>
     </body>
 </html>
+Entity
