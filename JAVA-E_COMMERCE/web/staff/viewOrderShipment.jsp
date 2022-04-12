@@ -5,7 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Orders,entity.OrderList, java.util.*"%>
-<jsp:include page="navbar.jsp"/>
+<jsp:include page="sidebar.html"/>
 <% List<Orders> order_shipment = (List<Orders>) session.getAttribute("order_shipment");%>
 
 <!DOCTYPE html>
@@ -39,134 +39,160 @@
         <link href="../styling/css/profilePage.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 
+        <!-- Bootstrap core CSS -->
+        <link href="../styling/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+
+
+        <!-- Custom styles for this template -->
+        <link href="../styling/sidebars.css" rel="stylesheet">
+
         <title>View Order</title>
     </head>
     <body>
-        <div class="card border-0" style="width: 50rem;margin-left:auto;margin-right:auto;">
-            <div class="header" style="margin-left:auto;margin-right:auto;">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="contentCenter">
 
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="viewOrder.jsp">All <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="?shipment=Preparing">Preparing</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="?shipment=Shipped">Shipped</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="?shipment=Delivered">Delivered</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+            <div class="card border-0" style="width: 50rem;margin-left:auto;margin-right:auto;">
+                <div class="header" style="margin-left:auto;margin-right:auto;">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-                <!-------------- Order Content in Card Body ------------->
-                <div class="card-body">
-                    <% 
-                    if (order_shipment.size()==0){
-                            out.println("No orders has been found!");
-                        }
-
-                    for (int i = 0; i < order_shipment.size(); i++) {
-                            Orders ordersDetails = order_shipment.get(i);
-                    %>     
-
-                    <div class="card" style="width: 45rem;margin-left:auto;margin-right:auto;">
-                        <div class="card-header">
-                            <i class="bi bi-card-list"></i>
-                            <%= ordersDetails.getShipmentDetails()%>
-
-                            <button class='btn btn-success btn-sm rounded-0 editButton' type='button' data-id="<%= ordersDetails.getOrderId()%>" data-whatever='@mdo' data-placement='top' title='Edit' style='margin-left:8px;'><i class='fa fa-edit'></i></button>
-
-                            <div style='display:inline-block;width:33rem;text-align:right;'>
-                                <%= ordersDetails.getOrderTime()%>
-                            </div>
-                            </br></br>
-
-                            Tracking Number: <%= ordersDetails.getTrackingNumber()%>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="viewOrder.jsp">All <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="?shipment=Preparing">Preparing</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="?shipment=Shipped">Shipped</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="?shipment=Delivered">Delivered</a>
+                                </li>
+                            </ul>
                         </div>
+                    </nav>
 
-                        <div class="card-body">
+                    <!-------------- Order Content in Card Body ------------->
+                    <div class="card-body">
+                        <%
+                            if (order_shipment.size() == 0) {
+                                out.println("No orders has been found!");
+                            }
 
-                            <% for (int j = 0; j < ordersDetails.getOrderListList().size(); j++) {
-                                    OrderList orderlist = ordersDetails.getOrderListList().get(j);
-                            %>
-                            <div width="500px;">
+                            for (int i = 0; i < order_shipment.size(); i++) {
+                                Orders ordersDetails = order_shipment.get(i);
+                        %>     
 
-                                <!--------------- Image ----------------->
-                                <img src="<%= orderlist.getProduct().getProductImage()%>" style="width:100px;height:100px;"/>
-                            </div>
+                        <div class="card" style="width: 45rem;margin-left:auto;margin-right:auto;">
+                            <div class="card-header">
+                                <i class="bi bi-card-list"></i>
+                                <%= ordersDetails.getShipmentDetails()%>
 
-                            </br>
+                                <button class='btn btn-success btn-sm rounded-0 editButton' type='button' data-id="<%= ordersDetails.getOrderId()%>" data-whatever='@mdo' data-placement='top' title='Edit' style='margin-left:8px;'><i class='fa fa-edit'></i></button>
 
-                            <span>
-                                <h5>
-                                    <div style="width:200px;">
-                                        <!--------------- Product Name ----------------->
-                                        <%= orderlist.getProduct().getProductName()%>
-                                    </div>
-                                    <div style='width:42rem;text-align:right;'>
-                                        <!--------------- Product Price and Quantity ----------------->
-                                        <span style="font-weight:normal"><%= String.format("RM %.2f", orderlist.getProduct().getPrice())%></span>
-                                        <span style="font-weight:100">x <%= orderlist.getQuantity()%></span>
-                                    </div>
-                                </h5>
-                            </span>
-
-                            <!--------------- Product Description ----------------->
-                            <p class="card-text">Description : <%= orderlist.getProduct().getProductDescription()%></p>
-
-                            <hr>
-
-                            <% }%>
-
-                        </div>
-
-                        <!-------------- Order Content in Card Body ------------->
-
-                        <ul class="list-group list-group-flush">
-
-                            <li class="list-group-item">                    
-                                <div style='width:10rem;display:inline-block'>Total Payment</div> 
-                                <div style="width:32rem;text-align:right;display:inline-block;">
-                                    <%= String.format("RM %.2f", ordersDetails.calculateTotal())%>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div style='width:10rem;display:inline-block'>Logistic Information</div> 
-                                <div style="width:32rem;text-align:right;display:inline-block;">
-                                    <%= ordersDetails.getDeliveryCourier()%>
-                                </div>
-                            </li>
-
-                            <li class="list-group-item">
-                                <div style='width:10rem;display:inline-block'>Shipment Date</div> 
-                                <div style="width:32rem;text-align:right;display:inline-block;">
-                                    <% String ship_time = ordersDetails.getShipTime() + "";
-                                        out.println(ship_time);
-                                    %>
-                                </div>
-                            </li>
-
-                            </li>
-                            <li class="list-group-item">
-                                <div style='width:10rem;display:inline-block'>Paid Time</div> 
-                                <div style="width:32rem;text-align:right;display:inline-block;">
+                                <div style='display:inline-block;width:33rem;text-align:right;'>
                                     <%= ordersDetails.getOrderTime()%>
                                 </div>
-                            </li>
-                        </ul>
+                                </br></br>
+
+                                Tracking Number: <%= ordersDetails.getTrackingNumber()%>
+                            </div>
+
+                            <div class="card-body">
+
+                                <% for (int j = 0; j < ordersDetails.getOrderListList().size(); j++) {
+                                        OrderList orderlist = ordersDetails.getOrderListList().get(j);
+                                %>
+                                <div width="500px;">
+
+                                    <!--------------- Image ----------------->
+                                    <img src="<%= orderlist.getProduct().getProductImage()%>" style="width:100px;height:100px;"/>
+                                </div>
+
+                                </br>
+
+                                <span>
+                                    <h5>
+                                        <div style="width:200px;">
+                                            <!--------------- Product Name ----------------->
+                                            <%= orderlist.getProduct().getProductName()%>
+                                        </div>
+                                        <div style='width:42rem;text-align:right;'>
+                                            <!--------------- Product Price and Quantity ----------------->
+                                            <span style="font-weight:normal"><%= String.format("RM %.2f", orderlist.getProduct().getPrice())%></span>
+                                            <span style="font-weight:100">x <%= orderlist.getQuantity()%></span>
+                                        </div>
+                                    </h5>
+                                </span>
+
+                                <!--------------- Product Description ----------------->
+                                <p class="card-text">Description : <%= orderlist.getProduct().getProductDescription()%></p>
+
+                                <hr>
+
+                                <% }%>
+
+                            </div>
+
+                            <!-------------- Order Content in Card Body ------------->
+
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item">                    
+                                    <div style='width:10rem;display:inline-block'>Total Payment</div> 
+                                    <div style="width:32rem;text-align:right;display:inline-block;">
+                                        <%= String.format("RM %.2f", ordersDetails.calculateTotal())%>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div style='width:10rem;display:inline-block'>Logistic Information</div> 
+                                    <div style="width:32rem;text-align:right;display:inline-block;">
+                                        <%= ordersDetails.getDeliveryCourier()%>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div style='width:10rem;display:inline-block'>Shipment Date</div> 
+                                    <div style="width:32rem;text-align:right;display:inline-block;">
+                                        <% String ship_time = ordersDetails.getShipTime() + "";
+                                            out.println(ship_time);
+                                        %>
+                                    </div>
+                                </li>
+
+                                </li>
+                                <li class="list-group-item">
+                                    <div style='width:10rem;display:inline-block'>Paid Time</div> 
+                                    <div style="width:32rem;text-align:right;display:inline-block;">
+                                        <%= ordersDetails.getOrderTime()%>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        </br>
+                        <% }%>
                     </div>
-                    </br>
-                    <% }%>
                 </div>
             </div>
 
