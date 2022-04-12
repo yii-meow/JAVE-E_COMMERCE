@@ -195,6 +195,44 @@
         <servlet-name>DateRange</servlet-name>
         <url-pattern>/DateRange</url-pattern>
     </servlet-mapping>
+    <servlet>
+      <servlet-name>CustomerReview</servlet-name>
+      <servlet-class>Servlet.AddReview</servlet-class>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>CustomerReview</servlet-name>
+      <url-pattern>/Review</url-pattern>
+   </servlet-mapping>
+   
+   <servlet>
+      <servlet-name>StaffCheckReview</servlet-name>
+      <servlet-class>Servlet.DisplayReview</servlet-class>
+   </servlet>
+   
+   <servlet-mapping>
+      <servlet-name>StaffCheckReview</servlet-name>
+      <url-pattern>/StaffReview</url-pattern>
+   </servlet-mapping>
+   
+   <servlet>
+      <servlet-name>DisplayCusReview</servlet-name>
+      <servlet-class>Servlet.DisplayCusReview</servlet-class>
+   </servlet>
+   
+   <servlet-mapping>
+      <servlet-name>DisplayCusReview</servlet-name>
+      <url-pattern>/CustomerReview</url-pattern>
+   </servlet-mapping>
+   
+   <servlet>
+      <servlet-name>IndividualReview</servlet-name>
+      <servlet-class>Servlet.CusIndividualReview</servlet-class>
+   </servlet>
+   
+   <servlet-mapping>
+      <servlet-name>IndividualReview</servlet-name>
+      <url-pattern>/IndividualReview</url-pattern>
+   </servlet-mapping>
     <session-config>
         <session-timeout>
             30

@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Review.findByReviewDate", query = "SELECT r FROM Review r WHERE r.reviewDate = :reviewDate"),
     @NamedQuery(name = "Review.findByRating", query = "SELECT r FROM Review r WHERE r.rating = :rating"),
     @NamedQuery(name = "Review.findOverallAverageRating", query = "SELECT AVG(r.rating) FROM Review r"),
+    @NamedQuery(name = "Review.findByCustomerId", query = "SELECT r FROM Review r WHERE r.customerId = :customerId"),
     @NamedQuery(name = "Review.findByReviewComment", query = "SELECT r FROM Review r WHERE r.reviewComment = :reviewComment")})
 public class Review implements Serializable {
 
@@ -56,6 +57,8 @@ public class Review implements Serializable {
     @Size(max = 255)
     @Column(name = "REVIEW_COMMENT")
     private String reviewComment;
+    @Column(name = "Customer_Id")
+    private Integer customerId;
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     @ManyToOne(optional = false)
     private Product productId;
@@ -65,6 +68,15 @@ public class Review implements Serializable {
 
     public Review(Integer reviewId) {
         this.reviewId = reviewId;
+    }
+
+    public Review(Product productId, String productName, Date reviewDate, int rating, String reviewComment, int customerId) {
+        this.productId = productId;
+        this.productName = productName;
+        this.reviewDate = reviewDate;
+        this.rating = rating;
+        this.reviewComment = reviewComment;
+        this.customerId = customerId;
     }
 
     public Integer getReviewId() {
@@ -106,6 +118,14 @@ public class Review implements Serializable {
     public void setReviewComment(String reviewComment) {
         this.reviewComment = reviewComment;
     }
+    
+    public Integer getCustomerId() {
+      return customerId;
+   }
+
+   public void setCustomerId(Integer customerId) {
+      this.customerId = customerId;
+   }
 
     public Product getProductId() {
         return productId;
