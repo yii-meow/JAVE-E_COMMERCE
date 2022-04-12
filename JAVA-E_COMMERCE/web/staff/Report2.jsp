@@ -52,7 +52,7 @@
         </style>
     </head>
     <body>
-        <%@ include file="Header.jsp" %>
+        <%@ include file="../AdminHeader.jsp" %>
         <table>
             <form action="../DateRange" method="POST">
                 <tr>

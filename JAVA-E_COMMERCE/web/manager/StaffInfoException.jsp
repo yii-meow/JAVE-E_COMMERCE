@@ -16,6 +16,8 @@
         <title>Staff Info Requirement</title>
     </head>
     <body>
+        <h1>Staff Info Exception</h1>
+        <hr>
         <p><%= errMsg%></p>
         <p><a href="../<%= webSite %>">Try Again</a></p>
     </body>

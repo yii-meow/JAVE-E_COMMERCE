@@ -28,21 +28,13 @@
 
             <%
                 if (isLogin) {
-
             %>
 
             <!--Login User-->
             <a href="ManagerHomePage.jsp" class="logo">Alimama</a>
             <div class="header-right">
-                <%                    
-                    if (loginStaff.getPosition() == 'M') {
-                %>
                 <a href="../RetrieveRecord">Staff</a>
-                <%
-                    }
-                %>
-
-                <a href="maintainProduct.jsp">Product</a>
+                <a href="#">Product</a>
                 <a href="ReportHomePage.jsp">Report</a>
                 <span class="drop-down">
                     <label><i style="font-size:18px" class="fa">&#xf023;</i><%= loginStaff.getStaffName()%></label>                

@@ -44,7 +44,7 @@ public class RetrieveRecord extends HttpServlet {
         session.setAttribute("staffList", staffList);
         session.setAttribute("recordFrom", "RetrieveRecord");
 
-        response.sendRedirect("staff/StaffCRUD.jsp");
+        response.sendRedirect("manager/StaffCRUD.jsp");
     }
 
 }

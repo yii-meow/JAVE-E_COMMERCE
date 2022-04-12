@@ -13,7 +13,7 @@
         <title>Delete Staff</title>
     </head>
     <body>
-        <%@ include file="Header.jsp" %>
+        <%@ include file="../AdminHeader.jsp" %>
         <h1>Delete Staff</h1>
         <table>
             <tr>
@@ -47,7 +47,7 @@
         </table>
         <form action="../DeleteStaff">
             <%
-                String confirmMsg = loginStaff.getStaffID() + "/" + deleteStaff.getStaffID();
+                String confirmMsg = c + "/" + deleteStaff.getStaffID();
             %>
             <p>
                 This action cannot be undone. This will permanently delete the <b><%= confirmMsg%></b>.<br> 

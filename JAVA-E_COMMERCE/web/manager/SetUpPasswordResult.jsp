@@ -16,6 +16,7 @@
     </head>
     <body>
         <h1>Password Exception</h1>
+        <hr>
         <p><%= errMsg %></p>
         <p><a href="../<%= website %>">Try Again</a></p>
     </body>

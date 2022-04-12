@@ -7,12 +7,26 @@
 <%@page import="entity.Staff"%>
 <jsp:useBean id="staff" scope="session" class="entity.Staff"></jsp:useBean>
 <%
-    List<Staff> staffList = (List<Staff>) session.getAttribute("staffList");
-    String recordForm = (String) session.getAttribute("recordFrom");
+//    if(session.getAttribute("loginStaff") );
+    Staff lgstf = (Staff) session.getAttribute("loginStaff");
+    if(lgstf.getPosition() != 'M'){
+        response.sendRedirect("../Unauthorized.html");
+    }
+    
+    
+    List<Staff> staffList = null;
+    String recordForm = null;
+    if (session.getAttribute("staffList") != null || session.getAttribute("recordFrom") != null) {
+        staffList = (List<Staff>) session.getAttribute("staffList");
+        recordForm = (String) session.getAttribute("recordFrom");
+    }else{
+        response.sendRedirect("../Unauthorized.html");
+    }
+
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ include file="Header.jsp" %>
+<%@ include file="../AdminHeader.jsp" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,7 +36,7 @@
         <script>
             function check(x) {
                 document.getElementById(x).checked = true;
-                 document.getElementById("search").disabled = false;
+                document.getElementById("search").disabled = false;
             }
         </script>
 
@@ -31,24 +45,24 @@
 
         <h1>Staff Control</h1>
         <div class="searchByPosition">
-            <form action="../Search" action="GET">
-                
+            <form action="../Search" method="GET">
+
                 <label for="f-option" class="l-radio">
                     <input type="radio" id="ID" name="SearchBy" value="staffId" tabindex="1">
                     <span onclick="check('ID')">ID</span>
                 </label>
-                
+
                 <label for="s-option" class="l-radio">
                     <input type="radio" id="Name" name="SearchBy" value="staffName" tabindex="2">
                     <span onclick="check('Name')">Name</span>
                 </label>
-                
+
                 <label for="t-option" class="l-radio">
                     <input type="radio" id="Position" name="SearchBy" value="staffPosition" tabindex="3">
                     <span onclick="check('Position')" >Position</span>
                 </label>
                 <br>
-                
+
                 <input type="text" name="search" id="search" placeholder="Search" disabled>
                 <button id="search" type="submit"><i class="fa fa-search"></i></button>
             </form>
@@ -103,5 +117,6 @@
         <%
             }
         %>
+
     </body>
 </html>

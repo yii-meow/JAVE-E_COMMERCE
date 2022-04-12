@@ -62,7 +62,7 @@ public class EditStaff extends HttpServlet {
         }
 
         if (passwordStatus.equals("true")) {
-            response.sendRedirect("staff/EditStaff.jsp");
+            response.sendRedirect("manager/EditStaff.jsp");
         }
 
     }
@@ -71,7 +71,7 @@ public class EditStaff extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("editPassword", staff);
 
-        response.sendRedirect("staff/EditPassword.jsp");
+        response.sendRedirect("manager/EditPassword.jsp");
     }
 
     protected void processUpdateCancel(HttpServletRequest request, HttpServletResponse response, String submitType) throws ServletException, IOException {
@@ -99,7 +99,7 @@ public class EditStaff extends HttpServlet {
                     utx.commit();
 
                     session.setAttribute("editResult", result);
-                    response.sendRedirect("staff/EditConfirm.jsp");
+                    response.sendRedirect("manager/EditConfirm.jsp");
 
                 } catch (Exception e) {
 
@@ -108,7 +108,7 @@ public class EditStaff extends HttpServlet {
             } else {
                 session.setAttribute("errMsg", service.getErrMsg());
                 session.setAttribute("webSite", "staff/EditStaff.jsp");
-                response.sendRedirect("staff/StaffInfoException.jsp");
+                response.sendRedirect("manager/StaffInfoException.jsp");
             }
 
         }

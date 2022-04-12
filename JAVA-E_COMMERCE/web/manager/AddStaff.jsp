@@ -3,7 +3,6 @@
     Created on : 05-Apr-2022, 15:34:28
     Author     : jensienwong
 --%>
-
 <%@page import="entity.Staff"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -28,7 +27,7 @@
         <link rel="stylesheet" href="../styling/AddStaff.css">
     </head>
     <body>
-        <%@ include file="Header.jsp" %>
+        <%@ include file="../AdminHeader.jsp" %>
         <div class="container">
             <h1>Add Staff</h1>
             <form action="../AddStaff" method="POST">                

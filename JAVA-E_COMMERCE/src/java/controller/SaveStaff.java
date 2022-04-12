@@ -71,7 +71,7 @@ public class SaveStaff extends HttpServlet {
 
         } else {
             //Back Button is Clicked
-            response.sendRedirect("staff/SetUpPassword.jsp");
+            response.sendRedirect("manager/SetUpPassword.jsp");
         }
 
     }
