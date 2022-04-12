@@ -50,6 +50,7 @@
                     font-size: 3.5rem;
                 }
             }
+
         </style>
 
 
@@ -57,14 +58,14 @@
         <link href="../styling/sidebars.css" rel="stylesheet">
 
         <title>Maintain Product</title>
-    </head
-    <body>
+    </head>
+    <body style="background-color:#ffb7e2">
         <div class="contentCenter">
 
             <div style="font-size:20px;color:#ff3366;font-weight:bold;margin-left:25px;">
                 <!-- Display Shop Overall Rating in Star -->
                 Shop Average Rating </br>
-                <span style="font-size:30px;"><%= String.format("%.2f",overall_rating) %> / 5.0</span></br>
+                <span style="font-size:30px;"><%= String.format("%.2f", overall_rating)%> / 5.0</span></br>
 
                 <div style="font-size:40px;">
                     <!-- CHECK THE WHOLE NUMBER OF RATING AND DISPLAY A COMPLETE STAR -->
@@ -195,7 +196,5 @@
         <!--===============================================================================================-->
         <script src="../styling/vendor/bootstrap/js/popper.js"></script>
         <script src="../styling/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    </div>
-</body>
+    </body>
 </html>
