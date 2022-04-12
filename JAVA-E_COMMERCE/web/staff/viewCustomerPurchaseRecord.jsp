@@ -58,10 +58,10 @@
 
         <title>View Customer Purchase Record</title>
     </head>
-    <body style="background-color:#7e31aa">
+    <body>
         <div class="contentCenter">
 
-            <div class="alert alert-success" role="alert" style="text-align:center;font-size:1.5rem;">
+            <div class="alert alert-success" role="alert" style="text-align:center;">
                 Record of Customer : <%= orders.get(0).getCustomerID().getCustomerName()%>
             </div>
 
