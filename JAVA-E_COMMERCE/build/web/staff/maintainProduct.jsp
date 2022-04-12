@@ -61,9 +61,10 @@
     <body>
         <div class="contentCenter">
 
-            <div style="font-size:20px;color:#990099;font-weight:bold;">
+            <div style="font-size:20px;color:#cc3300;font-weight:bold;margin-left:25px;">
                 <!-- Display Shop Overall Rating in Star -->
-                Shop Average Rating: </br>
+                Shop Average Rating </br>
+                <span style="font-size:30px;"><%= overall_rating %> / 5.0</span></br>
 
                 <div style="font-size:40px;">
                     <!-- CHECK THE WHOLE NUMBER OF RATING AND DISPLAY A COMPLETE STAR -->
