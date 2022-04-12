@@ -14,3 +14,7 @@
     <li><a href="customer/ViewCustomerProfile">Update/Delete Item</a><br>
     <li><a href="customer/ViewShoppingCart">ViewCart</a><br>
 </ul>
+
+<h1>YOU CAN REMOVE THIS BUTTON THIS BUTTON JUST FOR TESTING PURPOSE</h1>
+<a href="staff/StaffLogin.jsp"> Staff </a>
+<a href="customer/index.html"> Customer </a>

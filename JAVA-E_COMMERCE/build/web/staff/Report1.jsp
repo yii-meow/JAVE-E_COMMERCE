@@ -121,7 +121,7 @@
         </style>
     </head>
     <body>
-        <%@ include file="Header.jsp" %>
+        <%@ include file="../AdminHeader.jsp" %>
         <div class="table">
             <table>
                 <tr>

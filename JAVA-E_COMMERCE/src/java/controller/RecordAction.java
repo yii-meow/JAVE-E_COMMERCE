@@ -4,15 +4,11 @@
  */
 package controller;
 
-import controller.StaffService;
 import entity.Staff;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -77,7 +73,7 @@ public class RecordAction extends HttpServlet {
         session.setAttribute("lastName", "");
         session.setAttribute("newStaff", staff);
 
-        response.sendRedirect("staff/AddStaff.jsp");
+        response.sendRedirect("manager/AddStaff.jsp");
     }
 
     protected void viewRecord(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
@@ -85,7 +81,7 @@ public class RecordAction extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setAttribute("viewStaff", staff);
-        response.sendRedirect("staff/RetrieveStaff.jsp");
+        response.sendRedirect("manager/RetrieveStaff.jsp");
     }
 
     protected void editRecord(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
@@ -93,7 +89,7 @@ public class RecordAction extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setAttribute("editStaff", staff);
-        response.sendRedirect("staff/EditStaff.jsp");
+        response.sendRedirect("manager/EditStaff.jsp");
     }
 
     protected void deleteRecord(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
@@ -101,7 +97,7 @@ public class RecordAction extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setAttribute("deleteStaff", staff);
-        response.sendRedirect("staff/DeleteStaff.jsp");
+        response.sendRedirect("manager/DeleteStaff.jsp");
     }
 
 }

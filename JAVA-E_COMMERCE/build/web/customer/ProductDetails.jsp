@@ -48,7 +48,7 @@
             <tr>
 
                 <th>ProductID</th> 
-                <th>Product Name</a></th> 
+                <th>Product Name</th> 
                 <th>Product Description</th>
                 <th></th>
             </tr>

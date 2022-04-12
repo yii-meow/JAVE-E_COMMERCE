@@ -12,6 +12,6 @@
         <title>Index</title>
     </head>
     <body>
-        <%@ include file="Header.jsp" %>
+        <%@ include file="../AdminHeader.jsp" %>
     </body>
 </html>

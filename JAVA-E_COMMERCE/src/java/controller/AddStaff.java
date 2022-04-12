@@ -51,7 +51,7 @@ public class AddStaff extends HttpServlet {
 
             Staff staff = new Staff("", "", "");
             session.setAttribute("newStaff", staff);
-            response.sendRedirect("staff/AddStaff.jsp");
+            response.sendRedirect("manager/AddStaff.jsp");
         }
 
         String firstName = request.getParameter("firstName");
@@ -82,7 +82,7 @@ public class AddStaff extends HttpServlet {
                 session.setAttribute("lastName", lastName);
                 session.setAttribute("newStaff", staff);
 
-                response.sendRedirect("staff/SetUpPassword.jsp");
+                response.sendRedirect("manager/SetUpPassword.jsp");
 
             }
         } else {
@@ -95,7 +95,7 @@ public class AddStaff extends HttpServlet {
             session.setAttribute("errMsg", errMsg);
             session.setAttribute("newStaff", staff);
             session.setAttribute("webSite", "staff/AddStaff.jsp");
-            response.sendRedirect("staff/StaffInfoException.jsp");
+            response.sendRedirect("manager/StaffInfoException.jsp");
         }
     }
 
