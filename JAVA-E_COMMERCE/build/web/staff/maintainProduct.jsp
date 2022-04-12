@@ -50,16 +50,13 @@
                     font-size: 3.5rem;
                 }
             }
-
         </style>
-
-
         <!-- Custom styles for this template -->
         <link href="../styling/sidebars.css" rel="stylesheet">
 
         <title>Maintain Product</title>
     </head>
-    <body style="background-color:#ffb7e2">
+    <body style="background-color:#7e31aa">
         <div class="contentCenter">
 
             <div style="font-size:20px;color:#ff3366;font-weight:bold;margin-left:25px;">

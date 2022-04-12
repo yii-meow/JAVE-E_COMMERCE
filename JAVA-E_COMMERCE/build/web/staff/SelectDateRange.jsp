@@ -16,7 +16,7 @@
         <title>Date Range</title>
         <style>
             body{
-                background: rgba(255,26,104,0.2);
+                background-color:#7e31aa;
             }
 
         </style>
@@ -29,11 +29,11 @@
             <table>
                 <form action="../DateRange" method="POST">
                     <tr>
-                        <th id="label">From</th>
+                        <th id="label" style="color:white;">From</th>
                         <td id="input"><input type="date" name="start_date"></td>
                     </tr>
                     <tr>
-                        <th id="label">To</th>
+                        <th id="label" style="color:white;">To</th>
                         <td id="input"><input type="date" name="end_date"></td>
                     </tr>
                     <tr>

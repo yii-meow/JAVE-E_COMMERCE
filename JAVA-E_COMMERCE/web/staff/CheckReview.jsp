@@ -1,6 +1,8 @@
 <%@page import="java.util.List"%>
 <%@page import="entity.Review"%>
 
+<jsp:include page="../Review"/>
+
 <%
 List<Review> review = (List<Review>) session.getAttribute("reviewList");
 List<Review> CustomerList =(List<Review>) session.getAttribute("customerId");

@@ -46,9 +46,11 @@
 
     </head>
     <body>
-        <div class="contentCenter">
-            <div class="badge bg-info text-dark" style="font-size:1.5rem;">Overall Sales Record</div>
-
+        <div class="contentCenter">            
+            <div class="alert alert-success" role="alert" style="text-align:center;font-size:1.5rem;">
+                Overall Sales Record
+            </div>
+            
             <table class="table table-striped">
                 <thead>
                     <tr style="text-align:center">
