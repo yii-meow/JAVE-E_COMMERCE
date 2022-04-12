@@ -145,7 +145,7 @@
                             <ul class="list-group list-group-flush">
 
                                 <li class="list-group-item">                    
-                                    <div style='width:10rem;display:inline-block'>Total Payment</div> 
+                                    <div style='width:10rem;display:inline-block'>Total Buyer Payment</div> 
                                     <div style="width:32rem;text-align:right;display:inline-block;">
                                         <%= String.format("RM %.2f", ordersDetails.calculateTotal())%>
                                     </div>
