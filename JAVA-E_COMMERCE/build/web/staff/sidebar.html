@@ -28,6 +28,7 @@
                     font-size: 3.5rem;
                 }
             }
+
         </style>
 
 
@@ -92,6 +93,9 @@
     <symbol id="geo-fill" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
     </symbol>
+    <symbol id="report" viewBox="0 0 16 16">
+        <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+    </symbol>
     </svg>
     <main>
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 230px;">
@@ -102,12 +106,7 @@
                         Home
                     </a>
                 </li>
-                <li>
-                    <a href="viewSalesRecord.jsp" class="nav-link text-white">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-                        Sales
-                    </a>
-                </li>
+
                 <li>
                     <a href="viewOrder.jsp" class="nav-link text-white">
                         <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
@@ -120,13 +119,38 @@
                         Products
                     </a>
                 </li>
+
+                <li>
+                    <a href="viewSalesRecord.jsp" class="nav-link text-white">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                        Sales
+                    </a>
+                </li>
+                
                 <li>
                     <a href="viewCustomerRecord.jsp" class="nav-link text-white">
                         <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                         Customers
                     </a>
                 </li>
+                <hr>
+                <li class="mb-1">                    
+                    <button class="btn btn-toggle align-items-center rounded collapsed text-white" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                        Report <svg class="bi me-2" width="16" height="16" style="margin-left:10px;"><use xlink:href="#report"/></svg>
+                    </button>
+                    <div class="collapse show text-white" id="home-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="../GenerateReport?submitType=MostPopularCategories" class="link-light rounded">Report 1</a></li>
+                            <li><a href="../GenerateReport?submitType=SalesReport" class="link-light rounded">Report 2</a></li>
+                            <li><a href="../GenerateReport?submitType=CustomerAnalysisReport" class="link-light rounded">Report 3</a></li>
+                        </ul>
+                    </div>
+                </li>
+
             </ul>
+
+
+
             <hr>
 
             <div class="dropdown">
@@ -138,6 +162,11 @@
                     <li><a class="dropdown-item" href="#">Sign out</a></li>
                 </ul>
             </div>
+
+            <hr>
+            Powered by :<b>Alimama</b>
+
+
     </main>
     <script src="../styling/bootstrap.bundle.min.js"></script>
 

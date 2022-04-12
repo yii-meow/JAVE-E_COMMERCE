@@ -7,6 +7,8 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="sidebar.html"/>
+
 <%
     Date[] startAndEndDate = (Date[]) session.getAttribute("starAndEndDate");
     ArrayList<String> dailyDate = (ArrayList<String>) session.getAttribute("dateRange");
@@ -48,28 +50,33 @@
         <style>
             .chartBox{
                 height: 900px;
+                margin-left:230px;
             }
         </style>
+
+        <!-- Bootstrap core CSS -->
+        <link href="../styling/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
-        <%@ include file="../AdminHeader.jsp" %>
-        <table>
-            <form action="../DateRange" method="POST">
-                <tr>
-                    <th id="label">From</th>
-                    <td id="input"><input type="date" name="start_date"></td>
-                </tr>
-                <tr>
-                    <th id="label">To</th>
-                    <td id="input"><input type="date" name="end_date"></td>
-                </tr>
-                <tr>
-                    <td id="submit" colspan="3"><input type="submit" value="Generate"></td>
-                </tr>
+    <body style="background-color:#7e31aa">
+        <div class="contentCenter">
 
-            </form>    
-        </table>
+            <table>
+                <form action="../DateRange" method="POST">
+                    <tr>
+                        <th id="label" style="color:white;">From</th>
+                        <td id="input"><input type="date" name="start_date"></td>
+                    </tr>
+                    <tr>
+                        <th id="label" style="color:white;">To</th>
+                        <td id="input"><input type="date" name="end_date"></td>
+                    </tr>
+                    <tr>
+                        <td id="submit" colspan="3"><input type="submit" value="Generate"></td>
+                    </tr>
 
+                </form>    
+            </table>
+        </div>
 
         <div class="chartCard">
             <div class="chartBox">

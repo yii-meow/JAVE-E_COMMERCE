@@ -5,36 +5,44 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="sidebar.html"/>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../styling/DateRange.css"/>
+        <!-- Bootstrap core CSS -->
+        <link href="../styling/bootstrap.min.css" rel="stylesheet">
         <title>Date Range</title>
         <style>
             body{
-                background: rgba(255,26,104,0.2);
+                background-color:#7e31aa;
             }
 
         </style>
+        <!-- Custom styles for this template -->
+        <link href="../styling/sidebars.css" rel="stylesheet">
     </head>
     <body>
-       <%@ include file="../AdminHeader.jsp" %>
-        <table>
-            <form action="../DateRange" method="POST">
-                <tr>
-                    <th id="label">From</th>
-                    <td id="input"><input type="date" name="start_date"></td>
-                </tr>
-                <tr>
-                    <th id="label">To</th>
-                    <td id="input"><input type="date" name="end_date"></td>
-                </tr>
-                <tr>
-                    <td id="submit" colspan="3"><input type="submit" value="Generate"></td>
-                </tr>
 
-            </form>    
-        </table>
+        <div class="contentCenter">
+            <table>
+                <form action="../DateRange" method="POST">
+                    <tr>
+                        <th id="label" style="color:white;">From</th>
+                        <td id="input"><input type="date" name="start_date"></td>
+                    </tr>
+                    <tr>
+                        <th id="label" style="color:white;">To</th>
+                        <td id="input"><input type="date" name="end_date"></td>
+                    </tr>
+                    <tr>
+                        <td id="submit" colspan="3"><input type="submit" value="Generate"></td>
+                    </tr>
+
+                </form>    
+            </table>
+        </div>
     </body>
+
 </html>

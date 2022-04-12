@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
  */
 public class GenerateReport extends HttpServlet {
 
-    @PersistenceContext()
+    @PersistenceContext
     EntityManager em;
 
     private Query query;
@@ -147,6 +147,9 @@ public class GenerateReport extends HttpServlet {
 
         OrderService oService = new OrderService(em);
         List<Orders> order = oService.retrieveOrderAll();
+        
+        out.println(orderList);
+        out.println(order);
 
         query = em.createNamedQuery("Product.findAll");
         List<Product> prod = query.getResultList();

@@ -5,6 +5,8 @@
 --%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="sidebar.html"/>
+
 <%
     ArrayList<String> prodName = (ArrayList<String>) session.getAttribute("prodArray");
     ArrayList<String> prodPercentagesArray = (ArrayList<String>) session.getAttribute("prodPercentagesArray");
@@ -44,11 +46,13 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js" integrity="sha512-R/QOHLpV1Ggq22vfDAWYOaMd5RopHrJNMxi8/lJu8Oihwi4Ho4BRFeiMiCefn9rasajKjnx9/fTQ/xkWnkDACg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- Bootstrap core CSS -->
+        <link href="../styling/bootstrap.min.css" rel="stylesheet">
         <title>Report</title>
         <style>
 
             body{
-                background: rgba(255,26,104,0.2);
+                background-color:#7e31aa;
             }
 
             .table{
@@ -118,10 +122,26 @@
                 border: 3px solid rgba(255,26,104,1);
                 background: white;
             }
+            
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
         </style>
+        <!-- Custom styles for this template -->
+        <link href="../styling/sidebars.css" rel="stylesheet">
     </head>
     <body>
-        <%@ include file="../AdminHeader.jsp" %>
+        
         <div class="table">
             <table>
                 <tr>
