@@ -5,46 +5,26 @@
     System.out.println(itemList.getPrice());
     int ProductId = (Integer) session.getAttribute("productId");
 %>
+<style><%@include  file="table.css" %></style>
+
+
 <html>
     <head>
-        <style>
-            #product {
-                font-family: Arial, Helvetica, sans-serif;
-                border-collapse: collapse;
-                width: 80%;
 
-            }
-
-            #product td, #customers th {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
-
-            #product tr:nth-child(even){
-                background-color: #f2f2f2;
-            }
-
-            #product tr:hover {
-                background-color: #ddd;
-            }
-
-            #product th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: #04AA6D;
-                color: white;
-            }
-
-
-        </style>
+        <%@include  file="header.jsp" %>
     <body>
-        <h1>your orders </h1>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="../customer/ViewCustomerProfile">My Account </a>
+            <a href="../customer/View">Product List</a>
+            <a href="../customer/ViewShoppingCart">Shopping Cart</a>
+            <a href="../customer/ViewOrder">My Orders</a>
+        </div>
 
 
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by productID.."> 
-
-        <table id="product">
+        <table id="product"> 
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Product List</span>
             <tr>
 
                 <th>ProductID</th> 
@@ -62,7 +42,7 @@
                     <form action="../addShoppingCart">
                         <input type="number" id="quantity" name="quantity" min="1" max="100">
                         <input type="hidden" id="productID" name="productID" value= <%=(Integer) session.getAttribute("productId")%>>
-                        <input type="hidden" id="customerID" name="customerID" value= "1">
+                        <input type="hidden" id="customerID" name="customerID" value= "<%=session.getAttribute("customerID")%>">
                         <input type="submit" value="add to cart">
                     </form>
 
@@ -74,10 +54,12 @@
 
     </body> 
     <script>
-        function test(test) {
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
 
-            alert("quantity of:" + document.getElementById("quantity").value + "  and productID:" + test + "\n Added to cart");
-            location.href = "../customer/addShoppingCart";
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
         }
     </script>
 

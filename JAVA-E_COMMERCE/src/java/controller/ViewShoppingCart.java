@@ -40,8 +40,10 @@ public class ViewShoppingCart extends HttpServlet {
             HttpSession session = request.getSession();
 
             Shoppingcart2 shoppingcart = new Shoppingcart2();
-
-            List<Shoppingcart2> itemList = itemService.findAll();
+            
+            int customerID= (int)session.getAttribute("customerID");
+            
+            List<Shoppingcart2> itemList = itemService.findAll(customerID);
             session.setAttribute("cartList", itemList);
             response.sendRedirect("shoppingCart.jsp");
         } catch (Exception ex) {

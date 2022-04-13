@@ -51,19 +51,15 @@
         <table id="product">
             <tr>
                 <th>ProductImg</th> 
-                <th>ProductID</th> 
-                <th>Quantity</th>
+                <th>Quantity Ordered</th>
+                <th>Price</th>
             </tr>
 
             <%for (Shoppingcart2 item : itemList) {%>
             <tr>
-                <td>
-                    <form action="../customer/ViewProductDetails" method="post">
-                        <button " onclick="test(this.id)" type="submit" value="<%=item.getProductId()%>" name="your_name" class="btn-link">Go</button>
-                    </form>
-                </td>
-                <td>   <%=item.getProductId().getProductId()%></td>
+                <td>   <img src="<%=item.getProductId().getProductImage()%>" alt="Italian Trulli" width="200" height="200"></td>
                 <td>   <%=item.getQuantity()%></td>
+                <td>   RM <%=   String.format("%.2f", item.getProductId().getPrice() * item.getQuantity())%></td>
                 <%}%>
             </tr>
         </table>
@@ -74,13 +70,13 @@
                 <th>price after discount</th>
             </tr>
             <tr>
-                <td><%=originalPrice%></td>
-                <td><%=disocuntPrice%></td>
+                <td>RM <%=originalPrice%></td>
+                <td>RM <%=String.format("%.2f", disocuntPrice)%></td>
             </tr>
         </table>
 
         <form action="../customer/AddOrder">
-            
+
             <input type="submit" value="confirm purchase">
 
         </form>

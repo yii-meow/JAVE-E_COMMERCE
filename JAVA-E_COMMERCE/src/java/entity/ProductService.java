@@ -36,6 +36,11 @@ public class ProductService {
         return product;
     }
 
+    public Product findItemByCategory(String Category) {
+        Product product = mgr.find(Product.class, Category);
+        return product;
+    }
+
     public boolean deleteItem(int productID) {
         Product product = findItemByID(productID);
         if (product != null) {
@@ -60,6 +65,16 @@ public class ProductService {
 
         itemList = mgr.createNamedQuery("Product.findAll").getResultList();
         return itemList;
+    }
+
+    public boolean updateProduct(int id, int quantity) {
+        Product tempItem = findItemByID(id);
+
+        int stock = tempItem.getStock() - quantity;
+
+        tempItem.setStock(stock);
+        mgr.merge(tempItem);
+        return true;
     }
 
     public List<Product> findAllAccending() {

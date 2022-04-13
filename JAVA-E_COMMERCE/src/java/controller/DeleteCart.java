@@ -45,7 +45,7 @@ public class DeleteCart extends HttpServlet {
             boolean success = itemService.deleteItem(CartID);
             utx.commit();
 
-            List<Shoppingcart2> itemList = itemService.findAll();
+            List<Shoppingcart2> itemList = itemService.findAll((int)session.getAttribute("customerID"));
             session.setAttribute("cartList", itemList);
 
             response.sendRedirect("customer/shoppingCart.jsp");

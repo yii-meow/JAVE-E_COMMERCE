@@ -11,47 +11,31 @@
 <%
     List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
 %>
+
+
+
+
+
 <html>
     <head>
-        <style>
-            #product {
-                font-family: Arial, Helvetica, sans-serif;
-                border-collapse: collapse;
-                width: 80%;
-
-            }
-
-            #product td, #customers th {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
-
-            #product tr:nth-child(even){
-                background-color: #f2f2f2;
-            }
-
-            #product tr:hover {
-                background-color: #ddd;
-            }
-
-            #product th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: #04AA6D;
-                color: white;
-            }
-
-
-        </style>
+        <style><%@include  file="table.css" %></style>
+        <%@include  file="header.jsp" %>
     <body>
-        <h1>ShoppingCart</h1>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="../customer/ViewCustomerProfile">My Account </a>
+            <a href="../customer/View">Start Order</a>
+            <a href="../customer/ViewShoppingCart">Shopping Cart</a>
+            <a href="../customer/ViewOrder">My Orders</a>
+        </div>
+
+
 
         <table id="product">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Shopping Cart</span>
             <tr>
                 <th>ProductImg</th> 
-                <th>ProductID</th> 
-                <th>customer id</a></th> 
+                <th>Product name</th> 
                 <th>quantity ordered</th>
                 <th>modify Cart</th>
                 <th>Delete Cart</th>
@@ -59,20 +43,14 @@
 
             <%for (Shoppingcart2 item : itemList) {%>
             <tr>
-                <td>
-                    <form action="../customer/ViewProductDetails" method="post">
-                        <button " onclick="test(this.id)" type="submit" value="<%=item.getProductId()%>" name="your_name" class="btn-link">Go</button>
-                    </form>
-                </td>
-                <td>   <%=item.getProductId().getProductId()%></td>
-                <td>   <%=item.getCustomerId()%></td>
+                <td>   <img src="<%=item.getProductId().getProductImage()%>" alt="Italian Trulli" width="200" height="200"></td>
+                <td>   <%=item.getProductId().getProductName()%></td>
                 <td>   <%=item.getQuantity()%></td>
                 <td>                     
                     <form action="../UpdateCart">
                         <input type="number" id="quantity" name="quantity" min="1" max="100">
                         <input type="hidden" id="cartID" name="cartID" value= <%=(Integer) item.getCartId()%>>
                         <input type="hidden" id="productID" name="productID" value= "<%=item.getProductId().getProductId()%>">
-                        <input type="hidden" id="customerID" name="customerID" value= "1">
                         <input type="submit" value="UpdateCart" onclick="test(<%=item.getProductId()%>, 1)">
                     </form>
                 </td> 
@@ -92,11 +70,13 @@
 
     </body>
 
+
     <script>
-
-        function test(a, b, ) {
-            alert("product iD:" + a + "customer ID" + b);
-
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
         }
 
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
     </script>

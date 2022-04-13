@@ -28,10 +28,14 @@ public class CustomerProfileService {
 
     public List<Customer> findAll() {
 
-        
         query = mgr.createNamedQuery("Customer.findByCustomerID").setParameter("customerID", 7);
 
         return query.getResultList();
+    }
+
+    public Customer findItemsByID(int customerID) {
+        Customer profile = mgr.find(Customer.class, customerID);
+        return profile;
     }
 
     public List<Product> findAllAccending() {

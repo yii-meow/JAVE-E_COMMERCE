@@ -53,7 +53,7 @@ public class UpdateCart extends HttpServlet {
             boolean success = itemService.updateShoppingcart(shoppingcart);
             utx.commit();
 
-            List<Shoppingcart2> itemList = itemService.findAll();
+            List<Shoppingcart2> itemList = itemService.findAll((int)session.getAttribute("customerID"));
             session.setAttribute("cartList", itemList);
 
             response.sendRedirect("customer/shoppingCart.jsp");

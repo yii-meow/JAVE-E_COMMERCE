@@ -111,7 +111,7 @@ public class registerCustomer extends HttpServlet {
                 out.println("</script>");
 
                 session.setAttribute("customer", customer);
-                response.sendRedirect("customer/index.html");
+                response.sendRedirect("customer/ViewCustomerProfile");
             } catch (Exception ex) {
                 out.println(ex.getMessage());
             }

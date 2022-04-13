@@ -97,20 +97,26 @@ public class validateCustomerLogin extends HttpServlet {
         out.print(hash);
 
         try {
+// RETRIEVE THE CUSTOMER USERNAME FROM DATABASE
             Query query = em.createNamedQuery("Customer.findByCustomerUsername").setParameter("customerUsername", username);
 
+            // CHECK IF CUSTOMER RECORD EXIST
             if (!query.getResultList().isEmpty()) {
-                List<Customer> customer = (List<Customer>) query.getResultList();
+                Customer customer = (Customer) query.getResultList().get(0);
 
-                if (customer.get(0).getCustomerPassword().equals(hash)) {
+                // IF PASSWORD MATCH THEN REDIRECT TO CUSTOMER MAIN PAGE
+                if (customer.getCustomerPassword().equals(hash)) {
                     HttpSession session = request.getSession();
-                    session.setAttribute("customer", customer);
-                    response.sendRedirect("customer/index.html");
+                    session.setAttribute("customerID", customer.getCustomerID());
+                    session.setAttribute("Customer", customer);
+                    response.sendRedirect("customer/ViewCustomerProfile"); // CHANGE THIS TO CUSTOMER MAIN PAGE
                 } else {
+                    // REDIRECT BACK TO LOGIN PAGE IF PASSWORD DOESN'T MATCH
                     response.sendRedirect("customerLogin.html");
                 }
 
             } else {
+                // REDIRECT BACK TO LOGIN PAGE IF CUSTOMER RECORD DOESN'T EXIST
                 response.sendRedirect("customerLogin.html");
             }
         } catch (Exception ex) {

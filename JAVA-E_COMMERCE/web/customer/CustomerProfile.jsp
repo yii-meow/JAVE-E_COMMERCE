@@ -1,103 +1,58 @@
 <%@page import="java.util.List"%>
 <%@page  import="entity.Customer" %>
 <%
-    List<Customer> itemList = (List) session.getAttribute("ProfileList");
+    Customer item = (Customer) session.getAttribute("ProfileList");
 %>
 <html>
     <head>
-        <style>
-            #product {
-                font-family: Arial, Helvetica, sans-serif;
-                border-collapse: collapse;
-                width: 80%;
-
-            }
-
-            #product td, #customers th {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
-
-            #product tr:nth-child(even){
-                background-color: #f2f2f2;
-            }
-
-            #product tr:hover {
-                background-color: #ddd;
-            }
-
-            #product th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: #04AA6D;
-                color: white;
-            }
-
-
-        </style>
+        <style><%@include  file="table.css" %></style>
+        <%@include  file="header.jsp" %>
     <body>
-        <h1>your orders </h1>
-
-
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="../customer/ViewCustomerProfile">My Account </a>
+            <a href="../customer/View">Start Order</a>
+            <a href="../customer/ViewShoppingCart">Shopping Cart</a>
+            <a href="../customer/ViewOrder">My Orders</a>
+        </div>
 
 
         <table id="product">
-            <tr>
-                <th>ProfileImg</th> 
-                <th>ProductID</th> 
-                <th><a href="../customer/View" onclick="
-                       <%
-                           if (session.getAttribute("isNameAsc").equals(false)) {
-                               session.setAttribute("isNameAsc", true);
-                           } else {
-                               session.setAttribute("isNameAsc", false);
-                           }
-                       %>"
-                       >Product Name</a></th> 
-                <th>Product Description</th>
-            </tr>
 
-            <%
-                int i = 1;
-                for (Customer item : itemList) {%>
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Start Order</span>
+
+
+            <tr><td colspan="2">My profile</td></tr>
+            <tr><td colspan="2"style="font-size:20px;">view and check your profile: kindly contact customer service center if any information incorrect</td></tr>
             <tr>
-                <td>
-                    <form action="../customer/ViewProductDetails" method="post">
-                        <button id="<%=i%>" onclick="test(this.id)" type="submit" value="<%=item.getCustomerName()%>" name="your_name" class="btn-link">Go</button>
-                    </form>
-                </td>
-                <td>   <%=item.getCustomerAddress()%></td>
+                <td style="text-align: right">user name:</td>
+                <td>   <%=item.getCustomerUsername()%></td>
+            </tr> 
+            <tr>
+                <td style="text-align: right">name:</td>
+                <td>   <%=item.getCustomerName()%></td>
+            </tr> 
+            <tr>
+                <td style="text-align: right">Email:</td>
                 <td>   <%=item.getCustomerEmail()%></td>
-                <td>   <%=item.getCustomerPassword()%></td>
-
             </tr>
-            <% i++;
-                    }%>
+            <tr>
+                <td style="text-align: right">Gender:</td>
+                <td>   <%=item.getGender()%></td>
+            </tr>
+
         </table>
 
     </body>
-    <script>
-        function myFunction() {
-            // Declare variables
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("product");
-            tr = table.getElementsByTagName("tr");
 
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
         }
     </script>
 
