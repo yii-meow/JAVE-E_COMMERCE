@@ -104,7 +104,7 @@ public class validateCustomerLogin extends HttpServlet {
                 if (customer.get(0).getCustomerPassword().equals(hash)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("customer", customer);
-                    response.sendRedirect("customer/index.html"); // CHANGE THIS TO CUSTOMER MAIN PAGE
+                    response.sendRedirect("customer"); // CHANGE THIS TO CUSTOMER MAIN PAGE
                 } else {
                     // REDIRECT BACK TO LOGIN PAGE IF PASSWORD DOESN'T MATCH                  
                     response.sendRedirect("customerLogin.html");
