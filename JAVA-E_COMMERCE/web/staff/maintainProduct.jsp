@@ -62,7 +62,7 @@
             <div style="font-size:20px;color:#a2ec15;font-weight:bold;margin-left:25px;">
                 <!-- Display Shop Overall Rating in Star -->
                 Shop Average Rating </br>
-                <span style="font-size:30px;"><%= String.format("%.2f", overall_rating)%> / 5.0</span></br>
+                <span style="font-size:30px;"><%= String.format("%.1f", overall_rating)%> / 5.0</span></br>
 
                 <div style="font-size:40px;">
                     <!-- CHECK THE WHOLE NUMBER OF RATING AND DISPLAY A COMPLETE STAR -->
