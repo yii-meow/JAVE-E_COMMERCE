@@ -3,7 +3,7 @@
     Created on : 08-Apr-2022, 02:18:10
     Author     : jensienwong
 --%>
-
+<jsp:include page="../staff/sidebar.jsp"/> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,9 +12,13 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@ include file="../AdminHeader.jsp" %>
-        <h1>Edit Successfully</h1>
-        <a href="../RetrieveRecord">Back</a>
+        <div class="contentCenter">
+
+
+            <h1>Edit Successfully</h1>
+            <a href="../RetrieveRecord">Back</a>
+        </div>
+
     </body>
 </html>
 Entity

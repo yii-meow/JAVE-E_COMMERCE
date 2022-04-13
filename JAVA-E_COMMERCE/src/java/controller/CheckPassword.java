@@ -52,7 +52,7 @@ public class CheckPassword extends HttpServlet {
 
                 if (psw.checkEmpty(oldPassword) || psw.checkEmpty(confirmPassword) || psw.checkEmpty(password)) {
                     session.setAttribute("passwordErrorMessage", "Invalid Password Exception : Please Fill in all the input field<br>");
-                    session.setAttribute("webSite", "staff/EditPassword.jsp");
+                    session.setAttribute("webSite", "manager/EditPassword.jsp");
                     response.sendRedirect("manager/SetUpPasswordResult.jsp");
                 } else {
                     psw = new Password(staff.getStaffPassword(), oldPassword, password, confirmPassword);
@@ -68,13 +68,13 @@ public class CheckPassword extends HttpServlet {
                         } else {
                             //Invalid Password
                             session.setAttribute("passwordErrorMessage", psw.getErrorMessage());
-                            session.setAttribute("webSite", "staff/EditPassword.jsp");
+                            session.setAttribute("webSite", "manager/EditPassword.jsp");
                             response.sendRedirect("manager/SetUpPasswordResult.jsp");
                         }
                     } else {
                         //Not Match
                         session.setAttribute("passwordErrorMessage", psw.getErrorMessage());
-                        session.setAttribute("webSite", "staff/EditPassword.jsp");
+                        session.setAttribute("webSite", "manager/EditPassword.jsp");
                         response.sendRedirect("manager/SetUpPasswordResult.jsp");
                     }
 

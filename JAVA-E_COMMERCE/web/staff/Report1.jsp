@@ -5,7 +5,7 @@
 --%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="sidebar.html"/>
+<jsp:include page="sidebar.jsp"/> 
 
 <%
     ArrayList<String> prodName = (ArrayList<String>) session.getAttribute("prodArray");

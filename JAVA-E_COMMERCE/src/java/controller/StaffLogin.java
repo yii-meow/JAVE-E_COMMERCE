@@ -4,10 +4,8 @@
  */
 package controller;
 
-import controller.StaffService;
 import entity.Staff;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;

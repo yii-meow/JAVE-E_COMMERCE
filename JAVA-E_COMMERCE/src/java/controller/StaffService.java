@@ -5,7 +5,6 @@
 package controller;
 
 import entity.Staff;
-import entity.Staff;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;

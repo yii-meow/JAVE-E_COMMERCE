@@ -3,7 +3,7 @@
     Created on : 10-Apr-2022, 23:27:25
     Author     : jensienwong
 --%>
-
+<jsp:include page="sidebar.jsp"/> 
 <%@page import="java.util.ArrayList"%>
 <%
 
@@ -35,7 +35,6 @@
         </style>
     </head>
     <body>
-        <%@ include file="../AdminHeader.jsp" %>
         <div class="chartCard">
             <div class="chartBox">
                 <canvas id="myChart"></canvas>    

@@ -4,7 +4,6 @@
  */
 package controller;
 
-import controller.StaffService;
 import entity.Staff;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,18 +41,6 @@ public class AddStaff extends HttpServlet {
     protected void processAddStaff(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         PrintWriter out = response.getWriter();
-
-        String submitType = request.getParameter("submitType");
-        if (submitType.equals("Clear")) {
-            HttpSession session = request.getSession();
-            session.setAttribute("firstName", "");
-            session.setAttribute("lastName", "");
-
-            Staff staff = new Staff("", "", "");
-            session.setAttribute("newStaff", staff);
-            response.sendRedirect("manager/AddStaff.jsp");
-        }
-
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String ic = request.getParameter("ic");
@@ -61,6 +48,8 @@ public class AddStaff extends HttpServlet {
         String phoneNumber = request.getParameter("phoneNumber");
         char position = 'S';
 
+
+        HttpSession session = request.getSession();
 
         //Validation
         boolean validateResult = validationInfo(firstName, lastName, ic, email, phoneNumber);
@@ -71,30 +60,26 @@ public class AddStaff extends HttpServlet {
             String id = generateNewStaffId();
             String name = lastName + " " + firstName;
 
-            if (submitType.equals("Add")) {
-                //Retrive Value From AddStaff.jsp        
+            //Retrive Value From AddStaff.jsp        
+            String dateJoin = generateDate();
+            Staff staff = new Staff(id, name, ic, email, phoneNumber, dateJoin, position);
 
-                String dateJoin = generateDate();
-                Staff staff = new Staff(id, name, ic, email, phoneNumber, dateJoin, position);
-
-                HttpSession session = request.getSession();
-                session.setAttribute("firstName", firstName);
-                session.setAttribute("lastName", lastName);
-                session.setAttribute("newStaff", staff);
+            session.setAttribute("firstName", firstName);
+            session.setAttribute("lastName", lastName);
+            session.setAttribute("newStaff", staff);
 
                 response.sendRedirect("manager/SetUpPassword.jsp");
-
-            }
         } else {
             //Incorrect Info
             Staff staff = new Staff(ic, email, phoneNumber);
-            HttpSession session = request.getSession();
+
             String errMsg = service.getErrMsg();
             session.setAttribute("firstName", firstName);
             session.setAttribute("lastName", lastName);
             session.setAttribute("errMsg", errMsg);
             session.setAttribute("newStaff", staff);
-            session.setAttribute("webSite", "staff/AddStaff.jsp");
+            session.setAttribute("webSite", "manager/AddStaff.jsp");
+
             response.sendRedirect("manager/StaffInfoException.jsp");
         }
     }

@@ -1,9 +1,9 @@
 <%-- 
-    Document   : EditConfirm
-    Created on : 08-Apr-2022, 02:18:10
+    Document   : ManagerHomePage.jsp
+    Created on : 13-Apr-2022, 21:48:55
     Author     : jensienwong
 --%>
-<jsp:include page="../staff/sidebar.jsp"/> 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,13 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <div class="contentCenter">
-
-
-            <h1>Edit Successfully</h1>
-            <a href="../RetrieveRecord">Back</a>
-        </div>
-
+       <jsp:include page="sidebar.jsp"/> 
     </body>
 </html>
-Entity

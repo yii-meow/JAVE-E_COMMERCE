@@ -5,6 +5,7 @@
 --%>
 <jsp:useBean id="staff" scope="session" class="entity.Staff"></jsp:useBean>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +14,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../styling/StaffLogin.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <style>
+            .nav{
+                text-align: right;
+                padding: 8px;
+                
+            }
+            .nav a{
+                color: white;
+                text-decoration: none;
+                padding: 10px;
+            }
+        </style>
         <script src="../styling/Password.js"></script>
         <script>
             function focusInputId(){
@@ -24,7 +37,10 @@
         </script>
     </head>
     <body>
-        <%@ include file="../AdminHeader.jsp" %>
+        <div class="nav">
+            <a href="#">Staff</a><a href="../index.html">Customer</a>
+        </div>
+        
         <div class="form-container">
             <h1>Administrator Login</h1>
             <form action="../staffLogin" method="POST">  

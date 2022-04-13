@@ -4,6 +4,7 @@
     Author     : jensienwong
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page="../staff/sidebar.jsp"/> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +16,6 @@
         <title>Change Password</title>
     </head>
     <body>
-        <%@ include file="../AdminHeader.jsp" %>
         <div class="form-container">
             <form action="../Password" method="POST">
                 <div class="form">

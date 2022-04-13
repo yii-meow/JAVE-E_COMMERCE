@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
 <%@page import="entity.Review"%>
-
+<jsp:include page="sidebar.jsp"/> 
 <jsp:include page="../Review"/>
 
 <%

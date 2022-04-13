@@ -4,6 +4,7 @@
     Author     : jensienwong
 --%>
 <jsp:useBean id="newStaff" scope="session" class="entity.Staff"></jsp:useBean>
+<jsp:include page="../staff/sidebar.jsp"/> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,7 +17,6 @@
         <title>Setup Administrator</title>
     </head>
     <body>
-        <%@ include file="../AdminHeader.jsp" %>
         <div class="form-container">
             <form action="../Password" method="POST">
                 <div class="form">

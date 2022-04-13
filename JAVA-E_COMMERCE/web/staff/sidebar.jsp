@@ -1,4 +1,14 @@
+<%@page import="entity.Staff"%>
 <!doctype html>
+<%
+    boolean isLogin = false;
+    Staff loginStaff = null;
+    if (session.getAttribute("loginStaff") != null) {
+        loginStaff = (Staff) session.getAttribute("loginStaff");
+        isLogin = true;
+    }
+%>
+
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -9,7 +19,7 @@
 
         <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
 
-
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
         <!-- Bootstrap core CSS -->
         <link href="../styling/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +38,7 @@
                     font-size: 3.5rem;
                 }
             }
-           
+
         </style>
 
 
@@ -96,6 +106,9 @@
     <symbol id="report" viewBox="0 0 16 16">
         <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
     </symbol>
+    <symbol id="id-card" viewBox="0 0 16 16">
+        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm2 5.755V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-.245S4 12 8 12s5 1.755 5 1.755z"/>
+    </symbol>
     </svg>
     <main>
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 230px;">
@@ -104,6 +117,12 @@
                     <a href="#" class="nav-link active" aria-current="page">
                         <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
                         Home
+                    </a>
+                </li>
+                <li>
+                    <a href="../RetrieveRecord" class="nav-link text-white">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#id-card"/></svg>
+                        Staff
                     </a>
                 </li>
                 <li>
@@ -137,9 +156,9 @@
                     </button>
                     <div class="collapse show text-white" id="home-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="../GenerateReport?submitType=MostPopularCategories" class="link-light rounded">Report 1</a></li>
-                            <li><a href="../GenerateReport?submitType=SalesReport" class="link-light rounded">Report 2</a></li>
-                            <li><a href="../GenerateReport?submitType=CustomerAnalysisReport" class="link-light rounded">Report 3</a></li>
+                            <li><a href="../GenerateReport?submitType=MostPopularCategories" class="link-light rounded">Hot Product</a></li>
+                            <li><a href="../GenerateReport?submitType=SalesReport" class="link-light rounded">Sales Report</a></li>
+                            <li><a href="../GenerateReport?submitType=CustomerAnalysisReport" class="link-light rounded">Customer Analysis</a></li>
                         </ul>
                     </div>
                 </li>
@@ -153,10 +172,10 @@
             <div class="dropdown">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://static.thenounproject.com/png/1519872-200.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>Staff/Manager</strong>
+                    <strong><%= loginStaff.getStaffName()%></strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li><a class="dropdown-item" href="../LogOut">Sign out</a></li>
                 </ul>
             </div>
 

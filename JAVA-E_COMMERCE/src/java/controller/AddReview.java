@@ -1,14 +1,10 @@
 package controller;
 
-import entity.Customer;
+
 import entity.Product;
 import entity.Review;
-
-import com.sun.xml.wss.util.DateUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
@@ -20,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.RowFilter;
 import javax.transaction.UserTransaction;
 
 public class AddReview extends HttpServlet {
