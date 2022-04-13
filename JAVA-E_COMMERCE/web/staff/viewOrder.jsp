@@ -55,7 +55,7 @@
 
         <title>View Order</title>
     </head>
-    <body style="background-color:#7e31aa">
+    <body>
         <div class="contentCenter">
 
             <div class="card border-0" style="width: 50rem;margin-left:auto;margin-right:auto;">

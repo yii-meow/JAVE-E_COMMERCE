@@ -52,7 +52,7 @@
         <style>
 
             body{
-                background-color:#7e31aa;
+                background: rgba(255,26,104,0.2);
             }
 
             .table{

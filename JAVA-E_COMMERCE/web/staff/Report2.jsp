@@ -57,17 +57,17 @@
         <!-- Bootstrap core CSS -->
         <link href="../styling/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body style="background-color:#7e31aa">
+    <body>
         <div class="contentCenter">
 
             <table>
                 <form action="../DateRange" method="POST">
                     <tr>
-                        <th id="label" style="color:white;">From</th>
+                        <th id="label">From</th>
                         <td id="input"><input type="date" name="start_date"></td>
                     </tr>
                     <tr>
-                        <th id="label" style="color:white;">To</th>
+                        <th id="label">To</th>
                         <td id="input"><input type="date" name="end_date"></td>
                     </tr>
                     <tr>
