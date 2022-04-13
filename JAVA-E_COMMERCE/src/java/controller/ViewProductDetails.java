@@ -26,7 +26,8 @@ public class ViewProductDetails extends HttpServlet {
             Product item = itemService.findItemByID(ProdID);
             session.setAttribute("productId", ProdID);
             session.setAttribute("detailsList", item);
-            response.sendRedirect("ProductDetails.jsp");
+             response.sendRedirect("DisplayCusReview");
+//            response.sendRedirect("ProductDetails.jsp");
         } catch (Exception ex) {
             System.out.println("hello");
         }
