@@ -4,7 +4,8 @@
     Author     : jensienwong
 --%>
 <%@page import="java.util.List"%>
-<%@page import="entity.Staff"%><jsp:include page="../staff/sidebar.jsp"/>
+<%@page import="entity.Staff"%>
+<jsp:include page="../staff/sidebar.jsp"/>
 <jsp:useBean id="staff" scope="session" class="entity.Staff"></jsp:useBean>
 <%
 //    if(session.getAttribute("loginStaff") );

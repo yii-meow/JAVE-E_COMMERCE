@@ -12,9 +12,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Delete Staff</title>
+        <style>
+            input[type=submit]{
+                margin: 5px;
+            }
+        </style>
     </head>
     <body>
-        <div class="contenCenter">
+        <div class="contentCenter">
             <h1>Delete Staff</h1>
             <table>
                 <tr>
@@ -48,7 +53,8 @@
             </table>
             <form action="../DeleteStaff">
                 <%
-                    String confirmMsg = c + "/" + deleteStaff.getStaffID();
+                      Staff lgstf = (Staff) session.getAttribute("loginStaff");
+                    String confirmMsg = lgstf.getStaffID() + "/" + deleteStaff.getStaffID();
                 %>
                 <p>
                     This action cannot be undone. This will permanently delete the <b><%= confirmMsg%></b>.<br> 
@@ -57,7 +63,7 @@
                 <h3><%= confirmMsg%></h3>
                 <input type="hidden" name="staffId" id="staffId" value="${deleteStaff.staffID}">
                 <input type="hidden" name="confirmMsg" id="confirmMsg" value="<%= confirmMsg%>">
-                <input type="input" name="confirm" id="confirm" placeholder="<%= confirmMsg%>">
+                <input type="input" name="confirm" id="confirm" placeholder="<%= confirmMsg%>"><br>
                 <input type="submit" name="submit" value="Confirm"><input type="submit" name="submit" value="Cancel">
             </form>
         </div>

@@ -14,6 +14,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <script src="../styling/Password.js"></script>
         <title>Setup Administrator</title>
+        <script>
+            function focusPassword(){
+                document.getElementById("password").focus();
+            }
+            function focusConfirmPassword(){
+                document.getElementById("confirmPassword").focus();
+            }
+        </script>
     </head>
     <body>
         <div class="form-container">
@@ -22,11 +30,11 @@
                     <input class="input_Field" type="text" name="id" id="id" placeholder=" " value="${newStaff.staffID}" readonly><label class="label_Field">Staff ID</label>
                 </div>
                 <div class="form">
-                    <input class="input_Field" type="password" name="password" id="password" placeholder=" " required><label class="label_Field">Password</label>
+                    <input class="input_Field" type="password" name="password" id="password" placeholder=" " required><label onclick="focusPassword()" id="password" class="label_Field">Password</label>
                     <i id="showPassword-eye" class="fa" aria-hidden="true" onclick="showPassword()">&#xf06e;</i>
                 </div>
                 <div class="form">
-                    <input class="input_Field" type="password" name="confirmPassword" id="confirmPassword" placeholder=" " required><label class="label_Field">Confirm Password</label>
+                    <input class="input_Field" type="password" name="confirmPassword" id="confirmPassword" placeholder=" " required><label onclick="focusConfirmPassword()" id="confirmPassword" class="label_Field">Confirm Password</label>
                     <i id="showPassword-eye" class="fa" aria-hidden="true" onclick="showConfirmPassword()">&#xf06e;</i>
                 </div>
                 <table>

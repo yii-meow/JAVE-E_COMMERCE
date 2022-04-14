@@ -15,6 +15,9 @@
     <head>
         <style>
             <%@include  file="table.css" %>
+            button{
+                cursor: pointer;
+            }
         </style>
         <%@include  file="header.jsp" %>
     </head>
@@ -32,14 +35,15 @@
         <table id="product">
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Product List</span>
             <tr>
-                <th>ProductID</th> 
+                <th>Product ID</th> 
                 <th>Product Name</th> 
-                <th>OrderID</th>
-                <th>OrderTime</th> 
-                <th>DeliveryCourier</th> 
+                <th>Order ID</th>
+                <th>Order Time</th> 
+                <th>Delivery Courier</th> 
                 <th>Ship time</th>
                 <th>Tracking number</th>
                 <th>Shipment Status</th>
+                <th>Add Review</th>
             </tr>
 
             <% for (List<OrderList> item : itemList) {%>
@@ -56,7 +60,8 @@
                 <td>   <%= myItemList.getOrders().getDeliveryCourier()%></td> 
                 <td>   <%= myItemList.getOrders().getShipTime()%></td>
                 <td>   <%=  myItemList.getOrders().getTrackingNumber()%></td> 
-                <td>   <%=  myItemList.getOrders().getShipmentDetails()%></td> 
+                <td>   <%=  myItemList.getOrders().getShipmentDetails()%></td>
+                <td><button onclick="location.href = '../Review'">Review</td>
             </tr>
             <% }%>
 

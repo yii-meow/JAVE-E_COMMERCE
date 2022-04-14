@@ -13,13 +13,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" href="../styling/DateRange.css"/>
         <title>Check Review Details</title>
         <style>
-            .chartBox{
-                height: 200px;
-            }
             .ratingTable{
                 margin: auto;
+                background-color: white;
+                width: 70%;
             }
             .ratingTable th,.ratingTable td{
                 border: 1px solid black;

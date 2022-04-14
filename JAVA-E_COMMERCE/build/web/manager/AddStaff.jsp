@@ -41,7 +41,7 @@
                     <input class="inputField" type="email" name="email" id="email" placeholder="Email" value="<%= email%>">
                     <input class="inputField" type="text" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" value="<%= phoneNumber%>"><br>
                     <div class="button">
-                        <input type="submit" name="submitType" id="submit" value="Add"><input type="submit" name="submitType" id="reset" value="Clear">
+                        <input type="submit" name="submitType" id="submit" value="Add">
                     </div>
                 </form>
             </div>
