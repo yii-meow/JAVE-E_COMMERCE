@@ -1,9 +1,7 @@
 <h1><%= application.getInitParameter("appName")%></h1>
 <p>Contact Us: <%= application.getInitParameter("contactUs")%></p>
 <%
-    if (session.getAttribute("isNameAsc") == null) {
-        session.setAttribute("isNameAsc", false);
-    }
+
 
 
 %>

@@ -45,7 +45,13 @@
 
 
             <tr>
-                <% String data = myItemList.getProduct().getProductName() ;%>
+                <% int data1 = myItemList.getProduct().getProductId() ;%>
+                <% String data2 = myItemList.getProduct().getProductName() ;%>
+                <% int data3 = myItemList.getOrders().getOrderId() ;%>
+                <% Date data4 = myItemList.getOrders().getOrderTime() ;%>
+                <% String data5 = myItemList.getOrders().getDeliveryCourier() ;%>
+                <% Date data6 = myItemList.getOrders().getShipTime() ;%>
+                <% String data7 = myItemList.getOrders().getTrackingNumber() ;%>
                 <td>   <%= myItemList.getProduct().getProductId()%></td>
                 <td>   <%=myItemList.getProduct().getProductName()%></td>
                 <td>   <%= myItemList.getOrders().getOrderId()%></td>

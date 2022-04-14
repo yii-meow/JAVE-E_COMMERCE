@@ -21,6 +21,9 @@ public class ViewCustomerProfile extends HttpServlet {
             HttpSession session = request.getSession();
             CustomerProfileService itemService = new CustomerProfileService(em);
             int customerID = (int) session.getAttribute("customerID");
+            if (session.getAttribute("isNameAsc") == null) {
+                session.setAttribute("isNameAsc", false);
+            }
 
             Customer itemList = itemService.findItemsByID(customerID);
             session.setAttribute("ProfileList", itemList);
