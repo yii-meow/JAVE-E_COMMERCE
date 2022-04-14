@@ -20,8 +20,7 @@ public class View extends HttpServlet {
             ProductService itemService = new ProductService(em);
 
             HttpSession session = request.getSession();
-            boolean isIdAsc = (boolean) session.getAttribute("isNameAsc");
-            List<Product> itemList = itemService.findAll(isIdAsc);
+            List<Product> itemList = itemService.findAll();
             session.setAttribute("productList", itemList);
             response.sendRedirect("DisplayItemList.jsp");
         } catch (Exception ex) {

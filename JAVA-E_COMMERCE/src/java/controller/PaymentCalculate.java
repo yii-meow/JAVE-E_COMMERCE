@@ -45,7 +45,7 @@ public class PaymentCalculate extends HttpServlet {
 
             HttpSession session = request.getSession();
 
-            List<Shoppingcart2> itemList = itemService.findAll();
+            List<Shoppingcart2> itemList = itemService.findAll((int)session.getAttribute("customerID"));
             session.setAttribute("cartList", itemList);
 
             List<Voucher> voucherList = voucherService.findAll();

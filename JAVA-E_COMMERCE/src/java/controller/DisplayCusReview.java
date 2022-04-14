@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import entity.Customer;
@@ -10,6 +6,7 @@ import entity.Product;
 import entity.Review;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,55 +27,55 @@ public class DisplayCusReview extends HttpServlet {
    @PersistenceContext
    EntityManager em;
 
-   protected void displayCusReview(HttpServletRequest request, HttpServletResponse response)
+     protected void displayCusReview(HttpServletRequest request, HttpServletResponse response)
            throws ServletException, IOException {
+
+      PrintWriter out = response.getWriter();     
       try {
-         PrintWriter out = response.getWriter();
+
          HttpSession session = request.getSession();
 
          //get itemList from product
-//         Product itemList = (Product) session.getAttribute("detailsList");
+         Product itemList = (Product) session.getAttribute("detailsList");
+//         //remember delete and use line 40 
+//         Product itemList = new Product();
+//         itemList.setProductId(5);
 
-         //remember delete and use line 40 
-         
-         Product itemList =new Product();
-         itemList.setProductId(5);
-         
-  
-         
          Query query = em.createNamedQuery("Review.findAll");
          List<Review> reviewList = query.getResultList();
-//        session.setAttribute("reviewList", reviewList);
-
-         //query from orders class
-         Query OrderCusId = em.createNamedQuery("Orders.findAll");
-         List<Orders> orderList = OrderCusId.getResultList();
-
+        
          Query cusQuery = em.createNamedQuery("Customer.findAll");
          List<Customer> customerList = cusQuery.getResultList();
-
+         
+         ArrayList<String> reviewComment = new ArrayList<String>();
+         ArrayList<Integer> rating = new ArrayList<Integer>();
+         ArrayList<String> customerName = new ArrayList<String>();
          //first get product id is foreign key from review
          //second get product id is review table get produdt ic
          for (int a = 0; a < reviewList.size(); a++) {
             if (reviewList.get(a).getProductId().getProductId() == itemList.getProductId()) {
-
-               out.println(reviewList.get(a).getReviewComment());//commeny
-               out.println(itemList.getProductId());//prod id
-               out.println(reviewList.get(a).getRating());//rating
+               reviewComment.add(reviewList.get(a).getReviewComment());
+               rating.add(reviewList.get(a).getRating());
+//               out.println(reviewList.get(a).getReviewComment());//commeny
+//               out.println(itemList.getProductId());//prod id
+//               out.println(reviewList.get(a).getRating());//rating
                for (int b = 0; b < customerList.size(); b++) {
                   if (customerList.get(b).getCustomerID() == reviewList.get(a).getCustomerId()) {
-                     out.println(customerList.get(b).getCustomerName());   //get customer namee from customer
+                     customerName.add(customerList.get(b).getCustomerName());
+                    // out.println(customerList.get(b).getCustomerName());   //get customer namee from customer
                   }
+           
                }
             }
          }
+         session.setAttribute("ReviewComment", reviewComment);
+         session.setAttribute("rating", rating);
+         session.setAttribute("customerName", customerName);
 
-
-
-//         response.sendRedirect("customer/displayCusReview.jsp");
-
+//
+         response.sendRedirect("ProductDetails.jsp");
       } catch (Exception ex) {
-
+         out.println(ex.getMessage());
       }
    }
 

@@ -56,8 +56,8 @@ public class Shoppingcart2Service {
         return false;
     }
 
-    public List<Shoppingcart2> findAll() {
-        query =mgr.createNamedQuery("Shoppingcart2.findByCustomerId").setParameter("customerId", 1);
+    public List<Shoppingcart2> findAll(int customerID) {
+        query =mgr.createNamedQuery("Shoppingcart2.findByCustomerId").setParameter("customerId", customerID);
         return query.getResultList();
 
     }

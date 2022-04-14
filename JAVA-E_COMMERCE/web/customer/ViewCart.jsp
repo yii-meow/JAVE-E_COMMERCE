@@ -13,37 +13,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            #product {
-                font-family: Arial, Helvetica, sans-serif;
-                border-collapse: collapse;
-                width: 80%;
-
-            }
-
-            #product td, #customers th {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
-
-            #product tr:nth-child(even){
-                background-color: #f2f2f2;
-            }
-
-            #product tr:hover {
-                background-color: #ddd;
-            }
-
-            #product th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: #04AA6D;
-                color: white;
-            }
-
-
-        </style>
+        <style><%@include  file="table.css" %></style>
     <body>
         <h1>your orders </h1>
 
@@ -77,7 +47,7 @@
                 <td>   <%=item.getProductDescription()%></td>
 
             </tr>
-                <% i++;
+            <% i++;
                     }%>
         </table>
 

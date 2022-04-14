@@ -10,46 +10,24 @@
 <%
     List<List<OrderList>> itemList = (List) session.getAttribute("ordersList");  //here
 %>
+
 <html>
     <head>
-        <style>
-            #product {
-                font-family: Arial, Helvetica, sans-serif;
-                border-collapse: collapse;
-                width: 80%;
-
-            }
-
-            #product td, #customers th {
-                border: 1px solid #ddd;
-                padding: 8px;
-            }
-
-            #product tr:nth-child(even){
-                background-color: #f2f2f2;
-            }
-
-            #product tr:hover {
-                background-color: #ddd;
-            }
-
-            #product th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: #04AA6D;
-                color: white;
-            }
-
-
-        </style>
+        <style><%@include  file="table.css" %></style>
+        <%@include  file="header.jsp" %>
     <body>
-        <h1>your orders </h1>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="../customer/ViewCustomerProfile">My Account </a>
+            <a href="../customer/View">Start Order</a>
+            <a href="../customer/ViewShoppingCart">Shopping Cart</a>
+            <a href="../customer/ViewOrder">My Orders</a>
+        </div>
 
 
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by productID.."> 
 
         <table id="product">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Product List</span>
             <tr>
                 <th>ProductID</th> 
                 <th>Product Name</th> 
@@ -58,6 +36,7 @@
                 <th>DeliveryCourier</th> 
                 <th>Ship time</th>
                 <th>Tracking number</th>
+                <th>Shipment Status</th>
             </tr>
 
             <% for (List<OrderList> item : itemList) {%>
@@ -67,6 +46,13 @@
 
 
             <tr>
+                <% int data1 = myItemList.getProduct().getProductId();%>
+                <% String data2 = myItemList.getProduct().getProductName();%>
+                <% int data3 = myItemList.getOrders().getOrderId();%>
+                <% Date data4 = myItemList.getOrders().getOrderTime();%>
+                <% String data5 = myItemList.getOrders().getDeliveryCourier();%>
+                <% Date data6 = myItemList.getOrders().getShipTime();%>
+                <% String data7 = myItemList.getOrders().getTrackingNumber();%>
                 <td>   <%= myItemList.getProduct().getProductId()%></td>
                 <td>   <%=myItemList.getProduct().getProductName()%></td>
                 <td>   <%= myItemList.getOrders().getOrderId()%></td>
@@ -74,18 +60,8 @@
                 <td>   <%= myItemList.getOrders().getDeliveryCourier()%></td> 
                 <td>   <%= myItemList.getOrders().getShipTime()%></td>
                 <td>   <%=  myItemList.getOrders().getTrackingNumber()%></td> 
+                <td>   <%=  myItemList.getOrders().getShipmentDetails()%></td> 
             </tr>
-
-
-
-
-
-
-
-
-
-
-
             <% }%>
 
             <%}%>
@@ -93,26 +69,14 @@
         </table>
 
     </body>
-    <script>
-        function myFunction() {
-            // Declare variables
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("product");
-            tr = table.getElementsByTagName("tr");
 
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
         }
     </script>

@@ -42,7 +42,7 @@ public class addShoppingCart extends HttpServlet {
 
             HttpSession session = request.getSession();
             int ProdID = Integer.parseInt(request.getParameter("productID"));
-            int CusID = Integer.parseInt(request.getParameter("customerID"));
+            int CusID = (int)session.getAttribute("customerID");
             int Quantity = Integer.parseInt(request.getParameter("quantity"));
             List<Product> productList = productservice.findAll();
             Product product = productservice.findItemByID(ProdID);

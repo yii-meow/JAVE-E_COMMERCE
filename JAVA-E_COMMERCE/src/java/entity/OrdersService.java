@@ -41,7 +41,7 @@ public class OrdersService {
         return order;
     }
 
-    public boolean updateOrders(Orders item, List<OrderList> orderlist,String deliveryCourier) {
+    public boolean updateOrders(Orders item, List<OrderList> orderlist,String deliveryCourier,int customerID) {
         Orders tempItem = findOrdersByID(item.getOrderId());
         Calendar c = Calendar.getInstance();
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -61,7 +61,7 @@ public class OrdersService {
         String tracking = date.format(BASIC_ISO_DATE);
 
         if (tempItem != null) {
-            tempItem.setCustomerID(item.getCustomerID());
+            tempItem.setCustomerID(tempItem.getCustomerID());
             tempItem.setDeliveryCourier(deliveryCourier);
             tempItem.setOrderListList(orderlist);
             tempItem.setOrderTime(cur);

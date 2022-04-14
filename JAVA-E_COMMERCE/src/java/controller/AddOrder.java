@@ -8,6 +8,7 @@ package controller;
  *
  * @author sohyz
  */
+import entity.Customer;
 import entity.OrderList;
 import entity.OrderListPK;
 import entity.Orders;
@@ -51,13 +52,16 @@ public class AddOrder extends HttpServlet {
             HttpSession session = request.getSession();
 
             String DeliveryCourier = (String) session.getAttribute("DeliveryCourier");
+            int customerID = (int) session.getAttribute("customerID");
             List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
             double subtotal = (Double) session.getAttribute("DiscountPrice");
             double dicountRate = (Double) session.getAttribute("DiscountRate");
             List<OrderList> orderListList = new ArrayList<>();
             System.out.println(request.getParameter("DeliveryCourier"));
+            Customer customer = (Customer) session.getAttribute("Customer");
             utx.begin();
             Orders order = new Orders();
+            order.setCustomerID(customer);
             em.persist(order);
             utx.commit();
 
@@ -70,10 +74,11 @@ public class AddOrder extends HttpServlet {
                 utx.begin();
                 boolean isSucess = orderListService.addOrders(orderList);
                 cartService.deleteItem(item.getCartId());
+                productService.updateProduct(item.getProductId().getProductId(), item.getQuantity());
                 utx.commit();
             }
             utx.begin();
-            boolean isUpdateSucess = itemService.updateOrders(order, orderListList, DeliveryCourier);
+            boolean isUpdateSucess = itemService.updateOrders(order, orderListList, DeliveryCourier, customerID);
             utx.commit();
 
             System.out.println("hello");

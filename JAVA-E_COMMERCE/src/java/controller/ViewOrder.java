@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Customer;
 import entity.OrderList;
 import java.io.*;
 import java.util.List;
@@ -18,11 +19,16 @@ public class ViewOrder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            
+            
             OrdersService itemService = new OrdersService(em);
             OrderListService OrderListService = new OrderListService(em);
 
             HttpSession session = request.getSession();
-            List<Orders> itemList = itemService.findItemByID(7);
+            
+            int customerID=(int)session.getAttribute("customerID");
+            
+            List<Orders> itemList = itemService.findItemByID(customerID);
             int orderID[] = new int[itemList.size()];
             List<List<OrderList>> myOrderList = new ArrayList<>();
             int index = 0;

@@ -15,8 +15,13 @@
             <a href="../customer/ViewShoppingCart">Shopping Cart</a>
             <a href="../customer/ViewOrder">My Orders</a>
         </div>
+
+
         <table id="product">
+
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Start Order</span>
+
+
             <tr><td colspan="2">My profile</td></tr>
             <tr><td colspan="2"style="font-size:20px;">view and check your profile: kindly contact customer service center if any information incorrect</td></tr>
             <tr>
@@ -35,13 +40,19 @@
                 <td style="text-align: right">Gender:</td>
                 <td>   <%=item.getGender()%></td>
             </tr>
+
         </table>
+
     </body>
+
+
     <script>
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
         }
+
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
         }
     </script>
+
