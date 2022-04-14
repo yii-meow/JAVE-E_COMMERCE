@@ -13,8 +13,11 @@
 
 <html>
     <head>
-        <style><%@include  file="table.css" %></style>
+        <style>
+            <%@include  file="table.css" %>
+        </style>
         <%@include  file="header.jsp" %>
+    </head>
     <body>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -46,13 +49,6 @@
 
 
             <tr>
-                <% int data1 = myItemList.getProduct().getProductId();%>
-                <% String data2 = myItemList.getProduct().getProductName();%>
-                <% int data3 = myItemList.getOrders().getOrderId();%>
-                <% Date data4 = myItemList.getOrders().getOrderTime();%>
-                <% String data5 = myItemList.getOrders().getDeliveryCourier();%>
-                <% Date data6 = myItemList.getOrders().getShipTime();%>
-                <% String data7 = myItemList.getOrders().getTrackingNumber();%>
                 <td>   <%= myItemList.getProduct().getProductId()%></td>
                 <td>   <%=myItemList.getProduct().getProductName()%></td>
                 <td>   <%= myItemList.getOrders().getOrderId()%></td>

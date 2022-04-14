@@ -18,17 +18,13 @@
    if (reviewComment.size() == 0) {
       noReview = "There have no any review for this product";
    }
-//List<Product> itemList = (List<Product>) session.getAttribute("itemList");
-// out.println(customer);
-//  out.println(reviewComment);
-//   out.println(rating);
-// 
+
 %>
 <html>
    <head>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <style>
-         #product {
+/*         #product {
             font-family: Arial, Helvetica, sans-serif;
             border-collapse: collapse;
             width: 80%;
@@ -54,22 +50,27 @@
             text-align: left;
             background-color: #04AA6D;
             color: white;
-         }
+         }*/
 
          .checked {
             color: orange;
          }
-
+         <%@include  file="table.css" %>
       </style>
    </head>
 
    <body>
-      <h1>your orders </h1>
-
-
-      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by productID.."> 
+       <%@include  file="header.jsp" %>
+       <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="../customer/ViewCustomerProfile">My Account </a>
+            <a href="../customer/View">Product List</a>
+            <a href="../customer/ViewShoppingCart">Shopping Cart</a>
+            <a href="../customer/ViewOrder">My Orders</a>
+        </div>
 
       <table id="product">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Product Details</span><br>
          <tr>
 
             <th>Product ID</th> 
@@ -154,5 +155,14 @@
          alert("quantity of:" + document.getElementById("quantity").value + "  and productID:" + test + "\n Added to cart");
          location.href = "../customer/addShoppingCart";
       }
+      
+       function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+      
    </script>
 

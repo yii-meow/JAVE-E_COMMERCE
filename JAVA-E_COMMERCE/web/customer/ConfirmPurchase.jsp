@@ -11,6 +11,7 @@
     List<Shoppingcart2> itemList = (List) session.getAttribute("cartList");
     double originalPrice = (Double) session.getAttribute("OriginalPrice");
     double disocuntPrice = (Double) session.getAttribute("DiscountPrice");
+    
 %>
 <html>
     <head>

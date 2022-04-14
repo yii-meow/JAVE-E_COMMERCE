@@ -44,7 +44,7 @@
             <table id="product">
                 <tr>
                     <th>use voucher</th> 
-                    <th>Voucher Name</a></th> 
+                    <th>Voucher Name</th> 
                     <th>Discount Rate</th>
                     <th>delivery Courier</th> 
                 </tr>

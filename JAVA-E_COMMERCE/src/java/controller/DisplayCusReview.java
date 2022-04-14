@@ -50,19 +50,14 @@ public class DisplayCusReview extends HttpServlet {
          ArrayList<String> reviewComment = new ArrayList<String>();
          ArrayList<Integer> rating = new ArrayList<Integer>();
          ArrayList<String> customerName = new ArrayList<String>();
-         //first get product id is foreign key from review
-         //second get product id is review table get produdt ic
+
          for (int a = 0; a < reviewList.size(); a++) {
             if (reviewList.get(a).getProductId().getProductId() == itemList.getProductId()) {
                reviewComment.add(reviewList.get(a).getReviewComment());
                rating.add(reviewList.get(a).getRating());
-//               out.println(reviewList.get(a).getReviewComment());//commeny
-//               out.println(itemList.getProductId());//prod id
-//               out.println(reviewList.get(a).getRating());//rating
                for (int b = 0; b < customerList.size(); b++) {
                   if (customerList.get(b).getCustomerID() == reviewList.get(a).getCustomerId()) {
                      customerName.add(customerList.get(b).getCustomerName());
-                    // out.println(customerList.get(b).getCustomerName());   //get customer namee from customer
                   }
            
                }
@@ -72,8 +67,7 @@ public class DisplayCusReview extends HttpServlet {
          session.setAttribute("rating", rating);
          session.setAttribute("customerName", customerName);
 
-//
-         response.sendRedirect("ProductDetails.jsp");
+         response.sendRedirect("customer/ProductDetails.jsp");
       } catch (Exception ex) {
          out.println(ex.getMessage());
       }
