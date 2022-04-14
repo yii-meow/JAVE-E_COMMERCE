@@ -34,7 +34,7 @@ public class StaffLogin extends HttpServlet {
     }
 
     //Login Process
-    protected void processLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   protected void processLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         StaffService service = new StaffService(em);
 

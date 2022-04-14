@@ -45,7 +45,7 @@ public class validateCustomerLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -104,15 +104,16 @@ public class validateCustomerLogin extends HttpServlet {
                 if (customer.get(0).getCustomerPassword().equals(hash)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("customer", customer);
-                    response.sendRedirect("customer"); // CHANGE THIS TO CUSTOMER MAIN PAGE
+                    session.setAttribute("customerID", customer.get(0).getCustomerID());
+                    response.sendRedirect("customer/ViewCustomerProfile"); // CHANGE THIS TO CUSTOMER MAIN PAGE
                 } else {
                     // REDIRECT BACK TO LOGIN PAGE IF PASSWORD DOESN'T MATCH                  
-                    response.sendRedirect("customerLogin.html");
+                    response.sendRedirect("index.html");
                 }
 
             } else {
                 // REDIRECT BACK TO LOGIN PAGE IF CUSTOMER RECORD DOESN'T EXIST
-                response.sendRedirect("customerLogin.html");
+                response.sendRedirect("index.html");
             }
         } catch (Exception ex) {
             out.println(ex.getMessage());

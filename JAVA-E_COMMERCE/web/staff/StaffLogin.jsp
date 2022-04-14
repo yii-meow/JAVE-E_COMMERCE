@@ -15,16 +15,32 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <script src="../styling/Password.js"></script>
         <script>
-            function focusInputId(){
+            function focusInputId() {
                 document.getElementById("staffId").focus();
             }
-            function focusInputPassword(){
+            function focusInputPassword() {
                 document.getElementById("password").focus();
             }
         </script>
+
+        <style>
+            .nav{
+                text-align: right;
+                padding: 8px;
+
+            }
+            .nav a{
+                color: white;
+                text-decoration: none;
+                padding: 10px;
+            }
+
+        </style>
     </head>
     <body>
-        <%@ include file="../AdminHeader.jsp" %>
+        <div class="nav">
+            <a href="#">Staff</a><a href="../index.html">Customer</a>
+        </div>
         <div class="form-container">
             <h1>Administrator Login</h1>
             <form action="../staffLogin" method="POST">  

@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page  import="entity.Customer" %>
 <%
-    List<Customer> itemList = (List) session.getAttribute("ProfileList");
+    List<Customer> itemList = (List<Customer>) session.getAttribute("ProfileList");
 %>
 <html>
     <head>
@@ -100,4 +100,3 @@
             }
         }
     </script>
-

@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Orders,entity.Product,entity.OrderList,java.util.*"%>
 <% List<Orders> orders = (List<Orders>) session.getAttribute("orders");%>
-<jsp:include page="sidebar.html"/>
+<jsp:include page="sidebar.jsp"/>
 
 <!DOCTYPE html>
 <html>

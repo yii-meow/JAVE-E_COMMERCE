@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="sidebar.html"/>
+<jsp:include page="sidebar.jsp"/>
 <!DOCTYPE html>
 <html>
     <head>

@@ -6,7 +6,7 @@
 <%@page import="java.lang.Math.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.Product, java.util.*"%>
-<jsp:include page="sidebar.html"/>
+<jsp:include page="sidebar.jsp"/>
 <jsp:include page="../maintainProduct"/>
 
 <% List<Product> product = (List<Product>) session.getAttribute("product");%>

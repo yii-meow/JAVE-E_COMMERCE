@@ -5,7 +5,7 @@
 --%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="sidebar.html"/>
+<jsp:include page="sidebar.jsp"/>
 
 <%
     ArrayList<String> prodName = (ArrayList<String>) session.getAttribute("prodArray");
@@ -122,7 +122,7 @@
                 border: 3px solid rgba(255,26,104,1);
                 background: white;
             }
-            
+
             .bd-placeholder-img {
                 font-size: 1.125rem;
                 text-anchor: middle;
@@ -141,74 +141,76 @@
         <link href="../styling/sidebars.css" rel="stylesheet">
     </head>
     <body>
-        
-        <div class="table">
-            <table>
-                <tr>
-                    <th id="colorLabel">Label</th>
-                    <th id="prodName">Product Name</th>
-                    <th id="quantity">Quantity</th>
-                    <th id="precentage">Percentage</th>
-                </tr>
-                <%                    
-                    for (int a = 0; a < prodPercentagesArray.size(); a++) {
-                %>
-                <tr>
-                    <td id="colorLabel"><span id="colorLabel" style="background-color: <%= backgroundProdColorLabels2.get(a)%>; border: 2px solid <%=borderProdColorLabels2.get(a)%>;"></span></td>
-                    <td id="prodName"><%= displayProdName.get(a)%></td>
-                    <td id="quantity"><%= displayQuantity.get(a)%></td>
-                    <td id="precentage"><%= displayProdPercentagesArray.get(a) + "%"%></td>
-                </tr>
-                <%
-                    }
-                %>
-            </table>
-        </div>
-        <div class="chartCard">
-            <div class="chartBox">
-                <canvas id="myChart"></canvas>    
+        <div class="contentCenter">
+
+
+            <div class="table">
+                <table>
+                    <tr>
+                        <th id="colorLabel">Label</th>
+                        <th id="prodName">Product Name</th>
+                        <th id="quantity">Quantity</th>
+                        <th id="precentage">Percentage</th>
+                    </tr>
+                    <%
+                        for (int a = 0; a < prodPercentagesArray.size(); a++) {
+                    %>
+                    <tr>
+                        <td id="colorLabel"><span id="colorLabel" style="background-color: <%= backgroundProdColorLabels2.get(a)%>; border: 2px solid <%=borderProdColorLabels2.get(a)%>;"></span></td>
+                        <td id="prodName"><%= displayProdName.get(a)%></td>
+                        <td id="quantity"><%= displayQuantity.get(a)%></td>
+                        <td id="precentage"><%= displayProdPercentagesArray.get(a) + "%"%></td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                </table>
             </div>
-        </div>
+            <div class="chartCard">
+                <div class="chartBox">
+                    <canvas id="myChart"></canvas>    
+                </div>
+            </div>
 
 
 
-        <script>
-//prodId
-            let labels1 = <%= prodName%>;
-// prodQuantity
-            let data1 = <%= prodPercentagesArray%>;
-// Label Color
-            let colors1 = <%= backgroundProdColorLabels%>;
-            let colors2 = <%= borderProdColorLabels%>;
+            <script>
+                //prodId
+                let labels1 = <%= prodName%>;
+                // prodQuantity
+                let data1 = <%= prodPercentagesArray%>;
+                // Label Color
+                let colors1 = <%= backgroundProdColorLabels%>;
+                let colors2 = <%= borderProdColorLabels%>;
 
-            let pieChartTitle = 'Most Popular Product';
-            let myChart1 = document.getElementById("myChart").getContext('2d');
-            let chart1 = new Chart(myChart1, {
-                type: 'pie',
-                data: {
-                    labels: labels1,
-                    datasets: [{
-                            data: data1,
-                            backgroundColor: colors1,
-                            borderColor: colors2
-                        }],
-                    borderwidth: 0.5
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: pieChartTitle
+                let pieChartTitle = 'Most Popular Product';
+                let myChart1 = document.getElementById("myChart").getContext('2d');
+                let chart1 = new Chart(myChart1, {
+                    type: 'pie',
+                    data: {
+                        labels: labels1,
+                        datasets: [{
+                                data: data1,
+                                backgroundColor: colors1,
+                                borderColor: colors2
+                            }],
+                        borderwidth: 0.5
                     },
-                    legend: {
-                        position: 'right'
-                    },
-                    tooltips: {
-                        enabled: true
+                    options: {
+                        title: {
+                            display: true,
+                            text: pieChartTitle
+                        },
+                        legend: {
+                            position: 'right'
+                        },
+                        tooltips: {
+                            enabled: true
+                        }
                     }
-                }
-            });
-        </script>
-        
+                });
+            </script>
+        </div>
     </body>
     <footer>
 

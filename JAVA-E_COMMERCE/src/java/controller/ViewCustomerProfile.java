@@ -17,11 +17,14 @@ public class ViewCustomerProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+
+PrintWriter out = response.getWriter();
             CustomerProfileService itemService = new CustomerProfileService(em);
 
             HttpSession session = request.getSession();
-            session.setAttribute("customerID", 1);
-            List<Customer> itemList = itemService.findAll();
+            int cusID = (Integer) session.getAttribute("customerID");
+//            session.setAttribute("customerID",);
+            List<Customer> itemList = itemService.findAll(cusID);
             session.setAttribute("ProfileList", itemList);
             response.sendRedirect("CustomerProfile.jsp");
         } catch (Exception ex) {
