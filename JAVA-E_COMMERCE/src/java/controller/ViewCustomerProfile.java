@@ -18,13 +18,14 @@ public class ViewCustomerProfile extends HttpServlet {
             throws ServletException, IOException {
         try {
 
-PrintWriter out = response.getWriter();
-            CustomerProfileService itemService = new CustomerProfileService(em);
-
             HttpSession session = request.getSession();
-            int cusID = (Integer) session.getAttribute("customerID");
-//            session.setAttribute("customerID",);
-            List<Customer> itemList = itemService.findAll(cusID);
+            CustomerProfileService itemService = new CustomerProfileService(em);
+            int customerID = (int) session.getAttribute("customerID");
+            if (session.getAttribute("isNameAsc") == null) {
+                session.setAttribute("isNameAsc", false);
+            }
+
+            Customer itemList = itemService.findItemsByID(customerID);
             session.setAttribute("ProfileList", itemList);
             response.sendRedirect("CustomerProfile.jsp");
         } catch (Exception ex) {
