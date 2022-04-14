@@ -196,43 +196,38 @@
         <url-pattern>/DateRange</url-pattern>
     </servlet-mapping>
     <servlet>
-      <servlet-name>CustomerReview</servlet-name>
-      <servlet-class>controller.AddReview</servlet-class>
-   </servlet>
-   <servlet-mapping>
-      <servlet-name>CustomerReview</servlet-name>
-      <url-pattern>/Review</url-pattern>
-   </servlet-mapping>
-   
-   <servlet>
-      <servlet-name>StaffCheckReview</servlet-name>
-      <servlet-class>controller.DisplayReview</servlet-class>
-   </servlet>
-   
-   <servlet-mapping>
-      <servlet-name>StaffCheckReview</servlet-name>
-      <url-pattern>/StaffReview</url-pattern>
-   </servlet-mapping>
-   
-   <servlet>
-      <servlet-name>DisplayCusReview</servlet-name>
-      <servlet-class>controller.DisplayCusReview</servlet-class>
-   </servlet>
-   
-   <servlet-mapping>
-      <servlet-name>DisplayCusReview</servlet-name>
-      <url-pattern>/CustomerReview</url-pattern>
-   </servlet-mapping>
-   
-   <servlet>
-      <servlet-name>IndividualReview</servlet-name>
-      <servlet-class>controller.CusIndividualReview</servlet-class>
-   </servlet>
-   
-   <servlet-mapping>
-      <servlet-name>IndividualReview</servlet-name>
-      <url-pattern>/IndividualReview</url-pattern>
-   </servlet-mapping>
+        <servlet-name>CustomerReview</servlet-name>
+        <servlet-class>controller.AddReview</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerReview</servlet-name>
+        <url-pattern>/Review</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>StaffCheckReview</servlet-name>
+        <servlet-class>controller.DisplayReview</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StaffCheckReview</servlet-name>
+        <url-pattern>/StaffReview</url-pattern>
+    </servlet-mapping>
+    <!--   display customer in product details jsp-->
+    <servlet>
+        <servlet-name>DisplayCusReview</servlet-name>
+        <servlet-class>controller.DisplayCusReview</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DisplayCusReview</servlet-name>
+        <url-pattern>/customer/DisplayCusReview</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>IndividualReview</servlet-name>
+        <servlet-class>controller.CusIndividualReview</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IndividualReview</servlet-name>
+        <url-pattern>/IndividualReview</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -249,10 +244,6 @@
             <description/>
             <url-pattern>/manager/*</url-pattern>
         </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>manager</role-name>
-        </auth-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>staff_Constraint</display-name>
