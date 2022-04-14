@@ -5,7 +5,7 @@
 --%>
 <%@page import="entity.Staff"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<jsp:include page="../staff/sidebar.jsp"/>
 <%
 //Retrieve New Staff Session
     Staff staff = (Staff) session.getAttribute("newStaff");
@@ -27,22 +27,24 @@
         <link rel="stylesheet" href="../styling/AddStaff.css">
     </head>
     <body>
-        <%@ include file="../AdminHeader.jsp" %>
-        <div class="container">
-            <h1>Add Staff</h1>
-            <form action="../AddStaff" method="POST">                
-                <input class="inputField" type="text" name="firstName" id="firstName" placeholder="First Name" value="<%= firstName%>">
-                <input class="inputField" type="text" name="lastName" id="lastName" placeholder="Last Name" value="<%= lastName%>">
-                <br>
-                <input class="inputField" type="text" name="ic" id="ic" placeholder="IC Number" value="<%= ic%>">
-                <br>
-                <input class="inputField" type="email" name="email" id="email" placeholder="Email" value="<%= email%>">
-                <input class="inputField" type="text" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" value="<%= phoneNumber%>"><br>
-                <div class="button">
-                    <input type="submit" name="submitType" id="submit" value="Add"><input type="submit" name="submitType" id="reset" value="Clear">
-                </div>
-            </form>
-        </div>
+        <div class="contentCenter">
 
+
+            <div class="container">
+                <h1>Add Staff</h1>
+                <form action="../AddStaff" method="POST">                
+                    <input class="inputField" type="text" name="firstName" id="firstName" placeholder="First Name" value="<%= firstName%>">
+                    <input class="inputField" type="text" name="lastName" id="lastName" placeholder="Last Name" value="<%= lastName%>">
+                    <br>
+                    <input class="inputField" type="text" name="ic" id="ic" placeholder="IC Number" value="<%= ic%>">
+                    <br>
+                    <input class="inputField" type="email" name="email" id="email" placeholder="Email" value="<%= email%>">
+                    <input class="inputField" type="text" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" value="<%= phoneNumber%>"><br>
+                    <div class="button">
+                        <input type="submit" name="submitType" id="submit" value="Add"><input type="submit" name="submitType" id="reset" value="Clear">
+                    </div>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

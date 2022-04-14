@@ -4,29 +4,27 @@
     Author     : jensienwong
 --%>
 <%@page import="java.util.List"%>
-<%@page import="entity.Staff"%>
+<%@page import="entity.Staff"%><jsp:include page="../staff/sidebar.jsp"/>
 <jsp:useBean id="staff" scope="session" class="entity.Staff"></jsp:useBean>
 <%
 //    if(session.getAttribute("loginStaff") );
     Staff lgstf = (Staff) session.getAttribute("loginStaff");
-    if(lgstf.getPosition() != 'M'){
+    if (lgstf.getPosition() != 'M') {
         response.sendRedirect("../Unauthorized.html");
     }
-    
-    
+
     List<Staff> staffList = null;
     String recordForm = null;
     if (session.getAttribute("staffList") != null || session.getAttribute("recordFrom") != null) {
         staffList = (List<Staff>) session.getAttribute("staffList");
         recordForm = (String) session.getAttribute("recordFrom");
-    }else{
+    } else {
         response.sendRedirect("../Unauthorized.html");
     }
 
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%@ include file="../AdminHeader.jsp" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -42,81 +40,83 @@
 
     </head>
     <body>
+        <div class="contentCenter">
 
-        <h1>Staff Control</h1>
-        <div class="searchByPosition">
-            <form action="../Search" method="GET">
 
-                <label for="f-option" class="l-radio">
-                    <input type="radio" id="ID" name="SearchBy" value="staffId" tabindex="1">
-                    <span onclick="check('ID')">ID</span>
-                </label>
+            <h1>Staff Control</h1>
+            <div class="searchByPosition">
+                <form action="../Search" method="GET">
 
-                <label for="s-option" class="l-radio">
-                    <input type="radio" id="Name" name="SearchBy" value="staffName" tabindex="2">
-                    <span onclick="check('Name')">Name</span>
-                </label>
+                    <label for="f-option" class="l-radio">
+                        <input type="radio" id="ID" name="SearchBy" value="staffId" tabindex="1">
+                        <span onclick="check('ID')">ID</span>
+                    </label>
 
-                <label for="t-option" class="l-radio">
-                    <input type="radio" id="Position" name="SearchBy" value="staffPosition" tabindex="3">
-                    <span onclick="check('Position')" >Position</span>
-                </label>
-                <br>
+                    <label for="s-option" class="l-radio">
+                        <input type="radio" id="Name" name="SearchBy" value="staffName" tabindex="2">
+                        <span onclick="check('Name')">Name</span>
+                    </label>
 
-                <input type="text" name="search" id="search" placeholder="Search" disabled>
-                <button id="search" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
+                    <label for="t-option" class="l-radio">
+                        <input type="radio" id="Position" name="SearchBy" value="staffPosition" tabindex="3">
+                        <span onclick="check('Position')" >Position</span>
+                    </label>
+                    <br>
 
-        <form action="../RecordAction" method="POST">
-            <button id="addNew" name="addStaffId" type="submit" value="add">Add New Staff</button>
-            <!--Table-->
-            <table>
-                <!--Table Heading-->
-                <thead>
-                <th>No</th>
-                <th>Staff ID</th>
-                <th>Name</th>
-                <th>Position</th>
-                <th colspan="3">Action</th>
-                </thead>
+                    <input type="text" name="search" id="search" placeholder="Search" disabled>
+                    <button id="search" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
 
-                <!--Table Body-->
-                <tbody>
-                    <%                        for (int a = 0; a < staffList.size(); a++) {
-                    %>
-                    <tr>
-                        <td id="no"><%= a + 1%></td>
-                        <td id="id"><%= staffList.get(a).getStaffID()%></td>
-                        <td id="name"><%= staffList.get(a).getStaffName()%></td>
+            <form action="../RecordAction" method="POST">
+                <button id="addNew" name="addStaffId" type="submit" value="add">Add New Staff</button>
+                <!--Table-->
+                <table>
+                    <!--Table Heading-->
+                    <thead>
+                    <th>No</th>
+                    <th>Staff ID</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th colspan="3">Action</th>
+                    </thead>
+
+                    <!--Table Body-->
+                    <tbody>
+                        <%                        for (int a = 0; a < staffList.size(); a++) {
+                        %>
+                        <tr>
+                            <td id="no"><%= a + 1%></td>
+                            <td id="id"><%= staffList.get(a).getStaffID()%></td>
+                            <td id="name"><%= staffList.get(a).getStaffName()%></td>
+                            <%
+                                String position;
+                                if (staffList.get(a).getPosition() == 'M') {
+                                    position = "Manager";
+                                } else {
+                                    position = "Staff";
+                                }
+                            %>
+                            <td id="position"><%= position%></td>
+
+                            <td id="action"><button type="submit" id="action" name="viewStaffId" value="<%= staffList.get(a).getStaffID()%>">View</button></td><!--Go to view more information about the staff-->
+                            <td id="action"><button type="submit" id="action" name="editStaffId" value="<%= staffList.get(a).getStaffID()%>">Edit</button></td><!--Go to edit information about the staff-->
+                            <td id="action"><button type="submit" id="action" name="deleteStaffId" value="<%= staffList.get(a).getStaffID()%>">Delete</button></td><!--Go to delete the staff-->
+                        </tr>
                         <%
-                            String position;
-                            if (staffList.get(a).getPosition() == 'M') {
-                                position = "Manager";
-                            } else {
-                                position = "Staff";
                             }
                         %>
-                        <td id="position"><%= position%></td>
-
-                        <td id="action"><button type="submit" id="action" name="viewStaffId" value="<%= staffList.get(a).getStaffID()%>">View</button></td><!--Go to view more information about the staff-->
-                        <td id="action"><button type="submit" id="action" name="editStaffId" value="<%= staffList.get(a).getStaffID()%>">Edit</button></td><!--Go to edit information about the staff-->
-                        <td id="action"><button type="submit" id="action" name="deleteStaffId" value="<%= staffList.get(a).getStaffID()%>">Delete</button></td><!--Go to delete the staff-->
-                    </tr>
-                    <%
-                        }
-                    %>
-                </tbody>
-            </table>
-        </form>
-        <%
-            if (recordForm.equals("Search")) {
-        %>
-        <a href="StaffCRUD.jsp"></a>
-        <button onclick="location.href = '../RetrieveRecord'">Reset</button>
-        <%
-            }
-        %>
-
+                    </tbody>
+                </table>
+            </form>
+            <%
+                if (recordForm.equals("Search")) {
+            %>
+            <a href="StaffCRUD.jsp"></a>
+            <button onclick="location.href = '../RetrieveRecord'">Reset</button>
+            <%
+                }
+            %>
+        </div>
     </body>
 </html>

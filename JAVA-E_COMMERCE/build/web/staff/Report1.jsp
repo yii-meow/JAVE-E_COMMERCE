@@ -165,52 +165,53 @@
                         }
                     %>
                 </table>
-            </div>
+            </div>       
+
             <div class="chartCard">
                 <div class="chartBox">
                     <canvas id="myChart"></canvas>    
                 </div>
             </div>
 
+        </div>my
 
+        <script>
+            //prodId
+            let labels1 = <%= prodName%>;
+            // prodQuantity
+            let data1 = <%= prodPercentagesArray%>;
+            // Label Color
+            let colors1 = <%= backgroundProdColorLabels%>;
+            let colors2 = <%= borderProdColorLabels%>;
 
-            <script>
-                //prodId
-                let labels1 = <%= prodName%>;
-                // prodQuantity
-                let data1 = <%= prodPercentagesArray%>;
-                // Label Color
-                let colors1 = <%= backgroundProdColorLabels%>;
-                let colors2 = <%= borderProdColorLabels%>;
-
-                let pieChartTitle = 'Most Popular Product';
-                let myChart1 = document.getElementById("myChart").getContext('2d');
-                let chart1 = new Chart(myChart1, {
-                    type: 'pie',
-                    data: {
-                        labels: labels1,
-                        datasets: [{
-                                data: data1,
-                                backgroundColor: colors1,
-                                borderColor: colors2
-                            }],
-                        borderwidth: 0.5
+            let pieChartTitle = 'Most Popular Product';
+            let myChart1 = document.getElementById("myChart").getContext('2d');
+            let chart1 = new Chart(myChart1, {
+                type: 'pie',
+                data: {
+                    labels: labels1,
+                    datasets: [{
+                            data: data1,
+                            backgroundColor: colors1,
+                            borderColor: colors2
+                        }],
+                    borderwidth: 0.5
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: pieChartTitle
                     },
-                    options: {
-                        title: {
-                            display: true,
-                            text: pieChartTitle
-                        },
-                        legend: {
-                            position: 'right'
-                        },
-                        tooltips: {
-                            enabled: true
-                        }
+                    legend: {
+                        position: 'right'
+                    },
+                    tooltips: {
+                        enabled: true
                     }
-                });
-            </script>
-        </div>
+                }
+            });
+        </script>
+
     </body>
     <footer>
 

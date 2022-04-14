@@ -16,7 +16,6 @@
         <title>Setup Administrator</title>
     </head>
     <body>
-        <%@ include file="../AdminHeader.jsp" %>
         <div class="form-container">
             <form action="../Password" method="POST">
                 <div class="form">
