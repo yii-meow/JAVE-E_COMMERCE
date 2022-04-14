@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/sohyz/Desktop/javawebasgm/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/ViewOrder.java</file>
+            <file>file:/C:/Users/sohyz/Desktop/javawebasgm/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/customer/orderedItem.jsp</file>
+            <file>file:/C:/Users/sohyz/Desktop/javawebasgm/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/ConfirmPayment.java</file>
+            <file>file:/C:/Users/sohyz/Desktop/javawebasgm/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/PaymentCalculate.java</file>
+            <file>file:/C:/Users/sohyz/Desktop/javawebasgm/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/ViewCustomerProfile.java</file>
+            <file>file:/C:/Users/sohyz/Desktop/javawebasgm/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/addShoppingCart.java</file>
+            <file>file:/C:/Users/sohyz/Desktop/javawebasgm/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/View.java</file>
+            <file>file:/C:/Users/sohyz/Desktop/javawebasgm/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/AddOrder.java</file>
+        </group>
     </open-files>
 </project-private>
