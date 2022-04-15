@@ -61,7 +61,11 @@
                 <td>   <%= myItemList.getOrders().getShipTime()%></td>
                 <td>   <%=  myItemList.getOrders().getTrackingNumber()%></td> 
                 <td>   <%=  myItemList.getOrders().getShipmentDetails()%></td>
-                <td><button onclick="location.href = '../Review'">Review</td>
+            <form action="../Review" method="GET">
+                <input type="hidden" name="getProdName" value="<%= myItemList.getProduct().getProductName()%>">
+                <td><button type="submit">Review</td>
+            </form>
+                
             </tr>
             <% }%>
 
