@@ -101,7 +101,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" name="submit" class="btn btn-primary" value="submit" onclick="succesFunction()">Rate</button>
+                            <button type="submit" name="submit" class="btn btn-primary" value="submit" onclick="successFunction()">Rate</button>
 
                             <script>
                                 function successFunction() {

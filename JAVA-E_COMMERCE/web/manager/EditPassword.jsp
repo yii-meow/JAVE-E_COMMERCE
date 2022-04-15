@@ -13,21 +13,33 @@
         <link rel="stylesheet" href="../styling/StaffLogin.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <script src="../styling/Password.js"></script>
+        <script>
+            function focusOldPassword() {
+                document.getElementById("oldPassword").focus();
+            }
+            function focusNewPassword() {
+                document.getElementById("password").focus();
+            }
+            function focusConfirmPassword() {
+                document.getElementById("confirmPassword").focus();
+            }
+
+        </script>
         <title>Change Password</title>
     </head>
     <body>
         <div class="form-container">
             <form action="../Password" method="POST">
                 <div class="form">
-                    <input class="input_Field" type="password" name="oldPassword" id="oldPassword" placeholder=" "><label class="label_Field">Old Password</label>
+                    <input class="input_Field" type="password" name="oldPassword" id="oldPassword" placeholder=" "><label onclick="focusOldPassword()" class="label_Field">Old Password</label>
                     <i id="showPassword-eye" class="fa" aria-hidden="true" onclick="showOldPassword()">&#xf06e;</i>
                 </div>
                 <div class="form">
-                    <input class="input_Field" type="password" name="newPassword" id="password" placeholder=" "><label class="label_Field">New Password</label>
+                    <input class="input_Field" type="password" name="newPassword" id="password" placeholder=" "><label onclick="focusNewPassword()" class="label_Field">New Password</label>
                     <i id="showPassword-eye" class="fa" aria-hidden="true" onclick="showPassword()">&#xf06e;</i>
                 </div>
                 <div class="form">
-                    <input class="input_Field" type="password" name="confirmPassword" id="confirmPassword" placeholder=" "><label class="label_Field">Confirm Password</label>
+                    <input class="input_Field" type="password" name="confirmPassword" id="confirmPassword" placeholder=" "><label onclick="focusConfirmPassword()" class="label_Field">Confirm Password</label>
                     <i id="showPassword-eye" class="fa" aria-hidden="true" onclick="showConfirmPassword()">&#xf06e;</i>
                 </div>
                 <table>
