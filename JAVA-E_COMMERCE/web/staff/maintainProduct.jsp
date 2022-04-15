@@ -11,7 +11,6 @@
 
 <% List<Product> product = (List<Product>) session.getAttribute("product");%>
 <% Double overall_rating = (Double) session.getAttribute("overall_rating");%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -72,11 +71,21 @@
                             out.println("<i class='bi bi-star-fill'></i>");
                         }
 
-                        // IF DECIMAL BEHIND WHOLE NUMBER BEYOND 0.5 WILL BE GRANTED HALF STAR
+                        // IF > 0.5 WILL BE GRANTED A HALF STAR
                         if ((overall_rating % 1.0) >= 0.5) {
                             out.println("<i class='bi bi-star-half'></i>");
+                        }else{
+                        
+                        // IF < 0.5 WILL BE GRANTED AN EMPTY STAR
+                            out.println("<i class='bi bi-star'></i>");
+                        }
+
+                        // PRINT REMAINING EMPTY STAR
+                        for (int i = 0; i < Math.floor(5 - overall_rating); i++) {
+                            out.println("<i class='bi bi-star'></i>");
                         }
                     %>
+
                 </div>
             </div>
 
