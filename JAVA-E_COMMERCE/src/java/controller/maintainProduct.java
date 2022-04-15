@@ -64,13 +64,29 @@ public class maintainProduct extends HttpServlet {
                 }
             } // CREATE OR UPDATE PRODUCT
             else if (request.getParameter("action").equals("create") || request.getParameter("action").equals("update")) {
-
                 try {
+                    // CHECK NULL VALUE
+                    if ((request.getParameter("product_name") + "").equals("") || (request.getParameter("product_description") + "").equals("") ||
+                    (request.getParameter("stock") + "").equals("") || (request.getParameter("price") + "").equals("") || (request.getParameter("weight") + "").equals("")){
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('Please fill in all the details!');");
+                        out.println("window.history.go(-1);</script>");
+                        return;
+                    }
+
                     String product_name = request.getParameter("product_name");
                     String product_description = request.getParameter("product_description");
                     int stock = Integer.parseInt(request.getParameter("stock"));
                     double price = Double.parseDouble(request.getParameter("price"));
                     double weight = Double.parseDouble(request.getParameter("weight"));
+
+                    if (stock <= 0 || price <= 0 || weight <= 0) {
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('Negative numbers is not allowed!');");
+                        out.println("window.history.go(-1);</script>");
+                        return;
+                    }
+
                     String product_image = request.getParameter("product_image");
 
                     String value = request.getParameter("shipment") + "";
