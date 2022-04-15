@@ -11,7 +11,6 @@
 
 <% List<Product> product = (List<Product>) session.getAttribute("product");%>
 <% Double overall_rating = (Double) session.getAttribute("overall_rating");%>
-<% overall_rating = 2.1;%>
 <!DOCTYPE html>
 <html>
     <head>
