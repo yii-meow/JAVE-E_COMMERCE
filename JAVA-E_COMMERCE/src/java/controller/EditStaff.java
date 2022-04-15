@@ -107,7 +107,7 @@ public class EditStaff extends HttpServlet {
 
             } else {
                 session.setAttribute("errMsg", service.getErrMsg());
-                session.setAttribute("webSite", "staff/EditStaff.jsp");
+                session.setAttribute("webSite", "manager/EditStaff.jsp");
                 response.sendRedirect("manager/StaffInfoException.jsp");
             }
 
