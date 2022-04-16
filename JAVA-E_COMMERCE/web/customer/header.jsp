@@ -64,16 +64,13 @@
         </style>
     </head>
     <body>
-
         <div class="header">
             <a href="#default" class="logo">Ali MaMa</a>
             <div class="header-right">
                 <a class="active" href="#home">Home</a>
-                <a href="#contact">Contact</a>
                 <a href="#about">About</a>
+                <a href="../LogOut">Log Out</a>
             </div>
         </div>
-
-
     </body>
 </html>

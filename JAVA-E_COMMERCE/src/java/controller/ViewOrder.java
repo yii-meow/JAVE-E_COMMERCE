@@ -19,30 +19,28 @@ public class ViewOrder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            
-            
+
             OrdersService itemService = new OrdersService(em);
             OrderListService OrderListService = new OrderListService(em);
 
             HttpSession session = request.getSession();
-            
-            int customerID=(int)session.getAttribute("customerID");
-            
+
+            int customerID = (int) session.getAttribute("customerID");
+
             List<Orders> itemList = itemService.findItemByID(customerID);
-            int orderID[] = new int[itemList.size()];
+
             List<List<OrderList>> myOrderList = new ArrayList<>();
+
             int index = 0;
 
             for (Orders item : itemList) {
-
-                orderID[index] = item.getOrderId();
-                myOrderList.add(item.getOrderListList());
-
+                OrderListService.retrieveOrderListByOrderId(index);
+                myOrderList.add(OrderListService.retrieveOrderListByOrderId(item.getOrderId()));
                 index++;
-
             }
 
             session.setAttribute("ordersList", myOrderList);
+            session.setAttribute("Orders", itemList);
             response.sendRedirect("orderedItem.jsp");
         } catch (Exception ex) {
             System.out.println("hello");

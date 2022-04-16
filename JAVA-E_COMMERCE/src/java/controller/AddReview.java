@@ -53,8 +53,9 @@ public class AddReview extends HttpServlet {
 
     protected void reviewCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         try {
-            PrintWriter out = response.getWriter();
+
 //        out.print("halo");
 //      String comment = request.getParameter("comment");
 //         Product productId = em.find(Product.class, request.getParameter("prodName"));
@@ -66,8 +67,10 @@ public class AddReview extends HttpServlet {
             int rating = Integer.parseInt(request.getParameter("stars"));
             String comment = request.getParameter("reviewComment");
             //get product id
+            out.println(prodName);
             Query query = em.createNamedQuery("Product.findByProductName").setParameter("productName", prodName);
             List<Product> prod = query.getResultList();
+            out.println(prod);
             //get customer id+
             int customerId = Integer.parseInt(request.getParameter("customerId"));
 //            HttpSession session = request.getSession();
@@ -82,7 +85,7 @@ public class AddReview extends HttpServlet {
             response.sendRedirect("customer/CustomerProfile.jsp");
 
         } catch (Exception ex) {
-
+            out.println(ex.getMessage());
         }
 
 //    if(request.getParameter("Staff") !=null){

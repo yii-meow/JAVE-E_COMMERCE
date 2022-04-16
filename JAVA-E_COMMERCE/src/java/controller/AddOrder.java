@@ -9,6 +9,7 @@ package controller;
  * @author sohyz
  */
 import entity.Customer;
+import entity.CustomerProfileService;
 import entity.OrderList;
 import entity.OrderListPK;
 import entity.Orders;
@@ -47,6 +48,7 @@ public class AddOrder extends HttpServlet {
             Shoppingcart2Service cartService = new Shoppingcart2Service(em);
             ProductService productService = new ProductService(em);
             OrderListService orderListService = new OrderListService(em);
+            CustomerProfileService customer = new CustomerProfileService(em);
             int id = 0;
 
             HttpSession session = request.getSession();
@@ -58,10 +60,9 @@ public class AddOrder extends HttpServlet {
             double dicountRate = (Double) session.getAttribute("DiscountRate");
             List<OrderList> orderListList = new ArrayList<>();
             System.out.println(request.getParameter("DeliveryCourier"));
-            Customer customer = (Customer) session.getAttribute("Customer");
+            Customer MyCustomer = customer.findItemsByID(customerID);
             utx.begin();
             Orders order = new Orders();
-            order.setCustomerID(customer);
             em.persist(order);
             utx.commit();
 
@@ -78,12 +79,12 @@ public class AddOrder extends HttpServlet {
                 utx.commit();
             }
             utx.begin();
-            boolean isUpdateSucess = itemService.updateOrders(order, orderListList, DeliveryCourier, customerID);
+            boolean isUpdateSucess = itemService.updateOrders(order, orderListList, DeliveryCourier, MyCustomer);
             utx.commit();
 
             System.out.println("hello");
 
-            response.sendRedirect("../customer/orderedItem.jsp");
+            response.sendRedirect("../customer/ViewOrder");
         } catch (Exception ex) {
             System.out.println("hello");
         }

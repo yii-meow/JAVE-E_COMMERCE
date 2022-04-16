@@ -5,7 +5,6 @@
 package controller;
 
 import entity.Orders;
-import entity.Orders;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;

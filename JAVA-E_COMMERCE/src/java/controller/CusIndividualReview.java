@@ -28,11 +28,15 @@ public class CusIndividualReview extends HttpServlet{
            throws ServletException, IOException {
       try{
          
-         
          HttpSession session = request.getSession();
-         Query query = em.createNamedQuery("Review.findAll");
+          int customerId = (Integer) session.getAttribute("customerID");
+         
+         Query query = em.createNamedQuery("Review.findByCustomerId").setParameter("customerId", customerId);
          List<Review> reviewList = query.getResultList();
          session.setAttribute("reviewList", reviewList);
+        
+          
+           
          response.sendRedirect("customer/IndividualReview.jsp");
          
          

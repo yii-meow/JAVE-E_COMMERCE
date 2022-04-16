@@ -8,7 +8,8 @@
 <%@page import="java.util.*"%>
 <%@page import="entity.Orders"%>
 <%
-    List<List<OrderList>> itemList = (List) session.getAttribute("ordersList");  //here
+    List<List<OrderList>> itemList = (List) session.getAttribute("ordersList");
+    List<Orders> itemList2 = (List) session.getAttribute("Orders");
 %>
 
 <html>
@@ -37,7 +38,6 @@
             <tr>
                 <th>Product ID</th> 
                 <th>Product Name</th> 
-                <th>Order ID</th>
                 <th>Order Time</th> 
                 <th>Delivery Courier</th> 
                 <th>Ship time</th>
@@ -46,31 +46,37 @@
                 <th>Add Review</th>
             </tr>
 
-            <% for (List<OrderList> item : itemList) {%>
+            <%
+                int index = 0;
+
+                for (List<OrderList> item : itemList) {%>
             <%  List<OrderList> orderRow = item;
                 {
                     for (OrderList myItemList : orderRow) {%>
 
 
             <tr>
+                
                 <td>   <%= myItemList.getProduct().getProductId()%></td>
                 <td>   <%=myItemList.getProduct().getProductName()%></td>
-                <td>   <%= myItemList.getOrders().getOrderId()%></td>
-                <td>   <%= myItemList.getOrders().getOrderTime()%></td>
-                <td>   <%= myItemList.getOrders().getDeliveryCourier()%></td> 
-                <td>   <%= myItemList.getOrders().getShipTime()%></td>
-                <td>   <%=  myItemList.getOrders().getTrackingNumber()%></td> 
-                <td>   <%=  myItemList.getOrders().getShipmentDetails()%></td>
-            <form action="../Review" method="GET">
-                <input type="hidden" name="getProdName" value="<%= myItemList.getProduct().getProductName()%>">
-                <td><button type="submit">Review</td>
-            </form>
-                
+                <td>   <%= itemList2.get(index).getOrderTime()%></td>
+                <td>   <%= itemList2.get(index).getDeliveryCourier()%></td>
+                <td>   <%= itemList2.get(index).getShipTime()%></td>
+                <td>   <%= itemList2.get(index).getTrackingNumber()%></td>
+                <td>   <%= itemList2.get(index).getShipmentDetails()%></td>
+                <td>
+                    <form action="../Review" method="GET">
+                        <input type="hidden" name="getProdName" value="<%= myItemList.getProduct().getProductName()%>">
+                        <button type="submit">Review</button>
+                    </form>
+                </td>
+
             </tr>
             <% }%>
 
             <%}%>
-            <%}%>
+            <%index++;
+                }%>
         </table>
 
     </body>
