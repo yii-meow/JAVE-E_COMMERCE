@@ -2,23 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/staff/Report3.jsp</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/viewCustomerRecord.java</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/WEB-INF/web.xml</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/customer/insertReview.jsp</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/customer/shoppingCart.jsp</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/customer/orderedItem.jsp</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/registerCustomer.java</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/customer/IndividualReview.jsp</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/customer/CustomerProfile.jsp</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/validateCustomerLogin.java</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/GenerateReport.java</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/customer/index.jsp</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/AddStaff.java</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/AddReview.java</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/web/manager/EditPassword.jsp</file>
-            <file>file:/Users/jensienwong/Desktop/JenSien/Y2S3/AMIT3094%20Gui%20And%20WebApplication/Assignment/NewFolder/JAVE-E_COMMERCE/JAVA-E_COMMERCE/src/java/controller/ViewCustomerProfile.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

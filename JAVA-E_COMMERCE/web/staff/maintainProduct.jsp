@@ -63,7 +63,7 @@
             <div style="font-size:20px;color:#a2ec15;font-weight:bold;margin-left:25px;">
                 <!-- Display Shop Overall Rating in Star -->
                 Shop Average Rating </br>
-                <span style="font-size:30px;"><%= String.format("%.1f", overall_rating)%> / 5.0</span></br>
+                <span style="font-size:30px;"><%= String.format("%.2f", overall_rating)%> / 5.0</span></br>
 
                 <div style="font-size:40px;">
                     <!-- CHECK THE WHOLE NUMBER OF RATING AND DISPLAY A COMPLETE STAR -->
@@ -74,9 +74,9 @@
                         // IF > 0.5 WILL BE GRANTED A HALF STAR
                         if ((overall_rating % 1.0) >= 0.5) {
                             out.println("<i class='bi bi-star-half'></i>");
-                        }else{
-                        
-                        // IF < 0.5 WILL BE GRANTED AN EMPTY STAR
+                        } else if (overall_rating % 1.0 != 0) {
+
+                            // IF < 0.5 WILL BE GRANTED AN EMPTY STAR
                             out.println("<i class='bi bi-star'></i>");
                         }
 
