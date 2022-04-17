@@ -3,9 +3,8 @@ Configuration & software needed
 2. MySQL Workbench 8.0
 3. MySQL-connector-java-8.0.28 & 5.1.47 jar
 4. Java EE Web 7
-5. Eclipse Link JPA 2.1
-6. Netbeans 13
-7. Java JDK 1.8
+5. Netbeans 13
+6. Java JDK 1.8
 
 Storing MySql jar to glassfish folder
 1. Please import the MySQL query from the “query” folder first.
